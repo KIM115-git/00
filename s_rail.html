@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8">
+<!--CFG--><style>html,body{touch-action:none;overscroll-behavior:none}.embed body{padding:0!important;margin:0!important;background:#000!important;overflow:hidden}
+.embed .bar{display:none!important}
+.embed #wrap{position:fixed;inset:0;margin:auto;width:min(100vw,177.78vh);height:min(56.25vw,100vh);border-radius:0}
+.veil{position:absolute;inset:0;background:rgba(48,34,20,.42);opacity:0;transition:opacity .35s;pointer-events:none;z-index:40}
+.veil.on{opacity:1}
+.memo{position:absolute;z-index:50;border-radius:8px;background:#f6efe2 url(fused/paper.webp) center/cover;box-shadow:inset 0 0 0 7px #f3e8cd,inset 0 0 0 8px rgba(120,92,52,.22),0 22px 50px rgba(0,0,0,.38)}
+.memo::before{content:"";position:absolute;left:50%;top:-1.2%;width:3.2%;aspect-ratio:1;margin-left:-1.6%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff9c8c,#d23c2c 55%,#8f1f15);box-shadow:0 3px 4px rgba(0,0,0,.35);z-index:5}
+.memo .txt{position:absolute;left:54%;top:20%;width:39%;color:#3b3027;font-family:"Long Cang","Kaiti SC",cursive}
+.memo .txt .c{display:block;line-height:1.1;white-space:nowrap}
+.memo .txt .d{display:block;font-family:-apple-system,"PingFang SC",sans-serif;letter-spacing:.08em;color:#9a7a55;margin:.5em 0 .9em}
+.memo .txt .l{display:block;line-height:1.55;color:#4a3d32}
+.memo .txt .k{display:inline-block;margin-top:1.1em;font-family:-apple-system,"PingFang SC",sans-serif;color:#fff;background:#2c3e6b;border-radius:4px;padding:.45em .9em;letter-spacing:.04em}
+.memo .cap{position:absolute;left:8%;right:8%;bottom:5%;line-height:1.35;text-align:center;font-family:"Long Cang","Kaiti SC",cursive;color:#3b3027;opacity:0}
+.memo .hd{position:absolute;left:5%;top:5.5%;font-family:-apple-system,"PingFang SC",sans-serif;letter-spacing:.1em;color:#9a7a55;opacity:0}
+.pol{position:absolute;left:0;top:0;background:#fdfcf8;border-radius:2px;box-shadow:0 1px 0 rgba(0,0,0,.05),0 7px 16px rgba(40,28,14,.28);will-change:transform}
+.pol i{position:absolute;left:5%;top:5%;width:90%;height:78%;display:block;background:var(--g)}
+#wrap{cursor:pointer}
+</style><script>(function(){var A=window.AudioContext||window.webkitAudioContext;if(!A)return;var L=[];function W(o){try{var P=window.parent;if(P!==window&&P.__AC0){L.push(P.__AC0);return P.__AC0}}catch(e){}var c=o?new A(o):new A();L.push(c);return c}W.prototype=A.prototype;window.AudioContext=window.webkitAudioContext=W;function r(){L.forEach(function(c){if(c.state==="suspended")c.resume().catch(function(){})})}["pointerdown","touchstart","touchend","mousedown","keydown","click"].forEach(function(e){window.addEventListener(e,r,true)});setInterval(r,500);})();</script><script>window.CFG=window.CFG||{};(function(){try{var P=AudioNode.prototype,oc=P.connect,M=new WeakMap();P.connect=function(d){if(d&&typeof AudioDestinationNode!=='undefined'&&d instanceof AudioDestinationNode){var c=d.context,m=M.get(c);if(!m){m=c.createGain();m.gain.value=3.5;var k=c.createDynamicsCompressor();k.threshold.value=-16;k.knee.value=6;k.ratio.value=14;k.attack.value=.002;k.release.value=.15;var ws=c.createWaveShaper(),cv=new Float32Array(1024);for(var i=0;i<1024;i++){var x=i/511.5-1;cv[i]=Math.tanh(1.3*x)/Math.tanh(1.3);}ws.curve=cv;oc.call(m,k);oc.call(k,ws);oc.call(ws,d);M.set(c,m);}if(this!==m){var a=[].slice.call(arguments);a[0]=m;return oc.apply(this,a);}}return oc.apply(this,arguments);};}catch(e){}})();window.__shown=!(window.parent!==window&&(/[?&]pre=1/.test(location.search)||(window.CFG&&CFG._pre)));window.__sq=[];(function(){var R=0.8,st=window.setTimeout;window.setTimeout=function(f,d){var a=[].slice.call(arguments);a[1]=(+d||0)*R;return st.apply(window,a);};var an=Element.prototype.animate;Element.prototype.animate=function(){var x=an.apply(this,arguments);try{x.playbackRate=1/R;}catch(e){}return x;};})();window.progVis=function(v){try{if(window.parent!==window)parent.postMessage({prog:v},'*')}catch(e){}};window.wsp=function(t,ms){if(!/敲可爱/.test(t))return;if(window.parent===window)return;window.onShow(function(){try{parent.postMessage({wsp:t,ms:ms||0},'*')}catch(e){}});};window.onShow=function(f){if(window.__shown)setTimeout(f,0);else window.__sq.push(f);};addEventListener('message',function(e){if(e.data&&e.data.show&&!window.__shown){window.__shown=true;window.__sq.splice(0).forEach(function(f){try{f()}catch(x){}});}});if(window.parent!==window){document.documentElement.classList.add('embed');window.segDone=function(){if(window.__sd)return;window.__sd=1;try{parent.postMessage({segdone:1},'*')}catch(e){}};try{Object.defineProperty(window,'innerHeight',{configurable:true,get:function(){return document.documentElement.clientHeight+600;}});}catch(e){}}</script><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小火车旅行地图</title>
+<link rel="stylesheet" href="fonts/pf.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="fonts/lc.css" media="print" onload="this.media='all'">
+<style>
+:root{--pg:#efede9;--fg:#1e1c1a;--soft:#6a645c;--line:#d8d3cb;--card:#faf9f6;--accent:#23408a;--accent-ink:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--pg:#151413;--fg:#ece8e2;--soft:#a9a29a;--line:#34312d;--card:#1f1d1b;--accent:#8fa8ec;--accent-ink:#10172e}}
+:root[data-theme="dark"]{--pg:#151413;--fg:#ece8e2;--soft:#a9a29a;--line:#34312d;--card:#1f1d1b;--accent:#8fa8ec;--accent-ink:#10172e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--pg);color:var(--fg);font:14px/1.4 -apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;padding:12px 16px 24px}
+.bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+.bar button{border:1px solid var(--line);background:var(--card);color:inherit;border-radius:999px;padding:6px 11px;font:inherit;cursor:pointer}
+.bar button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.bar span{color:var(--soft);font-size:13px}
+.bar input{width:84px;border:1px solid var(--line);border-radius:8px;padding:5px 7px;background:var(--card);color:var(--fg);font:inherit}
+#wrap{position:relative;width:min(100%,calc((100vh - 110px) * 16 / 9));aspect-ratio:16/9;margin:0 auto;overflow:hidden;border-radius:8px}
+#stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;overflow:hidden;background:#efe6d5 url(r/paper.webp);user-select:none;-webkit-user-select:none}
+#poster{position:absolute;left:500px;top:0;width:736px;height:1104px;transform:scale(.8152);transform-origin:0 0;background:url(r/poster.webp) 0 0/736px 1104px;box-shadow:0 12px 40px rgba(80,55,25,.28)}
+#poster svg{position:absolute;inset:0;overflow:visible}
+.tt{position:absolute;left:0;right:0;text-align:center;white-space:nowrap;font-family:"Playfair Display",Georgia,serif;color:#24304f}
+.lb{position:absolute;white-space:nowrap;font:600 25px/1 "Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;color:#22304f;background:rgba(251,247,239,.86);padding:5px 10px;border-radius:6px;box-shadow:0 1px 3px rgba(80,55,25,.18);opacity:0;transition:opacity .5s,transform .5s;transform:translateY(6px)}
+.lb.on{opacity:1;transform:none}
+.ring{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:3px solid #d0575f;opacity:0}
+.ring.go{animation:ring 1s ease-out}
+@keyframes ring{from{opacity:1;transform:scale(.4)}to{opacity:0;transform:scale(1.6)}}
+#train{position:absolute;left:0;top:0;width:136px;height:96px;margin:-60px 0 0 -68px;transform-origin:50% 62%;cursor:pointer;filter:drop-shadow(2px 4px 3px rgba(60,40,20,.25))}
+#hint{position:absolute;left:1130px;top:800px;width:460px;margin:0;text-align:center;font:400 40px/1.3 "Long Cang",cursive;color:#5a4632}
+#log{position:absolute;left:60px;top:150px;width:400px;margin:0;padding:0;list-style:none;font:400 40px/1.6 "Long Cang",cursive;color:#4a3626}
+#log li{opacity:0;transform:translateX(-10px);transition:.5s}
+#log li.on{opacity:1;transform:none}
+#log b{font:600 22px Georgia,serif;color:#c0535c;margin-right:14px}
+</style></head>
+<body>
+<div class="bar"><span>站数</span><span id="ns"></span><button id="again" type="button">重来</button></div>
+<div class="bar"><span>出发地 + 地名（随便填，国内国外都行）</span><span id="nm"></span></div>
+<div id="wrap"><div id="stage">
+  <ul id="log"></ul>
+  <div id="poster">
+    <div class="tt" style="top:58px;font-size:84px;font-weight:400;letter-spacing:.01em">Our Little Loop</div>
+    <div class="tt" style="top:168px;font-size:29px;color:#a8566a">Together by Train · Every Stop With You</div>
+    <div class="tt" style="top:928px;font-size:46px;font-weight:500">Happy Birthday</div>
+    <div class="tt" style="top:1014px;font-size:36px">Love Rail Times</div>
+    <svg viewBox="0 0 736 1104"><path id="fix" fill="none" stroke="#c46d73" stroke-width="5" stroke-dasharray="11 7" stroke-linecap="round"/><path id="loop" fill="none" stroke="none"/></svg>
+    <div id="labels"></div>
+    <img id="train" src="r/train.webp" alt="小火车">
+  </div>
+  <div class="veil" id="veil"></div><p id="hint"></p>
+</div></div>
+<script>
+var P = [[377,334],[405,328],[432,324],[460,319],[492,314],[491,350],[489,390],[486,445],[505,465],[525,482],[542,500],[544,525],[542,555],[530,585],[515,615],[505,640],[500,662],[480,672],[450,690],[420,707],[395,720],[370,720],[335,705],[302,690],[270,677],[237,655],[215,630],[197,600],[190,570],[189,535],[195,505],[207,482],[225,465],[244,451],[252,435],[270,412],[287,395],[302,382],[320,365],[350,348],[377,334]];
+/* 5 个站：在路线上的位置、地名标签放哪边 */
+P = P.slice(0, 5).reverse().concat(P.slice(10, 40).reverse());   /* 从右上角宫殿旁的圆点出发，逆时针：左边 → 下边 → 右下 → 右边 */
+var HOME = {i:0, dx:0, dy:-92, al:"c"}, HOMENAME = "上海";
+var ST = [{i:11, dx:-66, dy:-16, al:"r"}, {i:21, dx:0, dy:46, al:"c"}, {i:28, dx:-14, dy:-98, al:"r"}, {i:34, dx:-66, dy:-16, al:"r"}];
+var NAMES = ["成都", "东京", "大理", "厦门"], N = 4, at = 0, busy = false, use = [], LEN = [];
+var $ = function(id){ return document.getElementById(id); };
+function fit(){ $("stage").style.transform = "scale(" + $("wrap").clientWidth / 1600 + ")"; }
+addEventListener("resize", fit);
+function cr(pts){ var d = "M" + pts[0][0] + " " + pts[0][1]; for (var i = 0; i < pts.length - 1; i++) { var p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+  d += " C" + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + " " + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) + " " + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + " " + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) + " " + p2[0] + " " + p2[1]; } return d; }
+var loop = $("loop"); loop.setAttribute("d", cr(P));
+$("fix").setAttribute("d", cr([[302,382],[320,365],[350,348],[377,334],[405,328],[432,324],[460,319]]));
+/* 每个路线点在整条路上的长度位置 */
+(function(){ var NS = "http://www.w3.org/2000/svg", t = document.createElementNS(NS, "path"); $("poster").querySelector("svg").appendChild(t);
+  for (var i = 0; i < P.length; i++) { t.setAttribute("d", cr(P.slice(0, i + 1).length > 1 ? P.slice(0, i + 1) : [P[0], P[0]])); LEN.push(i ? t.getTotalLength() : 0); } t.remove(); })();
+function put(len){ var p = loop.getPointAtLength(len), q = loop.getPointAtLength(Math.min(loop.getTotalLength(), len + 3)), r = loop.getPointAtLength(Math.max(0, len - 3));
+  var t = Math.atan2(q.y - r.y, q.x - r.x) * 180 / Math.PI, tf;
+  /* 车身始终顺着轨道的切线；往左开时翻个面，免得倒过来 */
+  tf = Math.cos(t * Math.PI / 180) >= 0 ? "rotate(" + t + "deg)" : "rotate(" + (t - 180) + "deg) scaleX(-1)";
+  var tr = $("train"); tr.style.left = p.x + "px"; tr.style.top = p.y + "px"; tr.style.transform = tf; }
+var RC = (window.CFG && CFG.trip && CFG.trip.map === "rail") ? CFG.trip : null;
+var DEFPH = [["ph/m1.webp", "ph/m2.webp", "ph/m3.webp"], ["ph/m4.webp", "ph/m5.webp", "ph/m6.webp"], ["ph/m7.webp", "ph/m8.webp", "ph/m9.webp"], ["ph/m10.webp", "ph/m11.webp", "ph/m12.webp"]];
+var STOPS = [{l:"海边看了一整场日落。"}, {l:"在雪山前比了一个心。"}, {l:"沿着湖边骑了一下午。"}, {l:"晚上找了家小酒馆。"}];
+if (RC) { HOMENAME = RC.home && RC.home.name || HOMENAME; NAMES = RC.stops.map(function(x){ return x.city || ""; }); N = Math.max(2, Math.min(4, RC.stops.length)); var DL = STOPS; STOPS = RC.stops.map(function(x, i){ var own = x.g && x.g.length; return {l:x.def ? DL[i % 4].l : (x.l || ""), g:own ? x.g : DEFPH[i % 4], o:own ? x.o : null}; }); }
+var AC0 = null; function toot(){ try { AC0 = AC0 || new (window.AudioContext || window.webkitAudioContext)(); if (AC0.state !== "running") AC0.resume(); var t = AC0.currentTime; [[0, 660], [.18, 784]].forEach(function(q){ var o = AC0.createOscillator(), g = AC0.createGain(); o.type = "triangle"; o.frequency.value = q[1]; g.gain.setValueAtTime(0, t + q[0]); g.gain.linearRampToValueAtTime(.18, t + q[0] + .03); g.gain.exponentialRampToValueAtTime(.001, t + q[0] + .35); o.connect(g); g.connect(AC0.destination); o.start(t + q[0]); o.stop(t + q[0] + .4); }); } catch (e) {} }
+function noise(dur, f, vol){ try { AC0 = AC0 || new (window.AudioContext || window.webkitAudioContext)(); if (AC0.state !== "running") AC0.resume(); var n = Math.floor(AC0.sampleRate * dur), bf = AC0.createBuffer(1, n, AC0.sampleRate), d = bf.getChannelData(0); for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / n);
+  var sr = AC0.createBufferSource(), fl = AC0.createBiquadFilter(), g = AC0.createGain(); fl.type = "highpass"; fl.frequency.value = f; g.gain.value = vol; sr.buffer = bf; sr.connect(fl); fl.connect(g); g.connect(AC0.destination); sr.start(); } catch (e) {} }
+function deal(){ noise(.18, 3200, .09); setTimeout(function(){ noise(.14, 2800, .07); }, 70); }
+/* 到站相册：和世界地图同一套——先叠着弹出来，点一下三张照片摊开，再点一下合上 */
+var BOX = {x:320, y:110, w:960, h:660}, MEMO = null, PH = "ready";
+var STACK = [[.245, .5, -6], [.25, .49, 5], [.255, .5, -1.5]], FIN = [[.2, .48, -7], [.485, .43, 1.5], [.775, .49, 6]];
+function STK(n){ return n === 1 ? [STACK[2]] : n === 2 ? [STACK[0], STACK[2]] : STACK; }
+function FINN(n){ return n === 1 ? [[.5, .44, 2]] : n === 2 ? [[.32, .46, -5], [.68, .46, 5]] : FIN; }
+function cardTf(p, cw, ch){ return "translate(" + (p[0] * BOX.w - cw / 2) + "px," + (p[1] * BOX.h - ch / 2) + "px) rotate(" + p[2] + "deg)"; }
+function openMemo(k){
+  var st = STOPS[k] || {}, g = (st.g || DEFPH[k % 4]).slice(0, 3), or = st.o || [], city = NAMES[k] || "", m = document.createElement("div");
+  m.className = "memo"; m.style.cssText = "left:" + BOX.x + "px;top:" + BOX.y + "px;width:" + BOX.w + "px;height:" + BOX.h + "px"; $("stage").appendChild(m);
+  var fs = BOX.h * .05, tx = document.createElement("div"); tx.className = "txt"; tx.style.fontSize = fs + "px"; m.appendChild(tx);
+  tx.innerHTML = '<span class="c"></span><span class="d"></span><span class="l"></span><span class="k">展开看看 →</span>';
+  tx.querySelector(".c").textContent = city; tx.querySelector(".c").style.fontSize = Math.min(fs * 2.1, BOX.w * .36 / Math.max(1, Array.from(city).length)) + "px";
+  tx.querySelector(".d").textContent = "第 " + (k + 1) + " 站 · 小火车"; tx.querySelector(".d").style.fontSize = ".62em";
+  tx.querySelector(".l").textContent = st.l || ""; tx.querySelector(".k").style.fontSize = ".6em";
+  var hd = document.createElement("div"); hd.className = "hd"; hd.textContent = city; hd.style.fontSize = (fs * .62) + "px"; m.appendChild(hd);
+  var cap = document.createElement("div"); cap.className = "cap"; cap.textContent = st.l || ""; cap.style.fontSize = (fs * 1.05) + "px"; m.appendChild(cap);
+  var ch = BOX.h * (g.length === 3 && or.indexOf("l") >= 0 ? .44 : .56), cw = ch * 54 / 86, cards = [];
+  var n0 = g.length, sz = g.map(function(u, i){ return or[i] === "l" ? [ch * 1.1, ch * .8] : [cw, ch]; });
+  var A = BOX.w * .9, gp = BOX.w * .025, T = sz.reduce(function(a, z){ return a + z[0]; }, 0) + gp * (n0 - 1), kk = Math.min(1, A / T);
+  if (kk < 1) { sz = sz.map(function(z){ return [z[0] * kk, z[1] * kk]; }); T = A; }
+  var xx = (BOX.w - T) / 2, rots = n0 === 1 ? [2] : n0 === 2 ? [-5, 5] : [-7, 1.5, 6], yv = n0 === 1 ? [.44] : n0 === 2 ? [.46, .46] : [.48, .43, .49];
+  var fin = sz.map(function(z, i){ var c = xx + z[0] / 2; xx += z[0] + gp; return [c / BOX.w, yv[i], rots[i]]; });
+  g.forEach(function(u, i){ var c = document.createElement("div"); c.className = "pol"; c.style.width = sz[i][0] + "px"; c.style.height = sz[i][1] + "px"; c.style.zIndex = 2 + i;
+    var im = document.createElement("i"); im.style.setProperty("--g", "url(" + u + ") center/cover"); c.appendChild(im); c.style.transform = cardTf(STK(g.length)[i], sz[i][0], sz[i][1]); m.appendChild(c); cards.push(c); });
+  m.animate([{opacity:0, transform:"scale(.92)"}, {opacity:1, transform:"scale(1.01)", offset:.7}, {opacity:1, transform:"none"}], {duration:340, easing:"cubic-bezier(.2,.8,.3,1)"});
+  return {m:m, cards:cards, tx:tx, cap:cap, hd:hd, cw:cw, ch:ch, n:g.length, sz:sz, fin:fin};
+}
+function spreadMemo(o){ if (o.spread || o.closing) return; o.spread = true; deal();
+  o.tx.animate([{opacity:1, transform:"none"}, {opacity:0, transform:"translateX(6%)"}], {duration:220, fill:"forwards", easing:"ease-in"});
+  o.cards.forEach(function(c, i){ var a = cardTf(STK(o.n)[i], o.sz[i][0], o.sz[i][1]), b = cardTf(o.fin[i], o.sz[i][0], o.sz[i][1]); c.style.transform = b; c.animate([{transform:a}, {transform:b}], {duration:640, delay:(2 - i) * 35, easing:"cubic-bezier(.2,.9,.25,1.06)"}); });
+  o.cap.animate([{opacity:0, transform:"translateY(8px)"}, {opacity:1, transform:"none"}], {duration:450, delay:520, fill:"forwards"});
+  o.hd.animate([{opacity:0}, {opacity:1}], {duration:450, delay:520, fill:"forwards"});
+  var bot = 0; o.fin.forEach(function(f, i){ var z = o.sz[i], r = Math.abs(f[2]) * Math.PI / 180; bot = Math.max(bot, f[1] * BOX.h + z[1] / 2 * Math.cos(r) + z[0] / 2 * Math.sin(r)); });
+  var chh = o.cap.offsetHeight, free = BOX.h - bot; o.cap.style.bottom = "auto"; o.cap.style.top = Math.max(bot + 4, bot + (free - chh) / 2 - BOX.h * .01) + "px";
+  setTimeout(function(){ o.ready = true; }, 700); }
+function closeMemo(o, done){ o.closing = true;
+  o.cap.animate([{opacity:1}, {opacity:0}], {duration:160, fill:"forwards"}); o.hd.animate([{opacity:1}, {opacity:0}], {duration:160, fill:"forwards"});
+  o.cards.forEach(function(c, i){ var a = cardTf(o.fin[i], o.sz[i][0], o.sz[i][1]), b = cardTf(STK(o.n)[i], o.sz[i][0], o.sz[i][1]); c.style.transform = b; c.animate([{transform:a}, {transform:b}], {duration:380, delay:i * 30, easing:"cubic-bezier(.5,0,.3,1)"}); });
+  setTimeout(function(){ o.m.animate([{opacity:1, transform:"none"}, {opacity:0, transform:"scale(.94)"}], {duration:260, fill:"forwards", easing:"ease-in"}).onfinish = function(){ o.m.remove(); if (done) done(); }; }, 420); }
+function build(){
+  use = ST.slice(0, N);   /* 几个地名就按顺序停前几个圆点 */
+  $("labels").innerHTML = use.map(function(s, j){ var p = P[s.i], st = "top:" + (p[1] + s.dy) + "px;";
+    st += s.al === "l" ? "left:" + (p[0] + s.dx) + "px" : s.al === "r" ? "right:" + (736 - p[0] - s.dx) + "px" : "left:" + (p[0] + s.dx) + "px;translate:-50% 0";
+    return '<div class="ring" style="left:' + p[0] + "px;top:" + p[1] + 'px"></div><div class="lb" style="' + st + '">' + (NAMES[j] || "") + "</div>"; }).join("") + '<div class="lb on" style="top:' + (P[0][1] + HOME.dy) + "px;right:" + (736 - P[0][0] - HOME.dx) + 'px;color:#2d4a8a">出发 · ' + HOMENAME + "</div>";
+  $("log").innerHTML = use.map(function(s, j){ return "<li><b>0" + (j + 1) + "</b>" + (NAMES[j] || "") + "</li>"; }).join("");
+  at = 0; busy = false; PH = "ready"; if (MEMO) { MEMO.m.remove(); MEMO = null; } $("veil").classList.remove("on"); put(0); $("hint").textContent = "点一下，开往下一站";
+}
+function go(){
+  if (busy || at >= use.length) return; busy = true; PH = "move"; $("hint").textContent = ""; toot();
+  var a = at ? LEN[use[at - 1].i] : 0, b = LEN[use[at].i], t0 = performance.now(), dur = 700 + (b - a) * 4.2, k = at;
+  (function f(now){ var q = Math.min(1, (now - t0) / dur), e = q < .5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2; put(a + (b - a) * e);
+    if (q < 1) requestAnimationFrame(f); else { at++; var lb = $("labels").children; lb[k * 2].classList.add("go"); lb[k * 2 + 1].classList.add("on"); $("log").children[k].classList.add("on");
+      setTimeout(function(){ $("veil").classList.add("on"); MEMO = openMemo(k); PH = "memo"; busy = false; }, 450); } })(t0);
+}
+function afterMemo(){ PH = "ready";
+  if (at < use.length) $("hint").textContent = "点一下，开往下一站";
+  else { PH = "end"; $("hint").textContent = "都到站啦 🎉"; setTimeout(function(){ window.segDone && segDone(); }, 1200); } }
+function tap(){
+  if (busy) return;
+  if (PH === "ready") { go(); return; }
+  if (PH === "memo") { var o = MEMO; if (!o.spread) { spreadMemo(o); return; } if (!o.ready || o.closing) return;
+    PH = "closing"; $("veil").classList.remove("on"); closeMemo(o, function(){ MEMO = null; afterMemo(); }); }
+}
+$("wrap").addEventListener("pointerdown", function(e){ if (e.target.closest && e.target.closest(".bar")) return; tap(); });
+[2, 3, 4].forEach(function(n){ var b = document.createElement("button"); b.type = "button"; b.textContent = n + " 站"; b.dataset.n = n; b.onclick = function(){ N = n; mark(); build(); }; $("ns").appendChild(b); });
+(function(){ var h = document.createElement("input"); h.value = HOMENAME; h.title = "出发地"; h.style.borderColor = "#2d4a8a"; h.oninput = function(){ HOMENAME = h.value; build(); }; $("nm").appendChild(h); })();
+NAMES.forEach(function(v, i){ var inp = document.createElement("input"); inp.value = v; inp.oninput = function(){ NAMES[i] = inp.value; build(); }; $("nm").appendChild(inp); });
+function mark(){ document.querySelectorAll("[data-n]").forEach(function(x){ x.classList.toggle("on", +x.dataset.n === N); }); }
+$("again").onclick = build;
+fit(); mark(); build();
+</script>
+</body></html>

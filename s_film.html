@@ -1,0 +1,312 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!--CFG--><style>html,body{touch-action:none;overscroll-behavior:none}</style><script>(function(){var A=window.AudioContext||window.webkitAudioContext;if(!A)return;var L=[];function W(o){try{var P=window.parent;if(P!==window&&P.__AC0){L.push(P.__AC0);return P.__AC0}}catch(e){}var c=o?new A(o):new A();L.push(c);return c}W.prototype=A.prototype;window.AudioContext=window.webkitAudioContext=W;function r(){L.forEach(function(c){if(c.state==="suspended")c.resume().catch(function(){})})}["pointerdown","touchstart","touchend","mousedown","keydown","click"].forEach(function(e){window.addEventListener(e,r,true)});setInterval(r,500);})();</script><script>window.CFG=window.CFG||{};(function(){try{var P=AudioNode.prototype,oc=P.connect,M=new WeakMap();P.connect=function(d){if(d&&typeof AudioDestinationNode!=='undefined'&&d instanceof AudioDestinationNode){var c=d.context,m=M.get(c);if(!m){m=c.createGain();m.gain.value=3.5;var k=c.createDynamicsCompressor();k.threshold.value=-16;k.knee.value=6;k.ratio.value=14;k.attack.value=.002;k.release.value=.15;var ws=c.createWaveShaper(),cv=new Float32Array(1024);for(var i=0;i<1024;i++){var x=i/511.5-1;cv[i]=Math.tanh(1.3*x)/Math.tanh(1.3);}ws.curve=cv;oc.call(m,k);oc.call(k,ws);oc.call(ws,d);M.set(c,m);}if(this!==m){var a=[].slice.call(arguments);a[0]=m;return oc.apply(this,a);}}return oc.apply(this,arguments);};}catch(e){}})();window.__shown=!(window.parent!==window&&(/[?&]pre=1/.test(location.search)||(window.CFG&&CFG._pre)));window.__sq=[];(function(){var R=0.8,st=window.setTimeout;window.setTimeout=function(f,d){var a=[].slice.call(arguments);a[1]=(+d||0)*R;return st.apply(window,a);};var an=Element.prototype.animate;Element.prototype.animate=function(){var x=an.apply(this,arguments);try{x.playbackRate=1/R;}catch(e){}return x;};})();window.progVis=function(v){try{if(window.parent!==window)parent.postMessage({prog:v},'*')}catch(e){}};window.wsp=function(t,ms){if(!/敲可爱/.test(t))return;if(window.parent===window)return;window.onShow(function(){try{parent.postMessage({wsp:t,ms:ms||0},'*')}catch(e){}});};window.onShow=function(f){if(window.__shown)setTimeout(f,0);else window.__sq.push(f);};addEventListener('message',function(e){if(e.data&&e.data.show&&!window.__shown){window.__shown=true;window.__sq.splice(0).forEach(function(f){try{f()}catch(x){}});}});if(window.parent!==window){document.documentElement.classList.add('embed');window.segDone=function(){if(window.__sd)return;window.__sd=1;try{parent.postMessage({segdone:1},'*')}catch(e){}};try{Object.defineProperty(window,'innerHeight',{configurable:true,get:function(){return document.documentElement.clientHeight+600;}});}catch(e){}}</script>
+<style>.embed body{padding:0!important;margin:0!important;background:#000!important;overflow:hidden}.embed .bar,.embed h1,.embed h2,.embed .tip,.embed #tabs,.embed [role=group],.embed .prog2,.embed .titles,.embed .covers{display:none!important}.embed .wrap{max-width:none!important;gap:0!important;margin:0!important;padding:0!important}.embed .stage{border-radius:0!important;box-shadow:none!important;max-height:none!important}.embed *{cursor:url(f15/hand2.webp) 23 1,pointer!important}</style></head><body>
+<title>第三环节 · 拉胶卷</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="fonts/lc.css" media="print" onload="this.media='all'">
+<style>
+/* 上面一排标题和重来；下面一块 16:9 横屏舞台（固定的米色纸），外框跟随明暗 */
+:root{
+  --bg:#efede9; --fg:#1e1c1a; --soft:#5d5852; --line:#d8d3cb; --card:#faf9f6;
+  --accent:#23408a; --accent-ink:#ffffff;
+  --ui:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --hand:"Long Cang","Kaiti SC","STKaiti","KaiTi",cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#151413; --fg:#ece8e2; --soft:#a9a29a; --line:#34312d; --card:#1f1d1b; --accent:#8fa8ec; --accent-ink:#10172e; color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --bg:#151413; --fg:#ece8e2; --soft:#a9a29a; --line:#34312d; --card:#1f1d1b; --accent:#8fa8ec; --accent-ink:#10172e; color-scheme:dark; }
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ui);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+button{font-family:inherit}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar h1{margin:0 12px 0 0;font-size:18px}
+.btn{border:0;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;background:var(--accent);color:var(--accent-ink);margin-left:auto}
+.tip{margin:0;font-size:13px;color:var(--soft);line-height:1.6}
+.holder{width:100%;display:flex;justify-content:center}
+
+/* ---------- 舞台 ---------- */
+.stage{position:relative;overflow:hidden;isolation:isolate;border-radius:10px;background:#ece6dc url('f/paper.webp') repeat;background-size:var(--tile,300px);color:#2a2622;box-shadow:0 12px 30px rgba(0,0,0,.14);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none;cursor:grab}
+.stage.drag{cursor:grabbing}
+.stage img{-webkit-user-drag:none;pointer-events:none}
+.title,.end{position:absolute;margin:0;font-family:var(--hand);color:#2a2622;line-height:1.2;z-index:5;transition:opacity .6s}
+.end{opacity:0}
+.end.on{opacity:1}
+.can{position:absolute;z-index:10;filter:drop-shadow(0 6px 8px rgba(60,40,20,.18));opacity:0;transform-origin:70% 60%}
+.film{position:absolute;overflow:hidden;z-index:6}
+.tape{position:absolute;left:0;top:0;will-change:transform;filter:drop-shadow(0 4px 5px rgba(50,35,20,.16))}
+.strip{position:absolute;left:0;top:0;background-image:url('f/strip.webp');background-repeat:repeat-x}
+.leader{position:absolute;top:0}
+.win{position:absolute;overflow:hidden;border-radius:3px;background:#1d1a17;box-shadow:inset 0 0 0 1px rgba(0,0,0,.35)}
+.ph{position:absolute;inset:0;background:var(--g);filter:sepia(1) saturate(1.7) hue-rotate(-8deg) brightness(.34) contrast(.78) blur(1.2px)}
+.ph span{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-size:var(--lab,11px);color:rgba(255,255,255,.9);letter-spacing:.08em;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.ph b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--hand);font-weight:400;color:#b9afa2;font-size:var(--q,40px)}
+.base{position:absolute;inset:0;background:#d4772d;mix-blend-mode:multiply;opacity:.8}
+.flare{position:absolute;inset:-20%;background:radial-gradient(ellipse at 40% 45%,rgba(255,170,90,.95),rgba(255,90,40,.55) 35%,transparent 62%);mix-blend-mode:screen;opacity:0}
+.cap{position:absolute;font-family:var(--hand);color:#2b2724;line-height:1.35;clip-path:inset(0 100% 0 0)}
+.cap .d{display:block;font-family:var(--ui);font-size:.55em;letter-spacing:.06em;color:#7d7368;margin-bottom:.15em}
+.hint{position:absolute;z-index:12;display:flex;align-items:center;gap:.4em;font-family:var(--hand);color:#45403a;opacity:0;transition:opacity .5s;pointer-events:none}
+.hint img{height:1.05em;width:auto}
+.hint.on{opacity:.92;animation:nudge 1.5s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(12px)}}
+@media (prefers-reduced-motion: reduce){ .hint.on{animation:none} }
+.ph span{display:none}.cap .t,.cap .d{filter:none}</style>
+
+<div class="wrap">
+  <div class="bar">
+    <h1>第三环节：拉胶卷，一格一格冲洗</h1>
+    <button class="btn" id="again">重来</button>
+  </div>
+  <div class="holder"><div class="stage" id="stage" tabindex="0" aria-label="拉胶卷演示，往右拖或按右方向键拉出下一格"></div></div>
+  <p class="tip">一开始只露出胶卷头。按住胶片往右拉，拉出一格就停住，那一格从底片冲洗成照片，再写出一句话；再往右拉，下一格接着出来。电脑上也可以点一下、划触控板或按 → 键。照片位置先用色块代替；最后一格留空。</p>
+</div>
+
+<script>
+var M3 = {"can": [152, 215, 339, 540], "hint": [83, 97, 352, 39], "tile": {"w": 448, "h": 416, "win": [20, 64, 408, 293]}, "tail": {"w": 252, "h": 416}, "leader": {"w": 416, "h": 416}, "chev": {"w": 85, "h": 39}};
+var FR = [
+  {d:"第一次见面 · 朋友的生日局", t:"那天你捧着小蛋糕笑得最大声，我就记住你了。", g:"url(ph/f1.webp) center/cover"},
+  {d:"第一次约会 · 美术馆", t:"你站得笔直，我比了个耶，那时候还不太熟。", g:"url(ph/f2.webp) center/cover"},
+  {d:"下雨天 · 只有一把伞", t:"伞一直往我这边歪，你的半边肩膀全湿了。", g:"url(ph/f3.webp) center/cover"},
+  {d:"明天 · ？", t:"这一格还空着，等我们一起去拍。", g:"linear-gradient(#f3eee5,#e9e2d6)", blank:true}
+];
+(function(){ document.head.insertAdjacentHTML("beforeend", "<style>.cap{text-align:center}</style>"); var f = window.CFG && CFG.film; if (!f) return; var blankF = FR[FR.length - 1], base = FR.slice(0, 3), out = []; f.forEach(function(c, i){ var b = base[i]; if (c && c.img) out.push({d:"", t:c.t || "", g:"url(" + c.img + ") center/cover", user:1}); else if (b) { if (c && c.t) { b.d = ""; b.t = c.t; b.user = 1; } out.push(b); } }); while (out.length < 3) out.push(base[out.length]); out.push(blankF); FR = out; })();
+var N = FR.length;
+var T = M3.tile, TW = T.w, WIN = T.win, LD = M3.leader.w, OV = 12;
+/* 胶片从右往左排：[罐子里多出来的一格][第N格]…[第1格][胶卷头]，最右边是胶卷头 */
+var E = (N + 1) * TW - OV + LD;            /* 整条长度（格子单位） */
+var BASE = LD - OV + 14;                   /* 只露出胶卷头时拉出来的长度 */
+function outOf(i){ return BASE + (i + 1) * TW; }   /* 第 i 格完整拉出来时的长度，i=-1 是只有胶卷头 */
+function tileOf(i){ return N - i; }               /* 第 i 格在整条里是第几格（从左数） */
+/* 没显影时是一格暗暗的琥珀色胶片（不做反色，免得人脸像鬼影），显影时由暗到亮、由暖到正常 */
+var NEG  = "sepia(1) saturate(1.7) hue-rotate(-8deg) brightness(.34) contrast(.78) blur(1.2px)";
+var DARK = "sepia(.8) saturate(1.45) hue-rotate(-6deg) brightness(.55) contrast(.82) blur(.6px)";
+var MID  = "sepia(.32) saturate(1.12) hue-rotate(-2deg) brightness(.88) contrast(.95) blur(0px)";
+var POS  = "sepia(0) saturate(1) hue-rotate(0deg) brightness(1) contrast(1) blur(0px)";
+
+var stage = document.getElementById("stage");
+var L = {}, S = null;
+function el(tag, cls, parent){ var e = document.createElement(tag); if (cls) e.className = cls; if (parent) parent.appendChild(e); return e; }
+
+/* ---------- 声音（第一次点/拖之后才会响） ---------- */
+var AC = null;
+function ac(){ try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch(e) {} return AC; }
+function noise(dur, freq, q, vol, type){
+  var a = AC; if (!a) return; if (a.state !== "running") { try { a.resume(); } catch (e) {} }
+  try {
+    var t = a.currentTime, n = Math.max(1, Math.floor(a.sampleRate * dur)), b = a.createBuffer(1, n, a.sampleRate), d = b.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
+    var s = a.createBufferSource(); s.buffer = b;
+    var f = a.createBiquadFilter(); f.type = type || "bandpass"; f.frequency.value = freq; f.Q.value = q;
+    var g = a.createGain(); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0005, t + dur);
+    s.connect(f); f.connect(g); g.connect(a.destination); s.start(t);
+  } catch(e) {}
+}
+function tick(){ noise(.012, 4200, 1.2, .18); }
+function clack(){ noise(.03, 2600, 1, .5); setTimeout(function(){ noise(.02, 1800, 1, .35); }, 40); }
+function shh(){ noise(1.3, 900, .4, .05, "lowpass"); }
+
+/* ---------- 尺寸 ---------- */
+function measure(){
+  var w = stage.parentNode.clientWidth, maxH = Math.max(240, window.innerHeight - 150);
+  var h = Math.min(w * 9 / 16, maxH); w = h * 16 / 9;
+  stage.style.width = w + "px"; stage.style.height = h + "px";
+  stage.style.setProperty("--tile", Math.round(h * .5) + "px");
+  var stripH = h * .42, k = stripH / T.h, can = M3.can;
+  var stripTop = h * .25, canLeft = w * .045, canTop = stripTop - (296 - can[1]) * k;
+  var filmLeft = canLeft + (478 - can[0]) * k;
+  L = {W:w, H:h, k:k, stripH:stripH, stripTop:stripTop, canLeft:canLeft, canTop:canTop, filmLeft:filmLeft};
+  if (!S) return;
+  var c = S.can; c.style.left = canLeft + "px"; c.style.top = canTop + "px"; c.style.width = can[2] * k + "px"; c.style.height = can[3] * k + "px";
+  var f = S.film; f.style.left = filmLeft + "px"; f.style.top = stripTop + "px"; f.style.right = "0"; f.style.height = (stripH + h * .26) + "px";
+  S.tape.style.width = E * k + "px"; S.tape.style.height = stripH + "px";
+  S.strip.style.width = (N + 1) * TW * k + "px"; S.strip.style.height = stripH + "px"; S.strip.style.backgroundSize = (TW * k) + "px " + stripH + "px";
+  S.leader.style.left = ((N + 1) * TW - OV) * k + "px"; S.leader.style.width = LD * k + "px"; S.leader.style.height = stripH + "px";
+  S.wins.forEach(function(wn, j){
+    wn.style.left = (j * TW + WIN[0]) * k + "px"; wn.style.top = WIN[1] * k + "px";
+    wn.style.width = WIN[2] * k + "px"; wn.style.height = WIN[3] * k + "px";
+  });
+  stage.style.setProperty("--lab", Math.max(9, h * .02) + "px");
+  stage.style.setProperty("--q", (h * .12) + "px");
+  /* 照片下面的字最多 50 个：按字数自动缩小，保证排进胶卷下面那块空白（一两行时字最大、紧贴照片） */
+  var capW = WIN[2] * k, capH = h * .22, base = Math.max(11, h * .042), lo = Math.max(7, base * .42);
+  S.caps.forEach(function(cp, i){
+    var n = Array.from(FR[i].t || "").length, extra = FR[i].d ? .75 : 0, fs = base;
+    for (; fs > lo; fs -= .5) { var per = Math.max(1, Math.floor(capW / (fs * 1.02))); if ((Math.ceil(n / per) + extra) * fs * 1.35 <= capH) break; }
+    cp.style.left = (tileOf(i) * TW + WIN[0]) * k + "px"; cp.style.top = (stripH + h * .03) + "px";
+    cp.style.width = capW + "px"; cp.style.fontSize = fs + "px";
+  });
+  [S.title, S.end].forEach(function(t){ t.style.left = canLeft + "px"; t.style.top = (h * .05) + "px"; t.style.fontSize = Math.max(16, h * .052) + "px"; });
+  S.hint.style.fontSize = Math.max(15, h * .05) + "px";
+  S.hint.style.left = (filmLeft + LD * k + h * .03) + "px"; S.hint.style.top = (stripTop + stripH * .5 - h * .035) + "px";
+  render();
+}
+window.addEventListener("resize", function(){ clearTimeout(window.__rz); window.__rz = setTimeout(measure, 100); });
+
+/* ---------- 搭场景 ---------- */
+function reset(){
+  if (S) { S.dead = true; cancelAnimationFrame(S.raf); S.timers.forEach(clearTimeout); clearTimeout(S.idle); }
+  stage.innerHTML = "";
+  S = {out:0, cur:-1, dev:[], maxDev:-1, caps:[], wins:[], phs:[], timers:[], tug:0};
+  S.title = el("p", "title", stage); S.title.textContent = "这一卷，是我们的日常。";
+  S.end = el("p", "end", stage); S.end.textContent = "这一卷，还没拍完。";
+  S.film = el("div", "film", stage);
+  S.tape = el("div", "tape", S.film);
+  S.strip = el("div", "strip", S.tape);
+  S.leader = el("img", "leader", S.tape); S.leader.alt = ""; S.leader.src = "f/leader.webp";
+  for (var j = 0; j <= N; j++) {                       /* j=0 是罐子里多出来的空白格 */
+    var wn = el("div", "win", S.tape), ph = el("div", "ph", wn), i = N - j;
+    if (j > 0) {
+      ph.style.setProperty("--g", FR[i].g);
+      if (FR[i].blank) { var q = el("b", "", ph); q.textContent = "?"; }
+      else { var sp = el("span", "", ph); sp.textContent = "这里放你们的照片"; }
+    } else ph.style.setProperty("--g", "#ece3d4");
+    el("div", "base", wn); el("div", "flare", wn);
+    S.wins.push(wn); S.phs.push(ph);
+  }
+  for (var i2 = 0; i2 < N; i2++) {
+    var cp = el("div", "cap", S.tape);
+    cp.innerHTML = '<span class="d"></span><span class="t"></span>'; if (FR[i2].blank || FR[i2].user) cp.classList.add("clear");
+    cp.querySelector(".d").textContent = FR[i2].d; cp.querySelector(".t").textContent = FR[i2].t;
+    S.caps.push(cp);
+  }
+  S.can = el("img", "can", stage); S.can.alt = "胶卷罐"; S.can.src = "f/can.webp";
+  S.hint = el("div", "hint", stage);
+  S.hint.innerHTML = '<span>往右拉</span><img alt="" src="f/chev.webp">';
+  measure();
+  intro();
+}
+function later(fn, ms){ var me = S; S.timers.push(setTimeout(function(){ if (!me.dead) fn(); }, ms)); }
+
+function render(){
+  S.tape.style.transform = "translateX(" + ((S.out - E) * L.k) + "px)";
+  S.can.style.transform = S.tug ? "translateX(" + S.tug + "px) rotate(" + (S.tug * .35) + "deg)" : "";
+  var perf = Math.floor(S.out / (TW / 8));             /* 每过一个齿孔响一下 */
+  if (S.perf !== undefined && perf !== S.perf && S.moving) tick();
+  S.perf = perf;
+}
+
+/* ---------- 开场：罐子落下，胶卷头探出来 ---------- */
+function intro(){
+  S.busy = true; S.out = 0; render();
+  later(function(){
+    S.can.animate([{opacity:0, transform:"translateY(-6%) rotate(-7deg) scale(1.06)"}, {opacity:1, transform:"rotate(1deg) scale(.99)", offset:.7}, {opacity:1, transform:"none"}], {duration:520, easing:"cubic-bezier(.2,.9,.3,1.2)"}).onfinish = function(){ S.can.style.opacity = "1"; };
+  }, 200);
+  later(function(){ tween(outOf(-1), 800, easeOutBack, function(){ S.busy = false; }); }, 700);
+  later(function(){ showHint(true); }, 1700);
+}
+function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+function easeOutBack(t){ var c = 1.25; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); }
+function tween(to, ms, ease, done){
+  cancelAnimationFrame(S.raf);
+  var from = S.out, t0 = performance.now(), me = S, tug0 = S.tug;
+  S.moving = true;
+  function f(now){
+    if (me.dead) return;
+    var p = Math.min(1, (now - t0) / ms);
+    S.out = from + (to - from) * ease(p); S.tug = tug0 * (1 - p); render();
+    if (p < 1) S.raf = requestAnimationFrame(f);
+    else { S.moving = false; S.tug = 0; render(); if (done) done(); }
+  }
+  S.raf = requestAnimationFrame(f);
+}
+
+/* ---------- 冲洗 ---------- */
+function develop(i){   if (S.dev[i]) return; if (i === 0) { window.wsp && wsp("这里放了一件我们之间印象深刻的小事（比如是怎么认识、有好感、在一起的~）"); }
+  S.dev[i] = true; S.maxDev = Math.max(S.maxDev, i);
+  var j = tileOf(i), wn = S.wins[j], ph = S.phs[j];
+  shh();
+  ph.animate([{filter:NEG}, {filter:DARK, offset:.3}, {filter:MID, offset:.68}, {filter:POS}], {duration:2300, easing:"ease-in-out", fill:"forwards"});
+  wn.querySelector(".base").animate([{opacity:.8}, {opacity:.8, offset:.1}, {opacity:0}], {duration:1100, fill:"forwards"});
+  wn.querySelector(".flare").animate([{opacity:0, transform:"translateX(-25%)"}, {opacity:.85, transform:"translateX(0)", offset:.35}, {opacity:0, transform:"translateX(25%)"}], {duration:1500, easing:"ease-out", fill:"forwards"});
+  var cp = S.caps[i];
+  later(function(){ cp.animate([{clipPath:"inset(0 100% 0 0)"}, {clipPath:"inset(0 0% 0 0)"}], {duration:1000, easing:"ease-out", fill:"forwards"}); }, 0);
+  if (i === N - 1) later(function(){ S.title.style.opacity = "0"; S.end.classList.add("on"); showHint(false); S.finished = true; setTimeout(function(){ window.segDone&&segDone(); }, 400); }, 2300);
+}
+
+/* ---------- 提示 ---------- */
+function showHint(on){
+  if (on && (S.finished || S.maxDev >= N - 1)) return;
+  if (on) {                         /* 提示跟着胶片最右边走，跑出画面就放在右上方 */
+    var tip = L.filmLeft + S.out * L.k + L.H * .03, maxX = L.W - L.H * .3;
+    S.hint.style.left = Math.min(tip, maxX) + "px";
+    S.hint.style.top = (tip > maxX ? L.stripTop - L.H * .1 : L.stripTop + L.stripH * .5 - L.H * .035) + "px";
+  }
+  S.hint.classList.toggle("on", !!on);
+}
+function idleHint(){
+  clearTimeout(S.idle); var me = S;
+  S.idle = setTimeout(function(){ if (!me.dead && !drag) showHint(true); }, 6000);
+}
+
+/* ---------- 拉 ---------- */
+function allowedMax(){ return Math.min(S.maxDev + 1, N - 1); }
+function clampSoft(o){
+  var lo = outOf(-1), hi = outOf(allowedMax());
+  if (o < lo) return lo - Math.pow(lo - o, .8) * .35;
+  if (o > hi) return hi + Math.pow(o - hi, .8) * .35;     /* 还没冲洗的那格后面拉不动，只能一格一格来 */
+  return o;
+}
+function goTo(i){
+  i = Math.max(-1, Math.min(allowedMax(), i));
+  var target = outOf(i), dist = Math.abs(target - S.out) / TW;
+  tween(target, 320 + Math.min(1, dist) * 260, easeOutBack, function(){
+    if (i !== S.cur || (i >= 0 && !S.dev[i])) clack();
+    S.cur = i;
+    if (i >= 0 && !S.dev[i]) develop(i);
+  });
+}
+var drag = null;
+stage.addEventListener("pointerdown", function(ev){
+  ac();
+  if (!S || S.busy) return;
+  cancelAnimationFrame(S.raf); S.moving = true;
+  drag = {x:ev.clientX, o:S.out, hist:[[performance.now(), ev.clientX]], moved:0};
+  stage.setPointerCapture(ev.pointerId); stage.classList.add("drag");
+  showHint(false); clearTimeout(S.idle);
+});
+stage.addEventListener("pointermove", function(ev){
+  if (!drag) return;
+  var dx = ev.clientX - drag.x; drag.moved = Math.max(drag.moved, Math.abs(dx));
+  S.out = clampSoft(drag.o + dx / L.k);
+  drag.hist.push([performance.now(), ev.clientX]); if (drag.hist.length > 6) drag.hist.shift();
+  var h = drag.hist, v = (h[h.length - 1][1] - h[0][1]) / Math.max(16, h[h.length - 1][0] - h[0][0]);
+  S.tug = Math.max(-3, Math.min(5, v * 4));          /* 罐子被拽得轻轻晃一下 */
+  render();
+});
+function endDrag(){
+  if (!drag) return;
+  stage.classList.remove("drag");
+  var d = drag; drag = null;
+  if (d.moved < 6) { goTo(S.cur + 1); idleHint(); return; }      /* 点一下 = 拉出下一格 */
+  var h = d.hist, a = h[0], b = h[h.length - 1], dt = Math.max(16, b[0] - a[0]);
+  var v = (b[1] - a[1]) / dt / L.k;                               /* 往右为正 */
+  var proj = S.out + v * 170;
+  var i = Math.round((proj - BASE) / TW) - 1;
+  if (i === S.cur && Math.abs(v) > .25) i += v > 0 ? 1 : -1;      /* 轻轻一甩也能换格 */
+  goTo(i); idleHint();
+}
+stage.addEventListener("pointerup", endDrag);
+stage.addEventListener("pointercancel", endDrag);
+
+/* 触控板 / 滚轮 / 方向键 */
+var wheelAcc = 0, wheelLock = 0;
+stage.addEventListener("wheel", function(ev){
+  ev.preventDefault(); ac();
+  if (!S || S.busy) return;
+  var now = performance.now(); if (now < wheelLock) return;
+  wheelAcc += Math.abs(ev.deltaX) > Math.abs(ev.deltaY) ? -ev.deltaX : ev.deltaY;
+  if (Math.abs(wheelAcc) > 40) { goTo(S.cur + (wheelAcc > 0 ? 1 : -1)); wheelAcc = 0; wheelLock = now + 480; showHint(false); idleHint(); }
+}, {passive:false});
+stage.addEventListener("keydown", function(ev){
+  if (!S || S.busy) return;
+  if (ev.key === "ArrowRight" || ev.key === " ") { ev.preventDefault(); ac(); goTo(S.cur + 1); showHint(false); idleHint(); }
+  if (ev.key === "ArrowLeft") { ev.preventDefault(); ac(); goTo(S.cur - 1); }
+});
+
+document.getElementById("again").addEventListener("click", function(){ reset(); });
+reset();
+</script>
+
+</body></html>

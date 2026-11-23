@@ -1,0 +1,1496 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>一份专属生日惊喜 · Happy Birthday</title>
+<link rel="stylesheet" href="fonts/lc.css" media="print" onload="this.media='all'">
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* 布局：上面是 16:9 的实时预览（手机上吸顶），下面是当前这一关的配置卡片，底部固定「上一关 / 下一关」；电脑上左右两栏 */
+:root{
+  --bg:#f8f3ea; --card:#fffdf9; --fg:#241c18; --soft:#6b5b4f; --line:#e4d8c8; --field:#fbf7f0;
+  --accent:#c8322a; --accent-ink:#ffffff; --accent-soft:#fbe6e4;
+  --red:#c8322a; --ok:#2a7a52; --stage:#14110f; --shade:rgba(45,25,15,.14);
+  --ui:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --hand:"Long Cang","Kaiti SC","STKaiti","KaiTi",cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#11141b; --card:#1a1f29; --fg:#e7ebf3; --soft:#9aa4b7; --line:#2d3543; --field:#141922; --accent:#8fb0f2; --accent-ink:#0e1830; --accent-soft:#1f2b45; --red:#f0766e; --ok:#6fcf9b; --stage:#000; --shade:rgba(0,0,0,.4); color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --bg:#11141b; --card:#1a1f29; --fg:#e7ebf3; --soft:#9aa4b7; --line:#2d3543; --field:#141922; --accent:#8fb0f2; --accent-ink:#0e1830; --accent-soft:#1f2b45; --red:#f0766e; --ok:#6fcf9b; --stage:#000; --shade:rgba(0,0,0,.4); color-scheme:dark; }
+*,*::before,*::after{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 var(--ui);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 96px}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,.tile:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.app{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.top h1{margin:0;font-size:18px;font-weight:700;letter-spacing:.01em}
+.top .saved{font-size:12px;color:var(--ok);margin-right:auto}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 14px;font-weight:600;font-size:14px}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--red)}
+.btn[disabled]{opacity:.4;cursor:default}
+.steps{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.steps button{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 11px;font-size:13px;color:var(--soft);white-space:nowrap}
+.steps button[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.steps button.off{text-decoration:line-through;opacity:.6}
+.work{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.stagecol{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding-bottom:8px;min-width:0}
+.pv{position:relative;width:100%;aspect-ratio:16/9;max-width:100%;background:var(--stage);border-radius:10px;overflow:hidden;box-shadow:0 6px 18px var(--shade)}
+.pv.dim::after{content:"这一关已关闭";position:absolute;inset:0;display:grid;place-items:center;background:rgba(15,17,21,.72);color:#fff;font-weight:600;z-index:40}
+.still{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#efe7da url(fused/paper.webp);z-index:30}
+.seg2{display:flex;gap:8px;flex-wrap:wrap}
+.seg2 .btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pvbar{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.pvbar .note{font-size:12px;color:var(--soft);margin-left:auto}
+.pvbar .btn{padding:5px 11px;font-size:13px}
+.panel{min-width:0;display:flex;flex-direction:column;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.card h2{margin:0;font-size:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h2 small{font-weight:400;font-size:12px;color:var(--soft)}
+.todo{margin:0;font-size:14px;color:var(--soft)}
+.todo b{color:var(--fg)}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fld label,.fld .lab{font-size:13px;font-weight:600}
+.fld .hint{font-size:12px;color:var(--soft);margin:0}
+.fld input[type=text],.fld input[type=number],.fld textarea{width:100%;border:1px solid var(--line);background:var(--field);border-radius:8px;padding:9px 10px;font-size:16px}
+.fld textarea{resize:vertical;min-height:64px}
+.cnt{font-size:12px;color:var(--soft);align-self:flex-end;font-variant-numeric:tabular-nums}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start}
+.grow{flex:1 1 200px;min-width:0}
+.tiles{display:flex;gap:8px;flex-wrap:wrap}
+.tile .spin{position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,255,255,.5)}.tile .spin::after{content:"";width:26px;height:26px;border-radius:50%;border:3px solid rgba(0,0,0,.15);border-top-color:var(--accent);animation:tspin .8s linear infinite}@keyframes tspin{to{transform:rotate(360deg)}}
+.tile{position:relative;flex:none;width:92px;border:1.5px dashed var(--line);border-radius:10px;background:var(--field);overflow:hidden;display:grid;place-items:center;padding:0}
+.tile .plus{font-size:28px;line-height:1;color:var(--accent);font-weight:300}
+.tile .cap{font-size:11px;color:var(--soft);position:absolute;left:0;right:0;bottom:6px;text-align:center}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile.has{border-style:solid;border-color:var(--accent)}
+.tilewrap{display:flex;flex-direction:column;gap:4px;align-items:stretch;width:92px}
+.tilewrap .ops{display:flex;gap:4px}
+.tilewrap .ops button{flex:1;border:0;background:var(--accent-soft);color:var(--accent);border-radius:6px;font-size:12px;padding:3px 0}
+.tilewrap .ops button.del{background:transparent;color:var(--red)}
+.sub{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.sub h3{margin:0;font-size:14px}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.chk input{width:18px;height:18px;margin-top:2px;accent-color:var(--accent)}
+.offbox{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.foot .in{max-width:1120px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.foot .pos{flex:1;text-align:center;font-size:13px;color:var(--soft);font-variant-numeric:tabular-nums}
+.foot .btn{min-width:104px;padding:10px 14px}
+@media (min-width:900px){
+  .work{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:start}
+  .stagecol{top:12px}
+}
+/* 大屏电脑：左边预览尽量大（沉浸感），右边配置窄一条、单独滚动 */
+@media (min-width:1100px){
+  .app{max-width:none}
+  .work{grid-template-columns:minmax(0,1fr) clamp(300px,23vw,380px)}
+  .pv{width:min(100%, calc((100vh - 190px) * 16 / 9))}
+  .panel{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto;overscroll-behavior:contain;padding-right:4px;scrollbar-width:thin}
+  .panel .card{padding:12px;gap:10px}
+}
+/* ---------- 播放器（预览里的那一层 UI） ---------- */
+.frame{position:absolute;inset:0;background:#efe7da;overflow:hidden}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2;transition:opacity .35s}
+.frame .peek{position:absolute;z-index:12;right:3%;bottom:5%;border:1px solid rgba(138,90,60,.24);padding:.4em .95em .45em;font:400 clamp(13px,2.4cqw,26px)/1.1 var(--hand);color:#4a3626;background:rgba(255,250,242,.95);border-radius:.3em;box-shadow:0 3px 10px rgba(60,35,10,.2);transform:rotate(-2deg);display:none;text-align:center;transition:opacity .25s,transform .3s,background .25s,box-shadow .25s,border-color .25s}
+.frame .peek.idle{display:block;opacity:.76;padding:.34em .82em;font-size:clamp(11px,1.75cqw,18px);background:rgba(255,250,242,.78);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);box-shadow:0 2px 8px rgba(60,35,10,.14);transform:none}
+.frame .peek.idle:hover,.frame .peek.idle:active{opacity:1;background:rgba(255,250,242,.96)}
+.frame .peek.on{display:block;opacity:1;border:1.5px solid rgba(200,50,42,.58);background:rgba(255,250,242,.98);box-shadow:0 6px 18px rgba(200,50,42,.24);transform:rotate(-2deg) scale(1.03);animation:peekPop .42s cubic-bezier(.2,.9,.3,1.25)}
+@keyframes peekPop{0%{transform:scale(.92)}65%{transform:rotate(-2deg) scale(1.08)}100%{transform:rotate(-2deg) scale(1.03)}}
+.frame .peek b{font-weight:400;color:#c8322a;margin-left:.25em}
+.frame .peek small{display:block;font:500 clamp(9px,1.1cqw,12px)/1.25 var(--ui);color:#8a725e;margin-top:2px}
+.frame .nextcatch{position:absolute;inset:0;z-index:11;display:none;cursor:pointer}
+.frame .nextcatch.on{display:block}
+.frame .wsp{position:absolute;z-index:13;right:3%;top:9%;margin:0;max-width:40%;padding:.4em .85em;border-radius:.45em;background:rgba(255,252,246,.6);color:#5b4636;font:400 clamp(10px,1.75cqw,21px)/1.45 var(--ui);pointer-events:none;opacity:0;transition:opacity .5s}
+.frame .wsp.on{opacity:1}
+.frame .wsp.bl{left:3%;right:auto;top:auto;bottom:6%}
+.frame .ghint{position:absolute;z-index:15;left:0;right:0;bottom:6%;margin:0;text-align:center;font:400 clamp(11px,2.3cqw,26px)/1.2 var(--hand);color:#4a3f36;pointer-events:none;display:none}
+.frame .ghint.on{display:block}
+.frame .gcatch{position:absolute;inset:0;z-index:16;display:none}
+.frame .gcatch.on{display:block}
+.frame .ttl2{position:absolute;z-index:9;left:3%;top:4.5%;margin:0;font:400 clamp(13px,2.9cqw,36px)/1.2 var(--hand);color:#2a2622;opacity:0;pointer-events:none;transition:opacity .5s;text-shadow:0 0 8px rgba(255,250,242,.95),0 0 2px rgba(255,250,242,.95)}
+.frame .ttl2.on{opacity:1}
+.frame .endc{position:absolute;z-index:14;right:4.5%;bottom:3.5%;width:min(37%,460px);pointer-events:none;opacity:0;transform:translateY(18px) rotate(-3deg);transition:opacity .6s,transform .7s}
+.frame .endc.on{opacity:1;transform:rotate(-3deg)}
+.frame .endc .cardp{position:relative;padding:1.4em 1.5em 1.2em;min-height:7.2em;display:flex;align-items:center;justify-content:center;background:#fffaf0 repeating-linear-gradient(transparent 0 1.55em,rgba(150,120,90,.16) 1.55em calc(1.55em + 1px));box-shadow:0 10px 24px rgba(60,35,15,.22);color:#3e2a1a;font-size:clamp(9px,1.55cqw,20px)}
+.frame .endc .cardp::before{content:"";position:absolute;left:50%;top:-.7em;width:5.5em;height:1.5em;transform:translateX(-50%) rotate(2deg);background:rgba(244,186,120,.72)}
+.frame .endc p{margin:0;font-family:var(--hand);line-height:1.45;word-break:break-word;white-space:pre-wrap;text-align:center;color:#c8322a}
+.frame .loading{position:absolute;inset:0;display:grid;place-items:center;color:#7d6a55;font-size:13px;z-index:1}
+.pv,.fullbox{container-type:inline-size}
+/* ---------- 全屏预览 ---------- */
+.full{position:fixed;inset:0;z-index:100;background:#000;display:none;overscroll-behavior:contain;touch-action:none}
+.full.on{display:block}
+.fullbox{position:absolute;left:50%;top:50%;background:#000}
+.full .x{position:absolute;z-index:5;width:30px;height:30px;padding:0;border:1.5px solid #e6d3bd;border-radius:50%;background:#fbf4ea;color:#8a5a3c;font:400 20px/26px Georgia,"Songti SC",serif;text-align:center;box-shadow:0 2px 6px rgba(60,35,20,.25);opacity:.88;cursor:pointer}
+.full .x:active{opacity:1;transform:scale(.94)}
+/* ---------- 裁剪弹窗与通用模态框（带滚动锁与防滚动穿透） ---------- */
+body.modal-open{position:fixed;left:0;right:0;width:100%;overflow:hidden}
+.modal{position:fixed;inset:0;z-index:90;background:rgba(10,12,18,.72);display:none;align-items:center;justify-content:center;padding:16px;overscroll-behavior:contain}
+.modal.on{display:flex}
+.sheet{background:var(--card);border-radius:14px;padding:14px;width:min(560px,100%);max-height:min(86vh,100%);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px}
+/* ---------- 素材自由排版与米奇素材库样式 ---------- */
+.le-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto;overscroll-behavior:contain;padding-right:2px}
+.le-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--field);font-size:13px}
+.le-item.sel{border-color:var(--accent);background:var(--accent-soft)}
+.le-item.hid{opacity:.5}
+.le-item .th{width:34px;height:34px;border-radius:6px;background:#efe7da;object-fit:contain;flex:none;border:1px solid rgba(0,0,0,.08)}
+.le-item .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.le-item .acts{display:flex;gap:4px;flex:none}
+.le-item .acts button{border:1px solid var(--line);background:var(--card);border-radius:6px;padding:3px 7px;font-size:12px;font-weight:600}
+.le-item .acts button.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.le-insp{border:1.5px solid var(--accent);background:var(--accent-soft);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.le-insp .rrow{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600}
+.le-insp .rrow span{width:64px;flex:none}
+.le-insp .rrow input[type=range]{flex:1;accent-color:var(--accent)}
+.le-insp .rrow em{font-style:normal;width:44px;text-align:right;font-variant-numeric:tabular-nums}
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;max-height:52vh;overflow-y:auto;overscroll-behavior:contain;padding:4px 2px}
+.lib-cell{border:1.5px solid var(--line);border-radius:10px;background:var(--field);padding:6px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;text-align:center}
+.lib-cell:hover{border-color:var(--accent);background:var(--accent-soft)}
+.lib-cell img{width:72px;height:72px;object-fit:contain;background:repeating-conic-gradient(rgba(0,0,0,.04) 0 25%,transparent 0 50%) 50%/12px 12px;border-radius:6px}
+.lib-cell span{font-size:11px;line-height:1.25;color:var(--fg);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* ---------- 导出与 GitHub 部署弹窗 ---------- */
+.exp-status{padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--field);font-size:13px;line-height:1.5}
+.exp-status.ok{border-color:#a3d9b8;background:#eef9f2;color:#1e5c3a}
+.exp-status.warn{border-color:#f0c36d;background:#fff8e6;color:#7a4f01}
+.exp-status.err{border-color:#f2b6b2;background:#fdf0ef;color:#9d241d}
+.exp-safe{padding:9px 12px;border-radius:10px;border:1px solid #b6dec5;background:#f0faf4;color:#1c5938;font-size:12.5px;line-height:1.55}
+.exp-urlbox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px;border-radius:10px;background:var(--card);border:1.5px solid #2a7a52}
+.exp-urlbox input{flex:1 1 220px;min-width:0;border:0;background:transparent;font:600 13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#1c5938;padding:4px 2px}
+.exp-card{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--field);display:flex;flex-direction:column;gap:8px}
+.exp-card.main{border-color:var(--accent);background:var(--card)}
+.exp-card h4{margin:0;font-size:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.exp-card h4 small{font-weight:500;font-size:12px;color:var(--soft)}
+.exp-card .desc{margin:0;font-size:12.5px;color:var(--soft);line-height:1.5}
+.exp-btns{display:flex;gap:8px;flex-wrap:wrap}
+.exp-btns a.btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.exp-steps{margin:0;padding-left:18px;font-size:12.5px;color:var(--fg);line-height:1.65}
+.exp-code{margin:0;padding:10px;border-radius:8px;background:#1c1917;color:#f5ede0;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;overflow-x:auto;white-space:pre}
+.exp-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:520px){.exp-grid2{grid-template-columns:1fr}}
+.exp-inp{width:100%;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:7px 9px;font-size:13px;color:var(--fg)}
+.sheet h3{margin:0;font-size:16px}
+.sheet p{margin:0;font-size:13px;color:var(--soft)}
+.cropbox{position:relative;margin:0 auto;overflow:hidden;background:#000;touch-action:none;border-radius:8px;cursor:grab}
+.cropbox img{position:absolute;left:0;top:0;transform-origin:0 0;max-width:none;-webkit-user-drag:none;user-select:none;pointer-events:none}
+.cropbox .guide{position:absolute;inset:0;pointer-events:none}
+.cropbox .guide.ellipse{border-radius:50%;box-shadow:0 0 0 999px rgba(0,0,0,.5);border:2px dashed rgba(255,255,255,.9)}
+.cropbox .guide.mask{background:rgba(0,0,0,.6);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-composite:xor;mask-composite:exclude}
+.sheet input[type=range]{width:100%;accent-color:var(--accent)}
+.sheet .acts{display:flex;gap:8px;justify-content:flex-end}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:120;background:rgba(20,24,34,.92);color:#fff;border-radius:999px;padding:8px 16px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .3s;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.frame iframe,.frame .wsp,.frame .ttl2,.frame .endc,.toast{transition:none}}
+
+/* 生成链接 + 播放模式 */
+.card.share h2{font-size:17px}
+.sharebox{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.sharebox input{width:100%;font-size:14px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg)}
+.sharebox .row{display:flex;gap:8px;flex-wrap:wrap}
+.sharebox a.btn{text-decoration:none;display:inline-flex;align-items:center}
+html.play .app{display:none}
+html.play #fullx{display:none!important}
+.playstart{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;background:#efe7da url(fused/paper.webp) center/cover;color:#4a3a2c}
+.playstart .ptitle{margin:0;font-family:var(--hand);font-size:30px;font-size:clamp(26px,7.5vw,48px);line-height:1.3;white-space:pre-line}
+.playstart .pmsg{margin:0;font-size:15px;color:#7a6a5a}
+.playstart .pgo{font-size:18px;padding:12px 28px;border-radius:999px}
+.card.share .warn{color:#b4432a}
+.shareask .row{display:flex;gap:8px;flex-wrap:wrap}
+.playstart .pbar{width:260px;max-width:70vw;height:6px;border-radius:9px;background:rgba(74,58,44,.15);overflow:hidden}
+.playstart .pbar[hidden]{display:none}
+.playstart .pbar i{display:block;height:100%;width:0;background:#c0573e;border-radius:9px;transition:width .3s}
+.pspin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:50;padding:10px 18px;border-radius:999px;background:rgba(40,30,20,.72);color:#fff;font-size:14px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .3s}
+.pspin.on{opacity:1}
+.playstart .ptip{position:absolute;left:16px;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));margin:0;font-size:13px;color:#8a7a6a}
+</style>
+
+<div class="app">
+  <div class="top">
+    <h1 style="display:flex;align-items:center;gap:8px"><img src="mickey_icon.webp" alt="" style="width:28px;height:28px;object-fit:contain">生日网站配置台 · 米奇主题版</h1>
+    <span class="saved" id="saved" aria-live="polite">改动会自动保存在这台设备上</span>
+    <button class="btn" id="music" type="button" aria-pressed="true">音乐：开</button>
+    <button class="btn" id="playAll" type="button">从头预览整站</button>
+    <button class="btn pri" id="exportBtn" type="button">📦 导出 / 部署 (Cloudflare · GitHub)</button>
+  </div>
+  <nav class="steps" id="steps" aria-label="选择要配置的环节"></nav>
+  <div class="work">
+    <section class="stagecol" aria-label="这一关的效果预览">
+      <div class="pv" id="pv"></div>
+      <div class="pvbar">
+        <button class="btn" id="replay" type="button">重播这一关</button>
+        <button class="btn" id="zoom" type="button">横屏放大看</button>
+        <button class="btn" id="leToggle" type="button" aria-pressed="false">✎ 自由排版 / 换素材</button>
+        <button class="btn" id="leAddBtn" type="button">+ 加贴纸</button>
+        <span class="note">预览可以直接点、直接拖</span>
+      </div>
+    </section>
+    <section class="panel" id="panel"></section>
+  </div>
+</div>
+<div class="foot"><div class="in">
+  <button class="btn" id="prev" type="button">‹ 上一关</button>
+  <span class="pos" id="pos"></span>
+  <button class="btn pri" id="next" type="button">下一关 ›</button>
+</div></div>
+
+<div class="full" id="full"><div class="fullbox" id="fullbox"></div><button class="x" id="fullx" type="button" aria-label="关闭预览" title="关闭预览">×</button></div>
+<div class="modal" id="crop" role="dialog" aria-modal="true" aria-labelledby="cropT">
+  <div class="sheet">
+    <h3 id="cropT">调整照片位置</h3>
+    <p id="cropTip">拖动照片、双指或滑块缩放，框里的就是最后显示的部分。</p>
+    <div class="cropbox" id="cropbox"><img id="cropimg" alt=""><div class="guide" id="cropguide"></div></div>
+    <input type="range" id="cropz" min="100" max="400" value="100" aria-label="缩放">
+    <div class="acts"><button class="btn" id="cropNo" type="button">取消</button><button class="btn pri" id="cropOk" type="button">用这张</button></div>
+  </div>
+</div>
+<div class="modal" id="libModal" role="dialog" aria-modal="true" aria-labelledby="libT">
+  <div class="sheet" style="width:min(680px,100%)">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+      <h3 id="libT">选择或上传替换素材</h3>
+      <button class="btn" id="libClose" type="button" style="padding:4px 10px">关闭 ×</button>
+    </div>
+    <p id="libTip">点选下方米奇素材库中的任意贴纸/道具/相框，或从电脑上传你的自定义透明 PNG / 照片。</p>
+    <div class="seg2" id="libTabs"></div>
+    <div class="lib-grid" id="libGrid"></div>
+    <div class="acts" style="justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:10px">
+      <button class="btn pri" id="libUpload" type="button">+ 从电脑上传自定义图片 (PNG/JPG)</button>
+      <button class="btn" id="libCancel" type="button">取消</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="exportModal" role="dialog" aria-modal="true" aria-labelledby="expT">
+  <div class="sheet" style="width:min(680px,100%)">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+      <h3 id="expT">📦 导出并部署到 Cloudflare Pages / GitHub</h3>
+      <button class="btn" id="expClose" type="button" style="padding:4px 10px">关闭 ×</button>
+    </div>
+    <div class="exp-safe">
+      <b>🔒 朋友打开绝不会看到配置页面：</b>导出的网址已隐藏全部配置后台与编辑按钮，并兼容 Cloudflare Pages（<code>*.pages.dev</code> 零统计报错）。朋友手机点开后自动横屏全屏播放，每关结束后<b>点画面空白处或右下角小纸条都能直接跳下一关</b>！
+    </div>
+    <div class="exp-status" id="expStatus">正在打包全部配置与照片…</div>
+    <div class="exp-card main">
+      <h4><span>方式一：☁️ Cloudflare Pages 绑定 GitHub 自动更新（最省心）</span><small id="expSshBadge">正在检测本机 GitHub 连接…</small></h4>
+      <p class="desc">先把最新纯播放版一键推到你的 GitHub 仓库，再在 Cloudflare Pages 绑定该仓库即可生成 <code>*.pages.dev</code> 地址（国内访问更快；以后改完再点一次按钮就会自动同步更新线上地址）。</p>
+      <div class="exp-grid2">
+        <div class="fld"><label for="expGhUser" style="font-size:12px">GitHub 用户名</label><input class="exp-inp" id="expGhUser" type="text" placeholder="例如：KIM115-git"></div>
+        <div class="fld"><label for="expGhRepo" style="font-size:12px">仓库名</label><input class="exp-inp" id="expGhRepo" type="text" placeholder="birthday-gift-26"></div>
+      </div>
+      <div class="fld">
+        <span class="lab" style="font-size:12px">推送版本选择</span>
+        <div class="seg2" id="expModeSeg">
+          <button class="btn" type="button" data-mode="full" aria-pressed="true" style="font-size:12.5px;padding:6px 10px">复刻原站完整版（含配置台 + 第9关生成地址，配 Cloudflare KV）</button>
+          <button class="btn" type="button" data-mode="player" aria-pressed="false" style="font-size:12.5px;padding:6px 10px">纯享直达版（打开主页直接播放，免配 KV）</button>
+        </div>
+      </div>
+      <div class="exp-btns">
+        <button class="btn pri" id="expPublish" type="button">🚀 一键推送最新版到 GitHub</button>
+        <a class="btn" href="https://dash.cloudflare.com/" target="_blank" rel="noopener">☁️ 打开 Cloudflare 控制台</a>
+        <a class="btn" id="expPreview" href="play.html" target="_blank" rel="noopener">▶ 本地试玩纯享版</a>
+      </div>
+      <ol class="exp-steps" id="expCfSteps">
+        <li>打开 Cloudflare 控制台 → <b>Workers &amp; Pages</b> → <b>Create</b> → 切到 <b>Pages</b> → <b>Connect to Git</b>，选仓库 <code>birthday-gift-26</code>（Build command 与 Output directory 均留空，点 <b>Save and Deploy</b>）。</li>
+        <li>若选「<b>复刻原站完整版</b>」：在 Cloudflare <b>Storage &amp; Databases → KV</b> 新建一个免费命名空间，再回到 Pages 项目 <b>Settings → Bindings → Add → KV namespace</b>，Variable name 填 <code>SITES</code> 并保存，重新部署后即可在第 9 关点「生成地址」秒出 <code>/?s=随机码</code>！</li>
+        <li>若选「<b>纯享直达版</b>」：无需绑定 KV，部署好后主页地址本身就是纯享播放版，直接发给朋友即可。</li>
+      </ol>
+      <div id="expPubBox" hidden style="display:flex;flex-direction:column;gap:8px">
+        <div class="exp-urlbox">
+          <input id="expLiveUrl" type="text" readonly value="">
+          <button class="btn pri" id="expCopyUrl" type="button" style="padding:6px 12px;font-size:13px">📋 复制链接</button>
+          <a class="btn" id="expOpenLive" href="#" target="_blank" rel="noopener" style="padding:6px 12px;font-size:13px">打开链接</a>
+        </div>
+        <div class="exp-status warn" id="expPubHint" hidden></div>
+        <div class="exp-btns" id="expPubActions" hidden>
+          <a class="btn pri" href="https://dash.cloudflare.com/" target="_blank" rel="noopener">☁️ 去 Cloudflare Pages 绑定 / 部署</a>
+          <a class="btn" id="expSettingsBtn" href="#" target="_blank" rel="noopener">⚙ 或开启 GitHub Pages</a>
+          <a class="btn pri" id="expCreateBtn" href="#" target="_blank" rel="noopener" hidden>+ 前往 GitHub 新建该仓库</a>
+        </div>
+      </div>
+    </div>
+    <div class="exp-card">
+      <h4><span>方式二：直接下载压缩包上传 Cloudflare Pages（Direct Upload，不连 Git）</span><small id="expZipSz"></small></h4>
+      <p class="desc">不想绑定 GitHub 时，在 Cloudflare 控制台选 <b>Workers &amp; Pages → Create → Pages → Direct Upload</b>，直接拖入下方 <b>.zip 压缩包</b>（或本地 <code>dist-github/</code> 文件夹，单文件最大 5.1 MB，远低于 Cloudflare 25 MB 限制）即可秒出网址！</p>
+      <div class="exp-btns">
+        <a class="btn pri" id="expDlZip" href="api/download/github.zip" download="mickey-birthday-pages.zip">⬇ 下载 Cloudflare 完整部署包 (.zip)</a>
+        <a class="btn" id="expDlSingle" href="api/download/single.html" download="index.html">⬇ 单文件离线版 index.html (<span id="expSingleSz"></span>)</a>
+      </div>
+    </div>
+    <div class="exp-card">
+      <h4><span>开屏欢迎页文案（朋友手机点开第一眼看到的）</span><button class="btn" id="expRebuild" type="button" style="padding:4px 10px;font-size:12px">↻ 保存文案并重新打包</button></h4>
+      <div class="exp-grid2">
+        <div class="fld"><label for="expTitle" style="font-size:12px">主标题</label><textarea class="exp-inp" id="expTitle" rows="2" style="min-height:48px"></textarea></div>
+        <div class="fld"><label for="expSub" style="font-size:12px">底部提示语</label><textarea class="exp-inp" id="expSub" rows="2" style="min-height:48px"></textarea></div>
+      </div>
+    </div>
+    <details class="exp-card">
+      <summary style="cursor:pointer;font-weight:700;font-size:13px">高级选项：查看手动 Git 推送命令</summary>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+        <div class="exp-btns">
+          <button class="btn" id="expCopyGit" type="button">📋 复制 Git 命令</button>
+        </div>
+        <pre class="exp-code" id="expGitCmd"></pre>
+        <p class="desc" id="expPagesUrl"></p>
+      </div>
+    </details>
+    <div class="acts">
+      <button class="btn" id="expDone" type="button">关闭窗口</button>
+    </div>
+  </div>
+</div>
+<input type="file" id="picker" accept="image/*" hidden>
+<input type="file" id="libPicker" accept="image/*" hidden>
+<audio id="bgm" src="bgm_head.mp3" preload="auto"></audio>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+/* ============ 环节表 ============ */
+var SEGS = [
+  {id:"open",   name:"拆礼物 · 许愿", file:"s_open.html"},
+  {id:"pola",   name:"拍立得 · 插蛋糕", file:"s_ideas.html", tab:"combo", h:"今天的寿星。", en:"给寿星拍一张"},
+  {id:"film",   name:"拉胶卷", file:"s_film.html", en:"拉开我们的胶卷"},
+  {id:"trip",   name:"旅行地图", file:"s_trip.html", opt:true, en:"下一卷，去更远的地方拍"},
+  {id:"wish",   name:"刮刮乐", file:"s_luck.html", tab:"ticket", h:"先刮三张好运。", en:"先给以后刮个好运"},
+  {id:"coupon", name:"老虎机抽券", file:"s_luck.html", tab:"coupon", h:"寿星专属券，拉一下就有。", en:"再领几张寿星专属券"},
+  {id:"kids",   name:"我们的合影", file:"s_ideas.html", tab:"kids", opt:true, h:"一个你，一个我。", en:"再翻翻，我们的合影"},
+  {id:"cake",   name:"拼贴蛋糕", file:"s_cake.html", opt:true, en:"最后，给你拼一个蛋糕"},
+  {id:"gift",   name:"礼物到了", file:"s_ideas.html", tab:"arrive", opt:true, en:"叮咚——有人按门铃"}
+];
+var DEF = {
+  wish:["财运滚滚来", "越来越好看", "身材越来越好"],
+  coupons:["专业按摩券", "免吵架券", "空白万能券"],
+  trip:["悉尼", "孟买", "开普敦", "开罗", "巴黎", "纽约", "里约", "洛杉矶"],
+  strips:[["purple", "第 1 条 · 最底层（建议 40–70 字）", 80, "这一年辛苦啦。往后的每一个生日，我都想陪你一起过：一起吃蛋糕、一起许愿，一起把日子过成我们喜欢的样子。"], ["red", "第 2 条（建议 20–40 字）", 46, "如果偶尔累了，就停下来歇一歇，不用一直那么厉害，我一直都在。"], ["yellow", "第 3 条 · 左边斜的（建议 8–14 字）", 18, "新的一岁，想要的都会来。"], ["pinkd", "第 4 条 · 右边斜的（建议 4–10 字）", 12, "有你真好～"], ["green", "第 5 条（建议 10–24 字）", 28, "今天你最大，想吃什么都可以～"], ["pink", "第 6 条 · 最顶层（建议 2–7 字）", 9, "生日快乐呀！"]]
+};
+SEGS[1].wp = "bl";
+function blank(){ return {age:21, on:{trip:true, kids:true, cake:true, gift:true}, film:["", "", ""], trip:[0, 1, 2].map(function(){ return {city:"", l:""}; }), wish:["", "", ""], coupons:["", "", ""], cakeMode:"default", cake:{purple:"", red:"", yellow:"", pinkd:"", green:"", pink:""}, card:"", door:"", coverFrame:"party", tripMap:"world", home:"", bp:{a:"", b:"", f:""}, layout:{}, exportMeta:{title:"有人给你准备了\n一份生日惊喜", sub:"手机竖着拿就行，会自动横过来；记得打开声音", ghUser:"", ghRepo:""}, lastLink:null}; }
+
+/* ============ 存储：文字在 localStorage，照片在 IndexedDB；存不了就只留在内存里 ============ */
+var state = blank(), IMG = {}, cur = 0, db = null;
+function loadState(){ try { var s = JSON.parse(localStorage.getItem("bdaykit.v1") || "null"); if (s) { var b = blank(); Object.keys(b).forEach(function(k){ if (s[k] != null) b[k] = s[k]; }); b.coupons = b.coupons.map(function(x){ return typeof x === "string" ? x : (x && x.t) || ""; }); state = b; } cur = Math.max(0, Math.min(SEGS.length - 1, +(localStorage.getItem("bdaykit.cur") || 0))); } catch(e) {} }
+var saveT = 0;
+function saveState(){ clearTimeout(saveT); saveT = setTimeout(function(){ try { localStorage.setItem("bdaykit.v1", JSON.stringify(state)); localStorage.setItem("bdaykit.cur", String(cur)); flashSaved(); } catch(e) {} }, 250); }
+function flashSaved(){ var el = document.getElementById("saved"); el.textContent = "已自动保存 ✓"; clearTimeout(flashSaved.t); flashSaved.t = setTimeout(function(){ el.textContent = "改动会自动保存在这台设备上"; }, 1600); }
+function openDB(){ return new Promise(function(res){ try { var r = indexedDB.open("bdaykit", 1); r.onupgradeneeded = function(){ r.result.createObjectStore("img"); }; r.onsuccess = function(){ db = r.result; res(); }; r.onerror = function(){ res(); }; } catch(e) { res(); } }); }
+function loadImgs(){ return new Promise(function(res){ if (!db) return res(); try { var tx = db.transaction("img"), st = tx.objectStore("img"), rq = st.openCursor(); rq.onsuccess = function(){ var c = rq.result; if (c) { IMG[c.key] = c.value; c.continue(); } else res(); }; rq.onerror = function(){ res(); }; } catch(e) { res(); } }); }
+function putImg(key, rec){ if (rec) IMG[key] = rec; else delete IMG[key]; derived = {}; try { if (db) { var st = db.transaction("img", "readwrite").objectStore("img"); if (rec) st.put(rec, key); else st.delete(key); } } catch(e) {} flashSaved(); }
+
+/* ============ 小工具 ============ */
+function $(id){ return document.getElementById(id); }
+function h(tag, attrs, kids){ var e = document.createElement(tag); if (attrs) Object.keys(attrs).forEach(function(k){ if (k === "class") e.className = attrs[k]; else if (k === "text") e.textContent = attrs[k]; else if (k === "html") e.innerHTML = attrs[k]; else if (k.slice(0, 2) === "on") e.addEventListener(k.slice(2), attrs[k]); else if (attrs[k] != null && attrs[k] !== false) e.setAttribute(k, attrs[k]); }); (kids || []).forEach(function(c){ if (c) e.appendChild(typeof c === "string" ? document.createTextNode(c) : c); }); return e; }
+function toast(t){ var e = $("toast"); e.textContent = t; e.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(function(){ e.classList.remove("on"); }, 2600); }
+function clean(s){ return String(s || "").replace(/[\x00-\x1f]/g, " ").split(String.fromCharCode(8232)).join(" ").split(String.fromCharCode(8233)).join(" "); }
+function loadImage(src){ return new Promise(function(res, rej){ var i = new Image(); i.onload = function(){ res(i); }; i.onerror = function(){ rej(new Error("img")); }; i.src = src; }); }
+function canvas(w, hh){ var c = document.createElement("canvas"); c.width = Math.round(w); c.height = Math.round(hh); return c; }
+function segOn(s){ return !s.opt || state.on[s.id] !== false; }
+
+/* ============ 选照片 → 压缩 → 自动居中裁剪 ============ */
+var KIND = {
+  film: {asp:408 / 293, w:816, crop:true, tip:"框里的部分会铺满胶卷格。"},
+  pola: {asp:1, w:600, crop:true, tip:"脸放在中间就好。"},
+  cover:{free:true, w:1200},
+  kidL:{asp:1, w:900, crop:true, tip:"框里的部分会放进拍立得。"}, kidR:{asp:1, w:900, crop:true, tip:"框里的部分会放进拍立得。"},
+  trip:{asp:4 / 3, w:900, crop:true, flex:true, tip:"框里的部分会放进旅行相册。"}
+};
+/* 旅行照片：横的裁成 4:3，竖的裁成 3:4（按原图方向） */
+function aspOf(rec){ var k = KIND[rec.kind]; return k.flex ? (rec.iw >= rec.ih ? 4 / 3 : 3 / 4) : k.asp; }
+var pickCb = null;
+$("picker").addEventListener("change", function(){ var f = this.files && this.files[0]; this.value = ""; if (f && pickCb) pickCb(f); });
+var BUSY = {};
+function pick(key, kind, after){
+  var y0 = window.scrollY, back = function(){ window.scrollTo(0, y0); setTimeout(function(){ window.scrollTo(0, y0); }, 60); };
+  pickCb = function(file){
+    var url = URL.createObjectURL(file); BUSY[key] = url; draw(); back();
+    var done = function(){ delete BUSY[key]; URL.revokeObjectURL(url); };
+    var dec = loadImage(url).then(function(im){ return {s:im, w:im.naturalWidth, h:im.naturalHeight}; }).catch(function(){ if (!window.createImageBitmap) throw 0; return createImageBitmap(file).then(function(bm){ return {s:bm, w:bm.width, h:bm.height}; }); });
+    dec.then(function(d){
+      var max = 1400, sc = Math.min(1, max / Math.max(d.w, d.h));
+      var c = canvas(d.w * sc, d.h * sc); c.getContext("2d").drawImage(d.s, 0, 0, c.width, c.height);
+      var rec = {kind:kind, src:c.toDataURL("image/jpeg", .86), iw:c.width, ih:c.height, cx:.5, cy:c.height > c.width ? .42 : .5, z:1};
+      return render(rec).catch(function(e){ console.warn(e); if (!rec.out) rec.out = rec.src; }).then(function(){ done(); putImg(key, rec); after(); back(); });
+    }, function(){ done(); draw(); toast("这张照片打不开，换一张 JPG 或 PNG 试试"); });
+  };
+  $("picker").click();
+}
+function srcRect(rec, asp){ var fw = 1, fh = 1 / asp, s0 = Math.max(fw / rec.iw, fh / rec.ih); var s = s0 * rec.z, sw = fw / s, sh = fh / s;
+  var cx = Math.max(sw / 2, Math.min(rec.iw - sw / 2, rec.cx * rec.iw)), cy = Math.max(sh / 2, Math.min(rec.ih - sh / 2, rec.cy * rec.ih)); return [cx - sw / 2, cy - sh / 2, sw, sh]; }
+function cropOut(rec, im, asp, w){ var r = srcRect(rec, asp), c = canvas(w, w / asp); c.getContext("2d").drawImage(im, r[0], r[1], r[2], r[3], 0, 0, c.width, c.height); return c; }
+
+/* 设备上直接跑的小模型：找人脸、把人从背景里抠出来。照片不会离开这台设备。 */
+var MPI = {};
+function loadScript(src){ return new Promise(function(res, rej){ var s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
+var MPQ = Promise.resolve();
+function mp(kind){ if (!MPI[kind]) MPI[kind] = MPQ = MPQ.catch(function(){}).then(function(){ window.Module = undefined; return loadScript("mp/" + (kind === "ss" ? "selfie_segmentation" : "face_detection") + ".js"); }).then(function(){ var opt = {locateFile:function(f){ return "mp/" + f + (/\.(binarypb|tflite)$/.test(f) ? ".wasm" : ""); }}, o = kind === "ss" ? new SelfieSegmentation(opt) : new FaceDetection(opt); o.setOptions(kind === "ss" ? {modelSelection:0} : {model:"short", minDetectionConfidence:.4}); return o.initialize().then(function(){ window.Module = undefined; return o; }); }); return MPI[kind]; }
+function soft(p, ms){ return Promise.race([p, new Promise(function(r){ setTimeout(function(){ r(null); }, ms); })]).catch(function(){ return null; }); }
+function segment(im){ return soft(mp("ss").then(function(s){ return new Promise(function(res){ s.onResults(function(r){ var k = Math.min(1, 512 / Math.max(im.naturalWidth, im.naturalHeight)), c = canvas(im.naturalWidth * k, im.naturalHeight * k), g = c.getContext("2d"); g.drawImage(r.segmentationMask, 0, 0, c.width, c.height);
+  var d = g.getImageData(0, 0, c.width, c.height), p = d.data, opaque = true, i; for (i = 3; i < p.length; i += 4) if (p[i] < 250) { opaque = false; break; } if (opaque) { for (i = 0; i < p.length; i += 4) p[i + 3] = p[i]; g.putImageData(d, 0, 0); } res(c); }); s.send({image:im}); }); }), 25000); }
+function findFace(im){ return soft(mp("fd").then(function(f){ return new Promise(function(res){ f.onResults(function(r){ var d = r.detections && r.detections[0]; if (!d) return res(null); var b = d.boundingBox, W = im.naturalWidth, H = im.naturalHeight; var lm = d.landmarks || [], ey = lm.length >= 2 ? [[lm[0].x * W, lm[0].y * H], [lm[1].x * W, lm[1].y * H]] : null; res({cx:b.xCenter * W, cy:b.yCenter * H, w:b.width * W, h:b.height * H, eyes:ey}); }); f.send({image:im}); }); }), 8000); }
+function alphaBox(c){ var k = 96 / c.width, w = 96, hh = Math.max(1, Math.round(c.height * k)), t = canvas(w, hh), g = t.getContext("2d"); g.drawImage(c, 0, 0, w, hh); var d = g.getImageData(0, 0, w, hh).data, x0 = w, y0 = hh, x1 = -1, y1 = -1, n = 0;
+  for (var y = 0; y < hh; y++) for (var x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3] > 120) { n++; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  if (x1 < 0) return null; return {x:x0 / w, y:y0 / hh, w:(x1 - x0 + 1) / w, h:(y1 - y0 + 1) / hh, area:n / (w * hh)}; }
+function cutPerson(im){ return Promise.all([cutPerson0(im), findFace(im)]).then(function(a){ return a[0] && (a[0].area >= .3 || a[1]) ? a[0] : null; }); }
+function cutPerson0(im){ return segment(im).then(function(mask){ if (!mask) return null; var bb = alphaBox(mask); if (!bb || bb.area < .04 || bb.area > .96) return null;
+  var W = im.naturalWidth, H = im.naturalHeight, pad = .012, x = Math.max(0, bb.x - pad) * W, y = Math.max(0, bb.y - pad) * H, w = Math.min(W - x, (bb.w + 2 * pad) * W), hh = Math.min(H - y, (bb.h + 2 * pad) * H), sc = Math.min(1, 700 / Math.max(w, hh));
+  var c = canvas(w * sc, hh * sc), g = c.getContext("2d"); g.imageSmoothingQuality = "high"; g.drawImage(mask, x * mask.width / W, y * mask.height / H, w * mask.width / W, hh * mask.height / H, 0, 0, c.width, c.height);
+  var d = g.getImageData(0, 0, c.width, c.height), p = d.data; for (var i = 3; i < p.length; i += 4) { var a = (p[i] - 105) * 2.8; p[i] = a < 0 ? 0 : a > 255 ? 255 : a; } g.putImageData(d, 0, 0);
+  g.globalCompositeOperation = "source-in"; g.drawImage(im, x, y, w, hh, 0, 0, c.width, c.height); g.globalCompositeOperation = "source-over"; return {c:c, x:x, y:y, sc:sc, area:bb.area}; }); }
+/* 小时候照片：抠出来的人 + 一圈白色描边；抠不出人就整张照片加白边 */
+function outlined(pc){ var W = 420, H = 734, pad = 30, s = Math.min((W - 2 * pad) / pc.width, (H - 2 * pad) / pc.height), w = pc.width * s, hh = pc.height * s, x = (W - w) / 2, y = (H - hh) / 2, out = canvas(W, H), g = out.getContext("2d");
+  var sil = canvas(W, H), sg = sil.getContext("2d"); sg.drawImage(pc, x, y, w, hh); sg.globalCompositeOperation = "source-in"; sg.fillStyle = "#fbf9f4"; sg.fillRect(0, 0, W, H);
+  for (var a = 0; a < 28; a++) g.drawImage(sil, Math.cos(a / 28 * 6.2832) * 11, Math.sin(a / 28 * 6.2832) * 11); g.drawImage(sil, 0, 0); g.drawImage(pc, x, y, w, hh); return out.toDataURL("image/png"); }
+function framed(im){ var W = 420, H = 734, pad = 34, s = Math.min((W - 2 * pad) / im.naturalWidth, (H - 2 * pad) / im.naturalHeight), w = im.naturalWidth * s, hh = im.naturalHeight * s, x = (W - w) / 2, y = (H - hh) / 2, out = canvas(W, H), g = out.getContext("2d");
+  g.fillStyle = "#fbf9f4"; g.fillRect(x - 12, y - 12, w + 24, hh + 24); g.drawImage(im, x, y, w, hh); return out.toDataURL("image/png"); }
+var FM = null;
+function faceSlot(){ if (!FM) FM = loadImage("d/facemask.webp").then(function(m){ var c = canvas(m.naturalWidth, m.naturalHeight); c.getContext("2d").drawImage(m, 0, 0); var b = alphaBox(c); if (!b || b.area > .96) return {cx:.5, cy:.52, w:.6}; return {cx:b.x + b.w / 2, cy:b.y + b.h / 2, w:b.w}; }).catch(function(){ return {cx:.5, cy:.52, w:.6}; }); return FM; }
+/* 眼睛在裁好的方形照片里的位置（0~1）；没找到眼睛就不给墨镜 */
+function eyesOut(rec){ rec.eo = null; if (!rec.eyes) return; var r = srcRect(rec, 1), e = rec.eyes.map(function(p){ return [(p[0] - r[0]) / r[2], (p[1] - r[1]) / r[3]]; });
+  if (e.every(function(p){ return p[0] > .03 && p[0] < .97 && p[1] > .03 && p[1] < .97; })) rec.eo = e; }
+function render(rec){
+  var k = KIND[rec.kind];
+  return loadImage(rec.src).then(function(im){
+    if (k.free) { var sc = Math.min(1, k.w / Math.max(rec.iw, rec.ih)), c0 = canvas(rec.iw * sc, rec.ih * sc); c0.getContext("2d").drawImage(im, 0, 0, c0.width, c0.height); rec.out = c0.toDataURL("image/jpeg", .84); rec.o = rec.iw >= rec.ih ? "l" : "p"; return; }
+    if (rec.kind === "film") { rec.out = cropOut(rec, im, k.asp, k.w).toDataURL("image/jpeg", .86); return; }
+    if (rec.kind === "kidL" || rec.kind === "kidR") { rec.out = cropOut(rec, im, 1, k.w).toDataURL("image/jpeg", .86); return; }
+    if (rec.kind === "trip") { var a = aspOf(rec); rec.out = cropOut(rec, im, a, a >= 1 ? k.w : k.w * .75).toDataURL("image/jpeg", .86); rec.o = a >= 1 ? "l" : "p"; return; }
+    if (rec.kind === "pola") { if (rec.manual) { rec.out = cropOut(rec, im, 1, k.w).toDataURL("image/jpeg", .86); eyesOut(rec); return; }
+      return findFace(im).then(function(f){ if (f) { var Sd = f.w / .42; rec.z = Math.max(1, Math.min(rec.iw, rec.ih) / Sd); rec.cx = f.cx / rec.iw; rec.cy = (f.cy + f.h * .06) / rec.ih; rec.face = 1; rec.eyes = f.eyes; } else rec.eyes = null;
+        rec.out = cropOut(rec, im, 1, k.w).toDataURL("image/jpeg", .86); eyesOut(rec); }); }
+    if (rec.kind === "cover") return Promise.all([cutPerson(im), findFace(im)]).then(function(a){ var cu = a[0], f = a[1];
+      if (cu) { rec.out = cu.c.toDataURL("image/png"); rec.cut = {ok:1, face:f ? {cx:(f.cx - cu.x) * cu.sc, cy:(f.cy - cu.y) * cu.sc, w:f.w * cu.sc} : null}; return; }
+      if (f) { rec.cx = f.cx / rec.iw; rec.cy = f.cy / rec.ih; rec.z = Math.max(1, Math.min(rec.iw, rec.ih * 220 / 236) / (f.w * 1.7)); } rec.cut = {ok:0}; rec.out = cropOut(rec, im, 220 / 236, 330).toDataURL("image/jpeg", .86); });
+    return cutPerson(im).then(function(cu){ rec.cut = {ok:cu ? 1 : 0}; rec.out = cu ? outlined(cu.c) : framed(im); });
+  });
+}
+
+/* ============ 弹窗滚动锁（防止滚动穿透 + 记录还原 scrollTop） ============ */
+var __lockY = 0, __locked = false;
+function lockScroll(on){
+  if (on) {
+    if (!__locked) {
+      __lockY = window.scrollY || document.documentElement.scrollTop || 0;
+      __locked = true;
+      document.body.style.top = -__lockY + "px";
+      document.body.classList.add("modal-open");
+    }
+  } else {
+    var anyOpen = document.querySelector(".modal.on, .full.on, .wall-modal");
+    if (anyOpen || !__locked) return;
+    __locked = false;
+    document.body.classList.remove("modal-open");
+    document.body.style.top = "";
+    window.scrollTo(0, __lockY);
+  }
+}
+["crop", "libModal", "exportModal", "full"].forEach(function(id){
+  var el = $(id); if (!el) return;
+  el.addEventListener("wheel", function(e){
+    var sh = e.target.closest && e.target.closest(".sheet, .lib-grid, .le-list");
+    if (!sh) e.preventDefault();
+  }, {passive:false});
+  el.addEventListener("touchmove", function(e){
+    var sh = e.target.closest && e.target.closest(".sheet, .lib-grid, .le-list");
+    if (!sh) e.preventDefault();
+  }, {passive:false});
+});
+
+/* ============ 裁剪弹窗 ============ */
+var CR = null;
+function openCrop(key, after){
+  var rec = IMG[key]; if (!rec) return; var k = KIND[rec.kind]; if (!k.crop) return;
+  var box = $("cropbox"), img = $("cropimg"), guide = $("cropguide");
+  var asp = aspOf(rec), maxW = Math.min(520, window.innerWidth - 60), maxH = window.innerHeight * .55, fw = maxW, fh = fw / asp; if (fh > maxH) { fh = maxH; fw = fh * asp; }
+  box.style.width = fw + "px"; box.style.height = fh + "px"; $("cropTip").textContent = k.tip + " 拖动照片，双指或用滑块缩放。";
+  guide.className = "guide" + (k.ellipse ? " ellipse" : k.mask ? " mask" : ""); guide.style.webkitMaskImage = guide.style.maskImage = k.mask ? "url(" + k.mask + "), linear-gradient(#000,#000)" : "";
+  CR = {key:key, rec:rec, k:k, fw:fw, fh:fh, cx:rec.cx * rec.iw, cy:rec.cy * rec.ih, z:rec.z, s0:Math.max(fw / rec.iw, fh / rec.ih), after:after, pts:{}};
+  img.src = rec.src; $("cropz").value = Math.round(rec.z * 100); cropDraw(); $("crop").classList.add("on"); lockScroll(true);
+}
+function cropDraw(){ var c = CR, s = c.s0 * c.z, sw = c.fw / s, sh = c.fh / s; c.cx = Math.max(sw / 2, Math.min(c.rec.iw - sw / 2, c.cx)); c.cy = Math.max(sh / 2, Math.min(c.rec.ih - sh / 2, c.cy));
+  $("cropimg").style.width = c.rec.iw + "px"; $("cropimg").style.transform = "translate(" + (c.fw / 2 - c.cx * s) + "px," + (c.fh / 2 - c.cy * s) + "px) scale(" + s + ")"; }
+(function(){
+  var box = $("cropbox");
+  box.addEventListener("pointerdown", function(e){ if (!CR) return; box.setPointerCapture(e.pointerId); CR.pts[e.pointerId] = [e.clientX, e.clientY]; });
+  box.addEventListener("pointermove", function(e){ if (!CR || !CR.pts[e.pointerId]) return; var ids = Object.keys(CR.pts), p = CR.pts[e.pointerId], s = CR.s0 * CR.z;
+    if (ids.length === 1) { CR.cx -= (e.clientX - p[0]) / s; CR.cy -= (e.clientY - p[1]) / s; }
+    else { var o = CR.pts[ids[0] == e.pointerId ? ids[1] : ids[0]], d0 = Math.hypot(p[0] - o[0], p[1] - o[1]), d1 = Math.hypot(e.clientX - o[0], e.clientY - o[1]); if (d0 > 8) { CR.z = Math.max(1, Math.min(4, CR.z * d1 / d0)); $("cropz").value = Math.round(CR.z * 100); } }
+    CR.pts[e.pointerId] = [e.clientX, e.clientY]; cropDraw(); });
+  function up(e){ if (CR) delete CR.pts[e.pointerId]; }
+  box.addEventListener("pointerup", up); box.addEventListener("pointercancel", up);
+  box.addEventListener("wheel", function(e){ if (!CR) return; e.preventDefault(); CR.z = Math.max(1, Math.min(4, CR.z * (e.deltaY < 0 ? 1.06 : .94))); $("cropz").value = Math.round(CR.z * 100); cropDraw(); }, {passive:false});
+  $("cropz").addEventListener("input", function(){ if (!CR) return; CR.z = this.value / 100; cropDraw(); });
+  $("cropNo").addEventListener("click", function(){ $("crop").classList.remove("on"); CR = null; lockScroll(false); });
+  $("cropOk").addEventListener("click", function(){ var c = CR; if (!c) return; c.rec.cx = c.cx / c.rec.iw; c.rec.cy = c.cy / c.rec.ih; c.rec.z = c.z; c.rec.manual = 1; $("crop").classList.remove("on"); CR = null; lockScroll(false); render(c.rec).then(function(){ putImg(c.key, c.rec); c.after(); }); });
+})();
+
+/* ============ 需要现拼的图：封面（年龄数字 + 头像）、锁屏壁纸 ============ */
+var derived = {};
+function gray(c){ var g = c.getContext("2d"), d = g.getImageData(0, 0, c.width, c.height), p = d.data; for (var i = 0; i < p.length; i += 4) { var v = p[i] * .3 + p[i + 1] * .59 + p[i + 2] * .11; v = Math.max(0, Math.min(255, (v - 128) * 1.12 + 132)); p[i] = p[i + 1] = p[i + 2] = v; } g.putImageData(d, 0, 0); }
+function digits(age){
+  var NB = [30, 392, 615, 472], txt = String(age), n = txt.length, face = "px 'Arial Black','Arial Rounded MT Bold','Helvetica Neue',Arial,sans-serif", fs = n === 3 ? 250 : 400, c = canvas(NB[2], NB[3]), g = c.getContext("2d");
+  var slots = n === 1 ? [[txt, 150, -5, 0]] : n === 2 ? [[txt[0], 150, -5, 0], [txt[1], 462, 4, 1]] : [[txt.slice(0, 2), 128, -4, 0], [txt[2], 478, 4, 1]];
+  slots.forEach(function(s){ var t = canvas(NB[2], NB[3]), q = t.getContext("2d"), f2 = fs, lim = s[0].length === 2 ? 262 : 250; q.textAlign = "center"; q.textBaseline = "middle"; q.lineJoin = "round"; q.font = "900 " + f2 + face; while (q.measureText(s[0]).width > lim && f2 > 80) { f2 -= 8; q.font = "900 " + f2 + face; }
+    q.translate(s[1], NB[3] / 2 + 6); q.rotate(s[2] * Math.PI / 180); var i, x, y;
+    if (!s[3]) { /* 左边：蜡笔涂出来的深蓝，留着笔触的空隙 */
+      q.fillStyle = "#3f66b0"; q.fillText(s[0], 0, 0); q.lineWidth = 9; q.strokeStyle = "#2b4f9a"; q.strokeText(s[0], 0, 0); q.setTransform(1, 0, 0, 1, 0, 0); q.globalCompositeOperation = "destination-out";
+      for (i = 0; i < 5200; i++) { q.globalAlpha = Math.random() * .55; x = Math.random() * NB[2]; y = Math.random() * NB[3]; q.save(); q.translate(x, y); q.rotate(-.5); q.fillRect(0, 0, 4 + Math.random() * 22, 1.4); q.restore(); } }
+    else { /* 右边：浅色牛仔布纹，深色包边加一圈缝线 */
+      q.fillStyle = "#a9bcd8"; q.fillText(s[0], 0, 0); q.save(); q.setTransform(1, 0, 0, 1, 0, 0); q.globalCompositeOperation = "source-atop";
+      for (i = 0; i < 9000; i++) { q.globalAlpha = .1 + Math.random() * .3; q.fillStyle = Math.random() < .5 ? "#6f8fc0" : "#e6edf7"; x = Math.random() * NB[2]; y = Math.random() * NB[3]; q.fillRect(x, y, 1.6, 1 + Math.random() * 7); } q.restore();
+      q.globalAlpha = 1; q.lineWidth = 12; q.strokeStyle = "#4f74b3"; q.strokeText(s[0], 0, 0); q.lineWidth = 2.2; q.setLineDash([9, 8]); q.strokeStyle = "#eef3fa"; q.strokeText(s[0], 0, 0); }
+    g.drawImage(t, 0, 0); });
+  return {c:c, box:NB};
+}
+function coverCfg(){ return Promise.resolve({photo:IMG.cover ? IMG.cover.out : null, frame:"party", age:state.age}); }
+function wallCfg(){
+  var L = IMG.kidL, R = IMG.kidR; if (!L && !R) return Promise.resolve(null);
+  var key = "wall|" + (L ? L.out.length + ":" + L.cx + L.cy + L.z : "") + "|" + (R ? R.out.length + ":" + R.cx + R.cy + R.z : ""); if (derived[key]) return Promise.resolve(derived[key]);
+  var DD = [[0, 9, 419, 496], [936, 102, 320, 491], [628, 176, 291, 287], [431, 239, 194, 186], [647, 409, 59, 144], [513, 432, 133, 125], [0, 516, 257, 264], [0, 804, 221, 231], [32, 1520, 398, 284], [931, 1541, 160, 101], [495, 1674, 312, 274], [929, 1683, 189, 140]];
+  var srcs = DD.map(function(_, i){ return "d/dd" + i + ".webp"; }).concat([L ? L.out : "d/kidL.webp", R ? R.out : "d/kidR.webp"]);
+  return Promise.all(srcs.map(loadImage)).then(function(im){ var k = 580 / 1268, c = canvas(580, 900), g = c.getContext("2d"); g.fillStyle = "#fefcfd"; g.fillRect(0, 0, 580, 900);
+    DD.forEach(function(b, i){ g.drawImage(im[i], b[0] * k, b[1] * k, b[2] * k, b[3] * k); });
+    g.drawImage(im[12], 9 * k, 458 * k, 625 * k, 1092 * k); g.drawImage(im[13], 634 * k, 458 * k, 625 * k, 1092 * k);
+    derived[key] = c.toDataURL("image/jpeg", .88); return derived[key]; });
+}
+
+/* ============ 把配置交给模板 ============ */
+function out(key){ return IMG[key] ? IMG[key].out : null; }
+function resolveLayout(segId){
+  var raw = (state.layout && state.layout[segId]) || {overrides:{}, added:[]};
+  var copy = JSON.parse(JSON.stringify(raw));
+  Object.keys(copy.overrides || {}).forEach(function(k){
+    var o = copy.overrides[k];
+    if (o && o.src && o.src.indexOf("idb:") === 0) {
+      var r = IMG[o.src.slice(4)];
+      o.src = r ? (r.out || r.src) : null;
+    }
+  });
+  (copy.added || []).forEach(function(a){
+    if (a && a.src && a.src.indexOf("idb:") === 0) {
+      var r = IMG[a.src.slice(4)];
+      a.src = r ? (r.out || r.src) : a.src;
+    }
+  });
+  return copy;
+}
+function cfgFor(seg){
+  var c = {_tab:seg.tab || "", _layout:resolveLayout(seg.id), _editMode:!!window.__leEditMode};
+  if (seg.id === "open") return coverCfg().then(function(v){ if (v) c.cover = v; return c; });
+  if (seg.id === "pola") { if (out("pola")) { c.pola = out("pola"); c.polaEyes = IMG.pola.eo || null; } }
+  if (seg.id === "film") c.film = state.film.map(function(t, i){ return {img:out("film" + i), t:clean(t)}; });
+  if (seg.id === "trip") return tripCfg().then(function(t){ c.trip = t; return c; });
+  if (seg.id === "wish") c.wish = state.wish.map(function(w, i){ return clean(w) || DEF.wish[i]; });
+  if (seg.id === "coupon") c.coupons = [0, 1, 2].map(function(i){ return {t:clean(state.coupons[i]) || DEF.coupons[i], d:"Happy Birthday", s:"寿星专属券 · 随时兑换", gold:i === 2}; });
+  if (seg.id === "cake" && state.cakeMode === "custom") { c.cake = {}; Object.keys(state.cake).forEach(function(k){ if (state.cake[k]) c.cake[k] = clean(state.cake[k]); }); }
+  if (seg.id === "gift" && clean(state.door)) c.door = clean(state.door);
+  if (seg.id === "kids") { if (out("kidL")) c.kidA = out("kidL"); if (out("kidR")) c.kidB = out("kidR"); }
+  return Promise.resolve(c);
+}
+
+/* ============ 地名 → 经纬度 → 地图上的位置 ============ */
+var CITIES = null, DEFT = {world:["悉尼", "开普敦", "巴黎", "纽约", "东京", "里约", "开罗", "温哥华"], china:["北京", "成都", "厦门", "三亚", "西安", "哈尔滨", "拉萨", "大理"], rail:["成都", "东京", "大理", "厦门"]};
+var FALL = {world:[[151.2, -33.9], [18.4, -33.9], [2.35, 48.86], [-74, 40.7], [139.7, 35.7], [-43.2, -22.9], [31.2, 30.04], [-123.1, 49.3]], china:[[116.4, 39.9], [104.07, 30.67], [118.08, 24.48], [109.51, 18.25], [108.94, 34.34], [126.64, 45.76], [91.11, 29.65], [100.23, 25.6]]};
+var TRIPMAX = {world:8, china:8, rail:4};
+function loadCities(){ if (!CITIES) CITIES = fetch("geo/cities.json").then(function(r){ return r.json(); }).catch(function(){ return {}; }); return CITIES; }
+function geoFind(C, name, map){ var n = clean(name).trim(); if (!n) return null; var v = C[n] || C[n.replace(/[市县区]$/, "")] || C[n.toLowerCase()]; if (!v) return null; if (map === "china" && !v[2]) return null; return v; }
+function proj(map, v){
+  if (map === "china") { var f = Math.PI / 180, n = .576986, C = 1.309083, r = Math.sqrt(C - 2 * n * Math.sin(v[1] * f)) / n, th = n * (v[0] - 105) * f, X = r * Math.sin(th), Y = -r * Math.cos(th);
+    return [Math.round(879.633 * X + 48.6297 * Y + 646.5), Math.round(41.4671 * X - 865.5218 * Y - 903.411)]; }
+  var x = 366.154 + 2.0477 * v[0]; if (x < 4) x += 737.2; if (x > 731) x -= 737.2;
+  return [Math.round(x), Math.round(275.815 - 152.994 * (1 + Math.SQRT1_2) * Math.tan(v[1] * Math.PI / 360))];
+}
+function hav(a, b){ var f = Math.PI / 180, d1 = (b[1] - a[1]) * f, d2 = (b[0] - a[0]) * f, q = Math.sin(d1 / 2) * Math.sin(d1 / 2) + Math.cos(a[1] * f) * Math.cos(b[1] * f) * Math.sin(d2 / 2) * Math.sin(d2 / 2); return 12742 * Math.asin(Math.sqrt(q)); }
+function geoHint(el, name, map){ el.textContent = ""; if (map === "rail" || !clean(name).trim()) return; loadCities().then(function(C){ var r = geoFind(C, name, map); el.textContent = r ? "✓ 已在地图上找到这个地方" : (map === "china" ? "中国地图上没找到这个地名，会放在一个默认位置" : "地图上没找到这个地名，会放在一个默认位置"); el.style.color = r ? "#2f6b4f" : "#b8322a"; }); }
+function tripCfg(){
+  var map = state.tripMap || "world", list = state.trip.slice(0, TRIPMAX[map] || 8);
+  return loadCities().then(function(C){
+    var stops = list.map(function(s, i){ var g = [0, 1, 2].map(function(j){ return IMG["trip" + i + "_" + j]; }).filter(Boolean), def = !clean(s.city) && !clean(s.l) && !g.length;
+      return {city:clean(s.city) || DEFT[map][i % DEFT[map].length], l:clean(s.l), g:g.map(function(r){ return r.out; }), o:g.map(function(r){ return r.o; }), def:def ? 1 : 0}; });
+    var homeName = clean(state.home) || "上海";
+    var bp = state.bp || {}, bpv = {p:(clean(bp.a) || "你") + " & " + (clean(bp.b) || "我"), f:clean(bp.f) || "LOVE航班"};
+    if (map === "rail") return {map:map, home:{name:homeName}, stops:stops, bp:bpv};
+    var hv = geoFind(C, homeName, map) || [121.47, 31.23], hp = proj(map, hv), prev = hv, km = 0;
+    stops.forEach(function(st, i){ var v = geoFind(C, st.city, map) || FALL[map][i % FALL[map].length], q = proj(map, v); st.x = q[0]; st.y = q[1]; km += hav(prev, v); prev = v; });
+    return {map:map, home:{name:homeName, x:hp[0], y:hp[1]}, stops:stops, bp:bpv, km:(Math.round(km / 100) * 100).toLocaleString("en-US")};
+  });
+}
+var TPL = {};
+/* 网不好时（尤其国内打开海外服务器）偶尔会断一下：失败了等一会儿自动重试，最多 3 次 */
+function fetchRetry(url, opt, n){ n = n == null ? 3 : n;
+  return fetch(url, opt).then(function(r){ if (!r.ok && r.status !== 404 && n > 0) throw new Error("http " + r.status); return r; })
+    .catch(function(e){ if (n <= 0) throw e; return new Promise(function(ok){ setTimeout(ok, (4 - n) * 1500); }).then(function(){ return fetchRetry(url, opt, n - 1); }); }); }
+function tpl(file){ if (!TPL[file]) { TPL[file] = fetchRetry(file).then(function(r){ if (!r.ok) throw new Error(file); return r.text(); }); TPL[file].catch(function(){ delete TPL[file]; }); } return TPL[file]; }
+function pageFor(seg, pre){ return Promise.all([tpl(seg.id === "trip" && state.tripMap === "rail" ? "s_rail.html" : seg.file), cfgFor(seg)]).then(function(a){ if (pre) a[1]._pre = 1; var json = JSON.stringify(a[1]).replace(/</g, "\\u003c"); return a[0].replace("<!--CFG-->", function(){ return "<script>window.CFG=" + json + "<\/script><script src=\"layout_editor.js\"><\/script>"; }); }); }
+
+/* ============ 播放器：一关一个 iframe，带「下一关」小纸条、标题、结尾卡片 ============ */
+function Player(root){
+  var me = this; this.root = root; this.live = null; this.list = []; this.i = -1; this.run = 0; this.done = false;
+  root.innerHTML = '<div class="frame"><p class="loading">正在准备这一关…</p><div class="nextcatch" title="点击任意处进入下一关"></div><button class="peek" type="button"></button><p class="wsp"></p><p class="ttl2"></p><p class="ghint">点一下，送上生日祝福卡片</p><div class="gcatch"></div><div class="endc"><div class="cardp"><p></p></div></div></div>';
+  this.frame = root.firstChild; this.nextcatch = this.frame.querySelector(".nextcatch"); this.peek = this.frame.querySelector(".peek"); this.wsp = this.frame.querySelector(".wsp"); this.ttl = this.frame.querySelector(".ttl2"); this.endc = this.frame.querySelector(".endc"); this.ghint = this.frame.querySelector(".ghint"); this.gcatch = this.frame.querySelector(".gcatch");
+  this.gcatch.addEventListener("click", function(){ me.gcatch.classList.remove("on"); me.ghint.classList.remove("on"); me.endc.classList.add("on"); });
+  function goNext(){ if (me.i < me.list.length - 1) me.go(me.i + 1); else me.go(me.i); }
+  this.peek.addEventListener("click", goNext);
+  this.nextcatch.addEventListener("click", function(){ if (me.done && me.i < me.list.length - 1 && !document.querySelector(".wall-modal")) goNext(); });
+  window.addEventListener("message", function(e){ if (!me.live || !e.data || e.source !== me.live.contentWindow) return;
+    if (e.data.segdone) { var last = me.i === me.list.length - 1;
+      me.done = !last;
+      if (!last) {
+        me.peek.classList.remove("idle");
+        me.peek.innerHTML = "";
+        me.peek.textContent = me.list[me.i + 1].en || "下一关";
+        me.peek.insertAdjacentHTML("beforeend", "<b>→</b><small>点任意处继续</small>");
+        me.peek.classList.add("on");
+        /* 除胶卷（可继续滑照片）与合影（可点中间手机看壁纸）外，过关 350ms 后开启全画面点击跳下一关 */
+        var curId = me.list[me.i] && me.list[me.i].id;
+        clearTimeout(me.ncT);
+        if (curId !== "film" && curId !== "kids") {
+          me.ncT = setTimeout(function(){ if (me.done) me.nextcatch.classList.add("on"); }, 350);
+        }
+      }
+      if (me.onDone) me.onDone(last); }
+    if (e.data.nextSeg && me.done && me.i < me.list.length - 1 && !document.querySelector(".wall-modal")) { me.go(me.i + 1); }
+    if (e.data.wallFull) showWall(e.data.wallFull);
+    if (e.data.wsp) { me.wsp.textContent = e.data.wsp; me.wsp.className = "wsp on" + (me.list[me.i].wp ? " " + me.list[me.i].wp : ""); clearTimeout(me.wt); me.wt = setTimeout(function(){ me.wsp.classList.remove("on"); }, 5000); } });
+}
+Player.prototype.quiet = function(){ this.done = false; clearTimeout(this.ncT); if (this.nextcatch) this.nextcatch.classList.remove("on"); this.peek.classList.remove("on", "idle"); this.wsp.classList.remove("on"); this.ttl.classList.remove("on"); this.endc.classList.remove("on"); this.ghint.classList.remove("on"); this.gcatch.classList.remove("on"); clearTimeout(this.t1); clearTimeout(this.t2); };
+Player.prototype.stop = function(){ this.run++; this.quiet(); if (this.pre) { this.pre.f.remove(); this.pre = null; } if (this.live) { this.live.remove(); this.live = null; } };
+Player.prototype.play = function(list, i){ this.list = list; this.go(i || 0); };
+Player.prototype.mk = function(seg){ var f = document.createElement("iframe"); f.title = seg.name; f.style.opacity = "0"; f.setAttribute("allow", "autoplay; fullscreen"); f.addEventListener("load", function(){ bgmHook(f.contentWindow); }); return f; };
+Player.prototype.show = function(f, seg, run){
+  var me = this, old = this.live; this.live = f; f.style.pointerEvents = ""; f.style.zIndex = ""; f.style.opacity = "1";
+  this.tries = 0; try { f.contentWindow.postMessage({show:1}, "*"); } catch (e) {} window.__first();
+  if (old && old !== f) setTimeout(function(){ old.remove(); }, 380);
+  /* 多关连播模式下（非最后一关），右下角常驻柔和「下一关 →」按钮，随时可切不卡关；过关后自动升级为高亮提示 */
+  if (this.list.length > 1 && this.i < this.list.length - 1 && !this.done) {
+    this.peek.innerHTML = "下一关<b>→</b>";
+    this.peek.classList.remove("on");
+    this.peek.classList.add("idle");
+  }
+  if (seg.h) { me.ttl.textContent = seg.h; me.t1 = setTimeout(function(){ me.ttl.classList.add("on"); me.t2 = setTimeout(function(){ me.ttl.classList.remove("on"); }, 4200); }, 250); }
+  this.prep(this.i + 1, run);
+};
+/* 关卡页面一解析完（再给图片 0.8 秒）就放出来，不用等所有图片都下载完；先到的那个算数 */
+/* 第一关放出来之前，别的东西（完整音乐、其他关卡）都先别下载，网速先让给第一屏 */
+var FIRST = new Promise(function(r){ window.__first = r; }); setTimeout(function(){ if (!/[?&]s=/.test(location.search)) window.__first(); }, 8000);   /* 对方打开链接时：一定等第一关放出来，再下完整音乐 */
+var READY_WAIT = 4000;   /* 页面解析完后最多再等多久图片（播放模式里会改长） */
+function whenReady(f, cb){ var fired = false, t = 0; function fire(){ if (fired) return; fired = true; clearInterval(t); cb(); }
+  f.addEventListener("load", fire);
+  t = setInterval(function(){ try { var d = f.contentDocument; if (d && d.URL === "about:srcdoc" && d.readyState !== "loading") { clearInterval(t); setTimeout(fire, READY_WAIT); } } catch (e) {} }, 50); }
+var COARSE = !!(window.matchMedia && matchMedia("(pointer:coarse)").matches);
+/* 当前这关放出来后，在后台把下一关先加载好（藏在下面、不放声音），点「下一关」时直接换上来 */
+Player.prototype.prep = function(i, run){
+  var me = this, seg = this.list[i], list = this.list; if (!seg || COARSE) return;
+  setTimeout(function(){ if (run !== me.run || me.pre) return;
+    pageFor(seg, true).then(function(html){ if (run !== me.run) return; var f = me.mk(seg), rec = {i:i, list:list, f:f, ready:false};
+      f.style.pointerEvents = "none"; f.style.zIndex = "1"; me.pre = rec; whenReady(f, function(){ rec.ready = true; if (rec.go) rec.go(); }); f.srcdoc = html; me.frame.insertBefore(f, me.peek);
+      warm(SEGS.indexOf(seg) + 1); }).catch(function(){}); }, 900);
+};
+Player.prototype.go = function(i){
+  var me = this, seg = this.list[i], run = ++this.run; if (!seg) return; this.i = i; this.quiet();
+  var pre = this.pre; this.pre = null;
+  if (pre && pre.i === i && pre.list === this.list && pre.f.isConnected) { if (pre.ready) this.show(pre.f, seg, run); else pre.go = function(){ if (run === me.run) me.show(pre.f, seg, run); }; return; }
+  if (pre) pre.f.remove();
+  pageFor(seg).then(function(html){ if (run !== me.run) return;
+    var f = me.mk(seg); whenReady(f, function(){ if (run !== me.run) { f.remove(); return; } me.show(f, seg, run); });
+    f.srcdoc = html; me.frame.insertBefore(f, me.peek);
+  }).catch(function(){ if (run !== me.run) return; me.tries = (me.tries || 0) + 1;
+    if (me.tries <= 2) setTimeout(function(){ if (run === me.run) me.go(i); }, 2000); else { me.tries = 0; toast("这一关没加载出来，点「重播这一关」再试一次"); } });
+};
+/* 合影那关：点手机后，在整个页面上全屏显示壁纸，方便截图 */
+function showWall(src){
+  var o = document.createElement("div"); o.className = "wall-modal"; o.style.cssText = "position:fixed;inset:0;z-index:9999;background:#111;display:flex;align-items:center;justify-content:center;cursor:pointer;overscroll-behavior:contain;touch-action:none";
+  var im = document.createElement("img"); im.src = src; im.alt = "合影壁纸"; im.style.cssText = "max-width:100%;max-height:100%;object-fit:contain"; o.appendChild(im);
+  var tip = document.createElement("div"); tip.textContent = "把手机竖过来截个图，就是一张锁屏壁纸～ 点一下返回"; tip.style.cssText = "position:absolute;left:50%;top:6%;transform:translateX(-50%);max-width:92%;padding:.5em 1em;border-radius:999px;background:rgba(60,45,35,.72);color:#fff;font-size:14px;line-height:1.4;text-align:center;transition:opacity .6s"; o.appendChild(tip);
+  setTimeout(function(){ tip.style.opacity = "0"; }, 3500);
+  lockScroll(true);
+  o.onclick = function(){ o.remove(); lockScroll(false); }; document.body.appendChild(o);
+}
+
+/* ============ 页面 ============ */
+var pv = null, fp = null, refreshT = 0, openPlay = false, PRE = null;
+function warm(i){ var s = SEGS[i]; if (!s) return; tpl(s.file).catch(function(){}); if (!PRE) PRE = fetch("pre.json").then(function(r){ return r.json(); }).catch(function(){ return {}; }); PRE.then(function(m){ (m[s.file] || []).forEach(function(u){ var im = new Image(); im.src = u; }); }); }
+function refresh(now){ clearTimeout(refreshT); refreshT = setTimeout(function(){ var s = SEGS[cur], still = $("still"); $("pv").classList.toggle("dim", !segOn(s)); if ($("full").classList.contains("on")) return;
+  still.hidden = true; if (segOn(s)) pv.play([s], 0); else pv.stop(); FIRST.then(function(){ setTimeout(function(){ warm(cur + 1); }, 1200); }); }, now ? 0 : 900); }
+function changed(){ saveState(); refresh(false); }
+function setCur(i){ cur = Math.max(0, Math.min(SEGS.length - 1, i)); openPlay = false; window.__leEditMode = false; __leSel = null; saveState(); draw(); refresh(true); if (!__locked) window.scrollTo({top:0}); }
+function drawSteps(){ var n = $("steps"); n.innerHTML = ""; SEGS.forEach(function(s, i){ var b = h("button", {type:"button", text:(i + 1) + " " + s.name, "aria-current":i === cur ? "true" : null, class:segOn(s) ? "" : "off", onclick:function(){ setCur(i); }}); n.appendChild(b); if (i === cur) setTimeout(function(){ var br = b.getBoundingClientRect(), nr = n.getBoundingClientRect(); n.scrollLeft += (br.left + br.width / 2) - (nr.left + nr.width / 2); }, 0); }); }
+function field(label, hint, input, max){ var f = h("div", {class:"fld"}, [h("label", {for:input.id, text:label}), hint ? h("p", {class:"hint", text:hint}) : null, input]); if (max) { var c = h("span", {class:"cnt"}); var up = function(){ c.textContent = Array.from(input.value).length + " / " + max; }; input.addEventListener("input", function(ev){ if (!ev.isComposing) up(); }); input.addEventListener("compositionend", function(){ setTimeout(up, 0); }); up(); f.appendChild(c); } return f; }
+/* 中文输入法：拼音还没选字（正在组字）时不截字、不保存，选好字再处理。
+   以前一边打拼音一边按字数截断，拼音字母一多就把打了一半的拼音当成最终文字填进去了 */
+function text(id, val, max, ph, set, area){ var e = h(area ? "textarea" : "input", {id:id, placeholder:ph || ""}); if (!area) e.type = "text"; else e.rows = 2; e.value = val || "";
+  var ime = false; function commit(){ var v = Array.from(e.value).slice(0, max).join(""); if (v !== e.value) e.value = v; set(v); changed(); }
+  e.addEventListener("compositionstart", function(){ ime = true; });
+  e.addEventListener("compositionend", function(){ ime = false; setTimeout(commit, 0); });
+  e.addEventListener("input", function(ev){ if (ime || ev.isComposing) return; commit(); });
+  return e; }
+function redo(){ draw(); refresh(true); }
+function tile(key, kind, cap){
+  var w = h("div", {class:"tilewrap"}), k = KIND[kind], rec = IMG[key];
+  var t = h("button", {type:"button", class:"tile" + (rec ? " has" : ""), "aria-label":(rec ? "换一张：" : "选照片：") + cap, onclick:function(){ pick(key, kind, redo); }});
+  t.style.aspectRatio = kind === "trip" ? "1" : k.crop ? String(Math.max(.62, Math.min(1.4, k.asp))) : ".7";
+  if (BUSY[key]) { t.classList.add("has"); t.appendChild(h("img", {src:BUSY[key], alt:""})); t.appendChild(h("span", {class:"spin"})); }
+  else if (rec) { var im = h("img", {src:rec.out, alt:""}); if (k.cut) im.style.objectFit = "contain"; t.appendChild(im); } else { t.appendChild(h("span", {class:"plus", text:"+"})); t.appendChild(h("span", {class:"cap", text:cap})); }
+  w.appendChild(t);
+  if (rec) w.appendChild(h("div", {class:"ops"}, [k.crop ? h("button", {type:"button", text:"调位置", onclick:function(){ openCrop(key, redo); }}) : null, h("button", {type:"button", class:"del", text:"删除", onclick:function(){ putImg(key, null); redo(); }})]));
+  return w;
+}
+var PANEL = {
+  open:function(p){
+    var a = h("input", {id:"f-age", type:"number", min:1, max:120, step:1, inputmode:"numeric"}); a.value = state.age;
+    a.addEventListener("input", function(){ var v = Math.round(+a.value); if (!(v >= 1)) return; v = Math.min(120, v); state.age = v; changed(); }); a.addEventListener("blur", function(){ a.value = state.age; });
+    p.appendChild(field("寿星今年几岁", "填 1–120 的整数，封面上的银色气球数字会跟着变。", a));
+    p.appendChild(h("div", {class:"fld"}, [h("span", {class:"lab", text:"封面照片"}), h("p", {class:"hint", text:"选一张寿星的照片，横的、竖的、方的都可以，会自动放进相机屏幕里。"}), h("div", {class:"tiles"}, [tile("cover", "cover", "选照片")])]));
+  },
+  pola:function(p){
+    p.appendChild(h("div", {class:"fld"}, [h("span", {class:"lab", text:"拍立得里的照片"}), h("p", {class:"hint", text:"选一张寿星的照片，脸在中间就好。寿星会挑一顶帽子戴上，再剪成一枚花边小圆卡插到蛋糕上。"}), h("div", {class:"tiles"}, [tile("pola", "pola", "选照片")])]));
+  },
+  film:function(p){
+    p.appendChild(h("p", {class:"todo", html:"<b>要做的事：</b>选 3-10张你们的日常照片，每张配一句话。"}));
+    state.film.forEach(function(_, i){ p.appendChild(h("div", {class:"sub"}, [h("h3", {text:"第 " + (i + 1) + " 格"}), h("div", {class:"row"}, [tile("film" + i, "film", "选照片"), h("div", {class:"grow"}, [field("照片下面的一句话", "最多 50 个字，字多了会自动缩小排好；不写就不显示文字。", text("f-film" + i, state.film[i], 50, "比如：那天你笑得最大声", function(v){ state.film[i] = v; }, true), 50)])])])); });
+    var n = state.film.length;
+    p.appendChild(h("div", {class:"seg2"}, [n < 10 ? h("button", {type:"button", class:"btn", text:"+ 再加一张", onclick:function(){ state.film.push(""); saveState(); redo(); }}) : null, n > 3 ? h("button", {type:"button", class:"btn ghost danger", text:"删掉最后一格", onclick:function(){ state.film.pop(); putImg("film" + (n - 1), null); saveState(); redo(); }}) : null]));
+  },
+  trip:function(p){
+    var mp = state.tripMap || "world", setM = function(m){ return function(){ state.tripMap = m; saveState(); redo(); }; };
+    /* 默认只摆出发地 + 3 站；后面空着没填的站自动收起来，想多去几个地方再点"+ 加一站"（最多 8 站，小火车地图 4 站） */
+    var emptyStop = function(i){ var t = state.trip[i]; return t && !clean(t.city) && !clean(t.l) && ![0, 1, 2].some(function(j){ return IMG["trip" + i + "_" + j]; }); };
+    if (!window.__trimmed) { window.__trimmed = 1; while (state.trip.length > 3 && emptyStop(state.trip.length - 1)) state.trip.pop(); }
+    var MAXN = TRIPMAX[mp] || 8;
+    p.appendChild(h("div", {class:"fld"}, [h("span", {class:"lab", text:"用哪张地图"}), h("div", {class:"seg2"}, [["world", "世界地图"], ["china", "中国地图"], ["rail", "小火车手绘地图"]].map(function(x){ return h("button", {type:"button", class:"btn", "aria-pressed":mp === x[0] ? "true" : "false", text:x[1], onclick:setM(x[0])}); })),
+      h("p", {class:"hint", text:mp === "rail" ? "手绘地图不对应真实位置，国内国外的地名都能写，小火车会一站站开过去。" : "填城市名，会自动放到地图上对应的位置。"})]));
+    p.appendChild(field("从哪儿出发", null, text("f-home", state.home, 8, "上海", function(v){ state.home = v; }), 8));
+    state.trip.forEach(function(s, i){
+      if (i >= MAXN) return;
+      var gh = h("p", {class:"hint"}); geoHint(gh, s.city, mp);
+      p.appendChild(h("div", {class:"sub"}, [h("h3", {text:"第 " + (i + 1) + " 站"}),
+        field("去的地方", null, text("f-city" + i, s.city, 8, "比如：" + DEFT[mp][i % DEFT[mp].length], function(v){ s.city = v; clearTimeout(gh.t); gh.t = setTimeout(function(){ geoHint(gh, v, mp); }, 300); }), 8), gh,
+        h("div", {class:"fld"}, [h("span", {class:"lab", text:"照片（1–3 张，横竖都行）"}), h("div", {class:"tiles"}, [0, 1, 2].map(function(j){ return tile("trip" + i + "_" + j, "trip", "第 " + (j + 1) + " 张"); }))]),
+        field("配文", "最多 50 个字；不写就只显示照片。", text("f-tl" + i, s.l, 50, "", function(v){ s.l = v; }, true), 50)])); });
+    var n = state.trip.length;
+    p.appendChild(h("div", {class:"seg2"}, [n < MAXN ? h("button", {type:"button", class:"btn", text:"+ 加一站", onclick:function(){ state.trip.push({city:"", l:""}); saveState(); redo(); }}) : null, n > 2 ? h("button", {type:"button", class:"btn ghost danger", text:"删掉最后一站", onclick:function(){ state.trip.pop(); [0, 1, 2].forEach(function(j){ putImg("trip" + (n - 1) + "_" + j, null); }); saveState(); redo(); }}) : null]));
+    p.appendChild(h("p", {class:"hint", text:mp === "rail" ? (state.trip.length > 4 ? "小火车地图上只有 4 个站，只会用前 4 站。" : "小火车地图最多 4 站。") : "2–8 站，想去几站就加几站。"}));
+    if (mp !== "rail") { var bp = state.bp || (state.bp = {a:"", b:"", f:""});
+      p.appendChild(h("div", {class:"sub"}, [h("h3", {text:"最后的登机牌"}), h("p", {class:"hint", text:"飞完最后一站会递上一张登机牌，「乘客」写的是「寿星 & 你」。不填就写「你 & 我」。"}),
+        field("寿星的名字", null, text("f-bpa", bp.a, 6, "你", function(v){ bp.a = v; }), 6),
+        field("你的名字", null, text("f-bpb", bp.b, 6, "我", function(v){ bp.b = v; }), 6),
+        field("航班名", "登机牌上「航班 FLIGHT」那一格。", text("f-bpf", bp.f, 8, "LOVE航班", function(v){ bp.f = v; }), 8)])); }
+  },
+  wish:function(p){
+    [0, 1, 2].forEach(function(i){ p.appendChild(field("第 " + (i + 1) + " 签", null, text("f-wish" + i, state.wish[i], 50, DEF.wish[i], function(v){ state.wish[i] = v; }), 50)); });
+  },
+  coupon:function(p){
+    [0, 1, 2].forEach(function(i){ p.appendChild(field("第 " + (i + 1) + " 张券的名字", i === 0 ? "最多 7 个字，字少就写大一点，字多就自动缩小；不写就用灰色的默认名字。" : null, text("f-ct" + i, state.coupons[i], 7, DEF.coupons[i], function(v){ state.coupons[i] = v; }), 7)); });
+  },
+  kids:function(p){
+    p.appendChild(h("div", {class:"fld"}, [h("span", {class:"lab", text:"你们俩的照片"}), h("p", {class:"hint", text:"一人一张（小时候的、现在的都可以）。方的、长方形的都行，会自动裁成正方形放进拍立得，拖到一起就拼成一张合影。"}), h("div", {class:"tiles"}, [tile("kidL", "kidL", "左边：寿星"), tile("kidR", "kidR", "右边：你")])]));
+  },
+  cake:function(p){
+    var custom = state.cakeMode === "custom", set = function(m){ return function(){ state.cakeMode = m; saveState(); redo(); }; };
+    p.appendChild(h("div", {class:"fld"}, [h("span", {class:"lab", text:"纸条上的祝福"}), h("div", {class:"seg2"}, [h("button", {type:"button", class:"btn", "aria-pressed":custom ? "false" : "true", text:"用默认的手写祝福（推荐）", onclick:set("default")}), h("button", {type:"button", class:"btn", "aria-pressed":custom ? "true" : "false", text:"自己写", onclick:set("custom")})]), h("p", {class:"hint", text:custom ? "纸条会按字数自动排成蛋糕；空着的那条用灰色的默认文案。按括号里的字数写，效果最好。" : "默认的手写字排得最工整，什么都不用填。"})]));
+    if (custom) DEF.strips.forEach(function(s){ p.appendChild(field(s[1], null, text("f-st-" + s[0], state.cake[s[0]], s[2], s[3], function(v){ state.cake[s[0]] = v; }), s[2])); });
+  },
+  gift:function(p){
+    p.appendChild(field("让寿星去哪儿看礼物", "画面上那句「去门口看看？」里的「门口」，比如：快递柜、枕头下面。最多 6 个字。", text("f-door", state.door, 6, "门口", function(v){ state.door = v; }), 6));
+  }
+};
+function draw(){
+  drawSteps(); var s = SEGS[cur], p = $("panel"), keep = draw.last === cur, sc = [window.scrollY, p.scrollTop, p.parentNode ? p.parentNode.scrollTop : 0]; draw.last = cur; p.innerHTML = "";
+  var card = h("div", {class:"card"}), on = segOn(s);
+  var head = h("h2", null, [h("span", {text:"第 " + (cur + 1) + " 关 · " + s.name})]);
+  if (s.opt && on) head.appendChild(h("button", {type:"button", class:"btn ghost danger", text:"不要这个环节", onclick:function(){ state.on[s.id] = false; saveState(); redo(); }}));
+  card.appendChild(head);
+  if (!on) card.appendChild(h("div", {class:"offbox"}, [h("p", {class:"todo", text:"这一关已经关掉了，寿星不会看到它，你填过的内容还留着。"}), h("button", {type:"button", class:"btn pri", text:"把这一关加回来", onclick:function(){ state.on[s.id] = true; saveState(); redo(); }})]));
+  else PANEL[s.id](card);
+  p.appendChild(card);
+  if (on) drawLayoutCard(p, s);
+  $("pos").textContent = (cur + 1) + " / " + SEGS.length; $("prev").disabled = cur === 0; $("next").textContent = cur === SEGS.length - 1 ? "从头预览整站" : "下一关 ›";
+  $("replay").textContent = s.id === "open" && !openPlay ? "播放这一关" : "重播这一关";
+  updateLeBtn();
+  if (keep) { p.scrollTop = sc[1]; if (p.parentNode) p.parentNode.scrollTop = sc[2]; if (!__locked) window.scrollTo(0, sc[0]); }
+}
+/* ---------- 全屏预览：竖着拿手机时自动转成横屏 ---------- */
+function fitFull(){ var W = window.innerWidth, H = window.innerHeight, b = $("fullbox"), rot = H > W, w = rot ? Math.min(H, W * 16 / 9) : Math.min(W, H * 16 / 9), hh = w * 9 / 16; b.style.width = w + "px"; b.style.height = hh + "px"; b.style.transform = "translate(-50%,-50%)" + (rot ? " rotate(90deg)" : ""); placeX(W, H, w, hh, rot); }
+/* 关闭按钮：两边有黑边就放到画面外面；没有就放在画面右上角，几秒后自动隐身（录屏时看不到），点一下那个角会再出来 */
+function placeX(W, H, w, hh, rot){ var x = $("fullx"), bar = rot ? (H - w) / 2 : (W - w) / 2, out = bar >= 44, sz = 30, lx = out ? w / 2 + bar / 2 : w / 2 - 10 - sz / 2, ly = -hh / 2 + 12 + sz / 2;
+  var sx = rot ? W / 2 - ly : W / 2 + lx, sy = rot ? H / 2 + lx : H / 2 + ly;
+  x.style.left = (sx - sz / 2) + "px"; x.style.top = (sy - sz / 2) + "px"; x.style.transform = rot ? "rotate(90deg)" : "none"; x.classList.toggle("out", out); }
+function xPeek(){}   /* 关闭按钮一直留着，不再自动隐身 */
+function openFull(list){ pv.stop(); $("full").classList.add("on"); lockScroll(true); fitFull(); xPeek(); fp.play(list, 0); }
+function closeFull(){ fp.stop(); $("full").classList.remove("on"); lockScroll(false); refresh(true); }
+
+/* ============ 素材自由排版与替换控制器（对接 layout_editor.js 与 mickey_lib） ============ */
+window.__leEditMode = false;
+var __leAssets = [], __leSel = null, __libCatalog = null, __libFilter = "all", __libTarget = null;
+function liveWin(){ return pv && pv.live && pv.live.contentWindow ? pv.live.contentWindow : null; }
+function postLe(msg){ var w = liveWin(); if (w) { try { w.postMessage(msg, "*"); } catch (e) {} } }
+function updateLeBtn(){
+  var b = $("leToggle"); if (!b) return;
+  b.textContent = window.__leEditMode ? "✓ 完成排版" : "✎ 自由排版 / 换素材";
+  b.setAttribute("aria-pressed", window.__leEditMode ? "true" : "false");
+  b.classList.toggle("pri", !!window.__leEditMode);
+}
+function toggleLeMode(force){
+  window.__leEditMode = force !== undefined ? !!force : !window.__leEditMode;
+  updateLeBtn();
+  postLe({leSetMode: window.__leEditMode});
+  draw();
+}
+$("leToggle").addEventListener("click", function(){ toggleLeMode(); });
+$("leAddBtn").addEventListener("click", function(){ openLibModal({mode:"add"}); });
+
+window.addEventListener("message", function(e){
+  var d = e.data; if (!d) return;
+  if (d.leSync) {
+    __leAssets = d.assets || [];
+    __leSel = d.selectedId || null;
+    if (d.editMode !== undefined && window.__leEditMode !== !!d.editMode) {
+      window.__leEditMode = !!d.editMode;
+      updateLeBtn();
+    }
+    if (d.save) {
+      var sg = SEGS[cur];
+      if (sg) {
+        state.layout = state.layout || {};
+        state.layout[sg.id] = {overrides: d.overrides || {}, added: d.added || []};
+        saveState();
+      }
+    }
+    renderLePanel();
+  } else if (d.lePickAsset) {
+    openLibModal(d.lePickAsset);
+  }
+});
+
+function drawLayoutCard(p, s){
+  var c = h("div", {class:"card", id:"leCard"});
+  c.appendChild(h("h2", null, [
+    h("span", {text:"🎨 本关素材自由排版与替换"}),
+    h("small", {text:"可拖拽移动 · 缩放 · 旋转 · 调层级 · 换任意图"})
+  ]));
+  c.appendChild(h("div", {class:"seg2"}, [
+    h("button", {type:"button", class:"btn" + (window.__leEditMode ? " pri" : ""), text:window.__leEditMode ? "✓ 退出画面排版模式" : "✎ 开启画面拖拽排版", onclick:function(){ toggleLeMode(); }}),
+    h("button", {type:"button", class:"btn", text:"+ 添加米奇贴纸 / 素材", onclick:function(){ openLibModal({mode:"add"}); }}),
+    (s.id === "open" || s.id === "cake") ? h("button", {type:"button", class:"btn", text:"展开本关全部元素", onclick:function(){ if (!window.__leEditMode) toggleLeMode(true); postLe({leReveal:1}); }}) : null,
+    h("button", {type:"button", class:"btn ghost danger", text:"↺ 恢复本关默认排版", onclick:function(){
+      if (state.layout && state.layout[s.id]) delete state.layout[s.id];
+      saveState();
+      postLe({leResetAll:1});
+      toast("已恢复本关默认素材与排版");
+    }})
+  ]));
+  c.appendChild(h("div", {id:"leInspWrap"}));
+  c.appendChild(h("div", {id:"leListWrap"}));
+  p.appendChild(c);
+  renderLePanel();
+  setTimeout(function(){ postLe({leQuery:1}); }, 180);
+}
+
+function renderLePanel(){
+  var iw = $("leInspWrap"), lw = $("leListWrap");
+  if (!iw || !lw) return;
+  iw.innerHTML = ""; lw.innerHTML = "";
+
+  var selObj = null;
+  __leAssets.forEach(function(a){ if (a.id === __leSel) selObj = a; });
+
+  if (selObj) {
+    var insp = h("div", {class:"le-insp"});
+    insp.appendChild(h("div", {style:"display:flex;align-items:center;justify-content:space-between;gap:8px"}, [
+      h("b", {text:"当前选中：" + selObj.name, style:"font-size:13px"}),
+      h("button", {type:"button", class:"btn pri", style:"padding:3px 10px;font-size:12px", text:"更换此素材", onclick:function(){ openLibModal({mode:"replace", aid:selObj.id}); }})
+    ]));
+    var sVal = h("em", {text:Math.round((selObj.s || 1) * 100) + "%"});
+    var sInp = h("input", {type:"range", min:20, max:350, value:Math.round((selObj.s || 1) * 100)});
+    sInp.addEventListener("input", function(){ var v = this.value / 100; sVal.textContent = this.value + "%"; postLe({leUpdateAsset:{aid:selObj.id, s:v}}); });
+    insp.appendChild(h("div", {class:"rrow"}, [h("span", {text:"大小缩放"}), sInp, sVal]));
+
+    var rVal = h("em", {text:(selObj.r || 0) + "°"});
+    var rInp = h("input", {type:"range", min:-180, max:180, value:selObj.r || 0});
+    rInp.addEventListener("input", function(){ var v = +this.value; rVal.textContent = v + "°"; postLe({leUpdateAsset:{aid:selObj.id, r:v}}); });
+    insp.appendChild(h("div", {class:"rrow"}, [h("span", {text:"旋转角度"}), rInp, rVal]));
+
+    insp.appendChild(h("div", {class:"seg2"}, [
+      h("button", {type:"button", class:"btn", style:"padding:4px 9px;font-size:12px", text:"置顶图层 ⇈", onclick:function(){
+        var mz = 40; __leAssets.forEach(function(x){ if (x.z > mz) mz = x.z; });
+        postLe({leUpdateAsset:{aid:selObj.id, z:mz + 2}});
+      }}),
+      h("button", {type:"button", class:"btn", style:"padding:4px 9px;font-size:12px", text:"下移一层 ↓", onclick:function(){
+        postLe({leUpdateAsset:{aid:selObj.id, z:Math.max(1, (selObj.z || 20) - 3)}});
+      }}),
+      h("button", {type:"button", class:"btn", style:"padding:4px 9px;font-size:12px", text:"位置复原", onclick:function(){
+        postLe({leUpdateAsset:{aid:selObj.id, dx:0, dy:0, s:1, r:0}});
+      }}),
+      h("button", {type:"button", class:"btn ghost danger", style:"padding:4px 9px;font-size:12px", text:selObj.hide ? "恢复显示" : "隐藏此素材", onclick:function(){
+        postLe({leUpdateAsset:{aid:selObj.id, hide:!selObj.hide}});
+      }})
+    ]));
+    iw.appendChild(insp);
+  }
+
+  if (!__leAssets.length) {
+    lw.appendChild(h("p", {class:"hint", text:"正在读取当前画面中的素材图层（若在第 1 关或第 8 关可点「展开本关全部元素」一次排好所有贴纸）…"}));
+    return;
+  }
+  var listEl = h("div", {class:"le-list"});
+  __leAssets.forEach(function(a){
+    var row = h("div", {class:"le-item" + (a.id === __leSel ? " sel" : "") + (a.hide ? " hid" : "")});
+    row.appendChild(h("img", {class:"th", src:a.src, alt:""}));
+    row.appendChild(h("span", {class:"nm", text:a.name + (a.hide ? "（已隐藏）" : "")}));
+    row.appendChild(h("div", {class:"acts"}, [
+      h("button", {type:"button", text:"选中排版", onclick:function(){ postLe({leSelect:a.id}); }}),
+      h("button", {type:"button", class:"pri", text:"换图", onclick:function(){ openLibModal({mode:"replace", aid:a.id}); }}),
+      h("button", {type:"button", text:"置顶", onclick:function(){
+        var mz = 40; __leAssets.forEach(function(x){ if (x.z > mz) mz = x.z; });
+        postLe({leUpdateAsset:{aid:a.id, z:mz + 2}});
+      }}),
+      h("button", {type:"button", text:a.hide ? "显示" : "隐藏", onclick:function(){
+        postLe({leUpdateAsset:{aid:a.id, hide:!a.hide}});
+      }})
+    ]));
+    listEl.appendChild(row);
+  });
+  lw.appendChild(listEl);
+}
+
+/* ============ 米奇素材库与自定义图片上传弹窗 (#libModal) ============ */
+function loadCatalog(){
+  if (!__libCatalog) __libCatalog = fetch("mickey_lib/catalog.json").then(function(r){ return r.json(); }).catch(function(){ return []; });
+  return __libCatalog;
+}
+function openLibModal(target){
+  __libTarget = target || {mode:"add"};
+  $("libT").textContent = __libTarget.mode === "replace" ? "选择或上传新素材替换当前图层" : "从米奇素材库添加贴纸或上传图片";
+  $("libModal").classList.add("on");
+  lockScroll(true);
+  renderLibModal();
+}
+function closeLibModal(){
+  $("libModal").classList.remove("on");
+  __libTarget = null;
+  lockScroll(false);
+}
+$("libClose").addEventListener("click", closeLibModal);
+$("libCancel").addEventListener("click", closeLibModal);
+$("libModal").addEventListener("click", function(e){ if (e.target === $("libModal")) closeLibModal(); });
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape") {
+    if ($("exportModal").classList.contains("on")) closeExportModal();
+    else if ($("libModal").classList.contains("on")) closeLibModal();
+    else if ($("crop").classList.contains("on")) { $("crop").classList.remove("on"); CR = null; lockScroll(false); }
+    else if ($("full").classList.contains("on")) closeFull();
+  }
+});
+
+function applyChosenAsset(src, name){
+  var t = __libTarget || {mode:"add"};
+  closeLibModal();
+  if (t.mode === "replace" && t.aid) {
+    postLe({leUpdateAsset:{aid:t.aid, src:src, hide:false}});
+    toast("已替换为：" + (name || "新素材"));
+  } else {
+    var id = "custom_" + Date.now().toString(36);
+    var mz = 45; __leAssets.forEach(function(x){ if (x.z > mz) mz = x.z; });
+    postLe({leAddAsset:{id:id, src:src, name:name || "自定义米奇贴纸", x:36 + Math.round((Math.random() - .5) * 12), y:28 + Math.round((Math.random() - .5) * 12), w:16, z:mz + 2}});
+    toast("已添加「" + (name || "新贴纸") + "」，可在画面中直接拖动缩放");
+  }
+}
+
+function renderLibModal(){
+  var tabs = $("libTabs"), grid = $("libGrid");
+  tabs.innerHTML = ""; grid.innerHTML = "正在加载米奇素材库…";
+  var cats = [["all", "全部素材 (49)"], ["sticker", "米奇贴纸与气球"], ["photo", "寿星人物抠图"], ["prop", "相机/老虎机/刮刮乐/礼券"], ["frame", "相框与背景纸纹"]];
+  cats.forEach(function(c){
+    tabs.appendChild(h("button", {type:"button", class:"btn", "aria-pressed":__libFilter === c[0] ? "true" : "false", text:c[1], onclick:function(){ __libFilter = c[0]; renderLibModal(); }}));
+  });
+  loadCatalog().then(function(list){
+    grid.innerHTML = "";
+    list.filter(function(it){ return __libFilter === "all" || it.cat === __libFilter; }).forEach(function(it){
+      var cell = h("button", {type:"button", class:"lib-cell", onclick:function(){ applyChosenAsset(it.src, it.name); }}, [
+        h("img", {src:it.src, alt:it.name, loading:"lazy"}),
+        h("span", {text:it.name})
+      ]);
+      grid.appendChild(cell);
+    });
+  });
+}
+
+$("libUpload").addEventListener("click", function(){ $("libPicker").click(); });
+$("libPicker").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+  var url = URL.createObjectURL(f);
+  loadImage(url).then(function(im){
+    URL.revokeObjectURL(url);
+    var max = 1000, sc = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+    var c = canvas(im.naturalWidth * sc, im.naturalHeight * sc);
+    c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+    var dataUrl = c.toDataURL("image/png");
+    var key = "uasset_" + Date.now().toString(36);
+    putImg(key, {kind:"cover", src:dataUrl, out:dataUrl, iw:c.width, ih:c.height});
+    applyChosenAsset(dataUrl, f.name.replace(/\.[^.]+$/, "") || "上传素材");
+  }).catch(function(){
+    URL.revokeObjectURL(url);
+    toast("图片读取失败，请上传 PNG、JPG 或 WEBP 格式图片");
+  });
+});
+window.addEventListener("resize", function(){ if ($("full").classList.contains("on")) fitFull(); });
+$("fullx").addEventListener("click", closeFull);
+/* 全屏播放模式下，过关后点击画面外侧黑边空白处也直接跳下一关 */
+$("full").addEventListener("click", function(e){
+  if (e.target === $("full") && fp && fp.done && fp.i < fp.list.length - 1 && !document.querySelector(".wall-modal")) {
+    fp.go(fp.i + 1);
+  }
+});
+$("zoom").addEventListener("click", function(){ if (segOn(SEGS[cur])) openFull([SEGS[cur]]); });
+$("playAll").addEventListener("click", function(){ openFull(SEGS.filter(segOn)); });
+$("replay").addEventListener("click", function(){ openPlay = true; draw(); refresh(true); });
+$("prev").addEventListener("click", function(){ setCur(cur - 1); });
+$("next").addEventListener("click", function(){ if (cur === SEGS.length - 1) openFull(SEGS.filter(segOn)); else setCur(cur + 1); });
+
+/* 共享声音通道：在配置台上第一次点按时打开，各关卡直接借用它。
+   这样关卡里第一下就是拖动（刮刮乐、拉老虎机、拖飞机）的时候也能马上出声，不用等手指抬起来 */
+(function(){ try { var P = AudioNode.prototype, oc = P.connect, M = new WeakMap();
+  P.connect = function(d){ if (d && typeof AudioDestinationNode !== "undefined" && d instanceof AudioDestinationNode) { var c = d.context, m = M.get(c);
+    if (!m) { m = c.createGain(); m.gain.value = 3.5; var k = c.createDynamicsCompressor(); k.threshold.value = -16; k.knee.value = 6; k.ratio.value = 14; k.attack.value = .002; k.release.value = .15;
+      var ws = c.createWaveShaper(), cv = new Float32Array(1024); for (var i = 0; i < 1024; i++) { var x = i / 511.5 - 1; cv[i] = Math.tanh(1.3 * x) / Math.tanh(1.3); } ws.curve = cv; oc.call(m, k); oc.call(k, ws); oc.call(ws, d); M.set(c, m); }
+    if (this !== m) { var a = [].slice.call(arguments); a[0] = m; return oc.apply(this, a); } } return oc.apply(this, arguments); }; } catch (e) {} })();
+function acUnlock(){ try { var A = window.AudioContext || window.webkitAudioContext; if (!A) return; if (!window.__AC0) window.__AC0 = new A(); var c = window.__AC0; if (c.state !== "running") c.resume();
+  if (!c.__k) { c.__k = 1; var b = c.createBuffer(1, 1, 22050), s = c.createBufferSource(); s.buffer = b; s.connect(c.destination); s.start(0); } } catch (e) {} }
+var bgm = $("bgm"), bgmOn = true; bgm.volume = .2;
+function bgmTry(){ if (bgmOn && bgm.paused) { var q = bgm.play(); if (q && q.catch) q.catch(function(){}); } }
+/* 手机上 pointerdown 不算"用户手势"，要在抬手/点击时开播；预览里的点击发生在 iframe 里，也要接上 */
+var BGM_EV = ["pointerup", "touchend", "click", "keydown"];
+function bgmHook(w){ try { BGM_EV.forEach(function(e){ w.addEventListener(e, bgmTry, true); w.addEventListener(e, acUnlock, true); }); } catch (e) {} }
+bgmHook(window);
+$("music").addEventListener("click", function(){ bgmOn = !bgmOn; this.textContent = bgmOn ? "音乐：开" : "音乐：关"; this.setAttribute("aria-pressed", bgmOn ? "true" : "false"); if (bgmOn) bgmTry(); else bgm.pause(); });
+var SHARE_DAYS = 60, PLAYID = (function(){ var m = /[?&]s=([A-Za-z0-9]{6,16})/.exec(location.search); return m ? m[1] : "embedded"; })();
+if (PLAYID) document.documentElement.classList.add("play");
+fp = new Player($("fullbox"));
+if (!PLAYID) {
+  loadState(); pv = new Player($("pv")); $("pv").insertAdjacentHTML("beforeend", '<img class="still" id="still" alt="封面效果" hidden>'); draw();
+  openDB().then(loadImgs).catch(function(){}).then(function(){ draw(); refresh(true);
+    /* 其余关卡的模板等首屏放出来以后再一个个慢慢拿，不和当前这关抢网速 */
+    FIRST.then(function(){ setTimeout(function(){ try { loadCities(); } catch (e) {} }, 1200); });   /* 旅行那关要用的城市坐标表，提前拿好 */
+    FIRST.then(function(){ setTimeout(function(){ SEGS.reduce(function(q, s){ return q.then(function(){ return tpl(s.file).catch(function(){}); }); }, Promise.resolve()); }, 2500); }); });
+} else {
+  pv = {stop:function(){}};
+}
+/* 音乐提前悄悄下载好，第一次点屏幕就能立刻响 */
+/* 音乐分两段：先放开头 22 秒的小文件（很快就能响），完整的那首在后台下好，放到第 22 秒时无缝接上，之后循环完整版 */
+var HEADLEN = 22, FULL = null, onFull = false;
+function toFull(at){ if (onFull) return; onFull = true; var wasOn = !bgm.paused || at != null; bgm.src = FULL || "bgm.mp3"; bgm.loop = true;
+  bgm.addEventListener("loadedmetadata", function f(){ bgm.removeEventListener("loadedmetadata", f); try { bgm.currentTime = at || 0; } catch (e) {} }, false);
+  if (wasOn && bgmOn) { var q = bgm.play(); if (q && q.catch) q.catch(function(){}); } }
+bgm.addEventListener("timeupdate", function(){ if (!onFull && FULL && bgm.currentTime > HEADLEN - .35) toFull(bgm.currentTime); });
+bgm.addEventListener("ended", function(){ if (onFull) return; if (FULL) toFull(HEADLEN); else { try { bgm.currentTime = 0; } catch (e) {} if (bgmOn) { var q = bgm.play(); if (q && q.catch) q.catch(function(){}); } } });
+if (window.__ASSETS && !window.__ASSETS["bgm.mp3"]) {
+  bgm.loop = true;
+} else {
+  FIRST.then(function(){ return new Promise(function(r){ setTimeout(r, 600); }); }).then(function(){ return fetchRetry("bgm.mp3", null, 4); }).then(function(r){ if (!r.ok) throw new Error("bgm"); return r.blob(); }).then(function(b){ FULL = URL.createObjectURL(b); if (bgm.paused && !onFull && bgm.currentTime < .1) toFull(null); }).catch(function(){ bgm.loop = true; });
+}
+
+/* ==== 生成链接 BEGIN ====
+   纯静态播放模式（PLAYID = "embedded"）：彻底隐藏配置界面，点一下开始，自动横屏全屏从头放到尾。 */
+/* 纯静态站点（Cloudflare Pages / GitHub Pages / 本地）均无后端统计接口，永久关闭外部埋点上报避免 404/405 */
+var __IS_REMOTE_HOST = false;
+if (!PLAYID && __IS_REMOTE_HOST) { try { var SEEN = new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10); if (localStorage.getItem("bday_seen") !== SEEN) { localStorage.setItem("bday_seen", SEEN); if (navigator.sendBeacon) navigator.sendBeacon("api/hit", "cfg"); else fetch("api/hit", {method: "POST", body: "cfg", keepalive: true}); } } catch (e) {} }
+/* ---------- 统计埋点 ---------- */
+var BJDAY = function(t){ return new Date((t || Date.now()) + 8 * 3600e3).toISOString().slice(0, 10); };
+function bdT(k, id, many){ if (!__IS_REMOTE_HOST) return; try { var b = id ? k + "|" + id : k;
+    if (!many) { var key = "bdt:" + BJDAY() + ":" + b; try { if (localStorage.getItem(key)) return; localStorage.setItem(key, "1"); } catch (e) {} }
+    if (navigator.sendBeacon && navigator.sendBeacon("api/ev", b)) return; fetch("api/ev", {method: "POST", body: b, keepalive: true}).catch(function(){}); } catch (e) {} }
+window.bdT = bdT;
+try { var today0 = "bdt:" + BJDAY() + ":"; for (var li = localStorage.length - 1; li >= 0; li--) { var lk = localStorage.key(li); if (lk && lk.indexOf("bdt:") === 0 && lk.indexOf(today0) !== 0) localStorage.removeItem(lk); } } catch (e) {}
+if (!PLAYID) (function(){
+  bdT("c_ready"); try { if (!localStorage.getItem("bday_first")) localStorage.setItem("bday_first", String(Date.now())); } catch (e) {}
+  /* 做的人真的动手改了哪一关、关掉了哪个环节（只在点按 / 输入之后的保存才算，避免页面自己保存时误报） */
+  var act = 0; ["input", "change", "click", "pointerup", "drop", "keyup"].forEach(function(ev){ document.addEventListener(ev, function(){ act = Date.now(); }, true); });
+  var snap = function(){ try { var o = {}; Object.keys(state).forEach(function(k){ if (k !== "on" && k !== "lastLink") o[k] = state[k]; }); return JSON.stringify(o); } catch (e) { return ""; } };
+  var prev = snap(), prevOn = JSON.parse(JSON.stringify(state.on || {})), st0 = 0, sv = saveState;
+  saveState = function(){ sv.apply(this, arguments); clearTimeout(st0); st0 = setTimeout(function(){
+    var on = state.on || {}; Object.keys(on).forEach(function(id){ if (on[id] === false && prevOn[id] !== false) bdT("c_off_" + id); }); prevOn = JSON.parse(JSON.stringify(on));
+    var s = snap(); if (s === prev) return; prev = s; if (Date.now() - act > 3000) return;
+    var sg = SEGS[cur]; bdT("c_touch"); if (sg) bdT("c_seg_" + sg.id); }, 400); };
+  var of0 = openFull; openFull = function(list){ if (list && list.length > 1) bdT("c_preview"); return of0.apply(this, arguments); };
+})();
+function genDone(){ try { var f = +localStorage.getItem("bday_first") || Date.now(), m = (Date.now() - f) / 6e4;
+  bdT("c_dur_" + (m < 15 ? "a" : m < 30 ? "b" : m < 60 ? "c" : m < 180 ? "d" : m < 1440 ? "e" : "f"));
+  var dd = Math.round((Date.parse(BJDAY()) - Date.parse(BJDAY(f))) / 864e5); bdT("c_days_" + (dd <= 0 ? "0" : dd === 1 ? "1" : "2")); } catch (e) {} }
+var API_OK = null;
+function apiCheck(){ if (API_OK === null) API_OK = fetch("api/ping", {cache:"no-store"}).then(function(r){ return r.ok; }, function(){ return false; }); return API_OK; }
+function shareData(){
+  var wasEdit = !!window.__leEditMode;
+  window.__leEditMode = false;
+  var list = SEGS.filter(segOn);
+  return Promise.all(list.map(function(sg){ return cfgFor(sg).then(function(c){
+    c._editMode = false;
+    return {id:sg.id, file:sg.id === "trip" && state.tripMap === "rail" ? "s_rail.html" : sg.file, tab:sg.tab || "", name:sg.name, h:sg.h || "", en:sg.en || "", wp:sg.wp || "", cfg:c}; }); }))
+    .then(function(segs){
+      window.__leEditMode = wasEdit;
+      var m = state.exportMeta || {};
+      return {v:1, meta:{title:clean(m.title) || "有人给你准备了\n一份生日惊喜", sub:clean(m.sub) || "手机竖着拿就行，会自动横过来；记得打开声音"}, segs:segs};
+    });
+}
+
+/* ============ 导出与部署到 GitHub Pages 窗口 (#exportModal) ============ */
+function fmtMB(bytes){ return (bytes / 1048576).toFixed(2) + " MB"; }
+function copyText(txt, okMsg){
+  function fallback(){
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = txt; ta.setAttribute("readonly", "");
+      ta.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0";
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      var ok = document.execCommand("copy");
+      ta.remove();
+      toast(ok ? okMsg : "请手动框选内容复制");
+    } catch (e) { toast("请手动框选内容复制"); }
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(function(){ toast(okMsg); }, fallback);
+  } else {
+    fallback();
+  }
+}
+function updateGitCmd(){
+  var m = state.exportMeta || (state.exportMeta = {});
+  var rawUser = ($("expGhUser").value || "").trim();
+  var rawRepo = ($("expGhRepo").value || "").trim();
+  var user = rawUser || "<你的GitHub用户名>";
+  var repo = rawRepo || "birthday-gift-26";
+  m.ghUser = rawUser;
+  m.ghRepo = rawRepo;
+  saveState();
+  var cmd =
+    "cd dist-github\n" +
+    "git init && git branch -M main\n" +
+    "git add . && git commit -m \"Deploy Mickey birthday website\"\n" +
+    "git remote add origin https://github.com/" + user + "/" + repo + ".git\n" +
+    "git push -f origin main";
+  $("expGitCmd").textContent = cmd;
+  $("expPagesUrl").innerHTML = "推送后在 GitHub 仓库 <b>Settings → Pages</b> 选择 <b>main / (root)</b>，最终访问地址为：<code>https://" + user.replace(/</g,"&lt;") + ".github.io/" + repo.replace(/</g,"&lt;") + "/</code>";
+}
+function setExportReady(on, info){
+  var st = $("expStatus");
+  if (!on) {
+    st.className = "exp-status";
+    st.textContent = info || "正在打包全部 9 关配置、照片与米奇排版（已彻底隐藏配置界面）…";
+    ["expDlSingle", "expDlZip", "expPreview"].forEach(function(id){ $(id).style.pointerEvents = "none"; $(id).style.opacity = ".5"; });
+    $("expPublish").disabled = true;
+    return;
+  }
+  if (info && info.ok) {
+    st.className = "exp-status ok";
+    st.innerHTML = "✓ <b>纯播放版已打包就绪！</b> 共包含 <b>" + info.segsCount + "</b> 个关卡。点下方<b>「🚀 一键发布到 GitHub」</b>即可同步到线上生成永久访问地址。";
+    $("expSingleSz").textContent = "约 " + fmtMB(info.singleSize);
+    $("expZipSz").textContent = info.distFiles + " 个文件 · 约 " + fmtMB(info.zipSize);
+    var ts = Date.now();
+    $("expDlSingle").href = "api/download/single.html?t=" + ts;
+    $("expDlZip").href = "api/download/github.zip?t=" + ts;
+    $("expPreview").href = "play.html?t=" + ts;
+    ["expDlSingle", "expDlZip", "expPreview"].forEach(function(id){ $(id).style.pointerEvents = ""; $(id).style.opacity = ""; });
+    $("expPublish").disabled = false;
+  } else {
+    st.className = "exp-status err";
+    st.textContent = "打包失败：" + ((info && info.error) || "本地导出服务未响应，请确认 server.py 正在运行");
+    $("expPublish").disabled = false;
+  }
+}
+function runExport(){
+  var m = state.exportMeta || (state.exportMeta = {});
+  m.title = $("expTitle").value;
+  m.sub = $("expSub").value;
+  saveState();
+  setExportReady(false);
+  return shareData().then(function(d){
+    d.rawState = state;
+    return fetch("api/export", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify(d)});
+  }).then(function(r){ return r.json(); }).then(function(res){
+    if (!res || !res.ok) throw new Error((res && res.error) || "导出接口异常");
+    setExportReady(true, res);
+  }).catch(function(e){
+    setExportReady(false);
+    $("expStatus").className = "exp-status err";
+    $("expStatus").textContent = "打包失败：" + (e && e.message || "网络或服务错误");
+    $("expPublish").disabled = false;
+  });
+}
+function loadGithubStatus(){
+  var u = ($("expGhUser").value || "").trim(), r = ($("expGhRepo").value || "").trim();
+  if (r === "mickey-birthday") r = "";
+  return fetch("api/github/status?user=" + encodeURIComponent(u) + "&repo=" + encodeURIComponent(r || "birthday-gift-26"), {cache:"no-store"})
+    .then(function(res){ return res.json(); })
+    .then(function(s){
+      if (!s || !s.ok) return;
+      if (s.sshOk) $("expSshBadge").innerHTML = '<span style="color:#1e5c3a">✓ 本机 SSH 已认证：' + s.sshUser + '</span>';
+      else $("expSshBadge").innerHTML = '<span style="color:#9d241d">未检测到本机 GitHub SSH 登录</span>';
+      if (!$("expGhUser").value.trim() && s.sshUser) $("expGhUser").value = s.sshUser;
+      var curRepo = $("expGhRepo").value.trim();
+      if ((!curRepo || curRepo === "mickey-birthday") && s.repo) $("expGhRepo").value = s.repo;
+      updateGitCmd();
+      if (s.repoInfo && s.repoInfo.hasPages) {
+        $("expLiveUrl").value = s.repoInfo.pagesUrl;
+        $("expOpenLive").href = s.repoInfo.pagesUrl;
+        $("expPubBox").hidden = false;
+        $("expPubHint").hidden = false;
+        $("expPubHint").className = "exp-status ok";
+        $("expPubHint").innerHTML = "检测到该仓库已启用 GitHub Pages！如果你在配置台做过新改动，点上方<b>「🚀 一键发布到 GitHub」</b>即可把最新版直接推上去更新。";
+        $("expPubActions").hidden = true;
+      }
+    }).catch(function(){ $("expSshBadge").textContent = "未连接导出服务"; });
+}
+var __expDeployMode = "full";
+function setDeployMode(mode){
+  __expDeployMode = mode === "player" ? "player" : "full";
+  var seg = $("expModeSeg");
+  if (seg) Array.prototype.forEach.call(seg.querySelectorAll("button[data-mode]"), function(b){
+    b.setAttribute("aria-pressed", b.getAttribute("data-mode") === __expDeployMode ? "true" : "false");
+  });
+}
+function publishToGithub(){
+  var ghUser = ($("expGhUser").value || "").trim();
+  var ghRepo = ($("expGhRepo").value || "").trim() || "birthday-gift-26";
+  if (!ghUser) { toast("请先填写你的 GitHub 用户名"); $("expGhUser").focus(); return; }
+  var m = state.exportMeta || (state.exportMeta = {});
+  m.title = $("expTitle").value; m.sub = $("expSub").value; m.ghUser = ghUser; m.ghRepo = ghRepo; m.deployMode = __expDeployMode;
+  saveState();
+  var btn = $("expPublish");
+  btn.disabled = true; btn.textContent = "⏳ 正在打包并推送到 GitHub…";
+  $("expStatus").className = "exp-status";
+  $("expStatus").textContent = __expDeployMode === "full"
+    ? "正在把完整复刻版（含配置台 + 第9关生成地址 + Cloudflare Functions）推送至 " + ghUser + "/" + ghRepo + " …"
+    : "正在把纯享直达版（首页直接播放，不含配置页面）推送至 " + ghUser + "/" + ghRepo + " …";
+  shareData().then(function(d){
+    d.rawState = state;
+    return fetch("api/github/publish", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({siteData:d, ghUser:ghUser, ghRepo:ghRepo, deployMode:__expDeployMode})});
+  }).then(function(r){ return r.json(); }).then(function(res){
+    btn.disabled = false; btn.textContent = "🚀 一键推送最新版到 GitHub";
+    if (res && res.export && res.export.ok) {
+      $("expSingleSz").textContent = "约 " + fmtMB(res.export.singleSize);
+      $("expZipSz").textContent = res.export.distFiles + " 个文件 · 约 " + fmtMB(res.export.zipSize);
+    }
+    var pagesUrl = (res && res.pagesUrl) || ("https://" + ghUser.toLowerCase() + ".github.io/" + ghRepo + "/");
+    $("expLiveUrl").value = pagesUrl;
+    $("expOpenLive").href = pagesUrl;
+    $("expPubBox").hidden = false;
+    if (res && res.ok) {
+      $("expStatus").className = "exp-status ok";
+      $("expStatus").innerHTML = __expDeployMode === "full"
+        ? "🎉 <b>已成功推送完整复刻版至 GitHub！</b> Cloudflare Pages 会自动同步更新；在 Cloudflare 绑定 KV <code>SITES</code> 后，即可在你的 <code>*.pages.dev</code> 第 9 关直接点「生成地址」！"
+        : "🎉 <b>已成功推送纯享直达版至 GitHub！</b> Cloudflare Pages 自动部署完成后，主页链接即可直接发给朋友打开播放。";
+      $("expPubHint").hidden = false;
+      $("expCreateBtn").hidden = true;
+      $("expPubHint").className = "exp-status ok";
+      $("expPubHint").innerHTML = __expDeployMode === "full"
+        ? "✓ <b>Cloudflare Pages 说明：</b>在 Cloudflare 绑定仓库 <code>" + ghRepo + "</code> 并添加 KV 绑定（变量名 <code>SITES</code>）后，访问你的 <code>*.pages.dev</code> 翻到第 9 关即可随时生成 <code>/?s=随机码</code> 地址发给朋友。"
+        : "✓ <b>Cloudflare Pages 说明：</b>在 Cloudflare 绑定仓库 <code>" + ghRepo + "</code> 后无需配 KV，约 30 秒自动上线 <code>*.pages.dev</code> 纯享播放页。";
+      $("expSettingsBtn").href = res.settingsPagesUrl || ("https://github.com/" + ghUser + "/" + ghRepo + "/settings/pages");
+      $("expSettingsBtn").hidden = false;
+      $("expPubActions").hidden = false;
+    } else {
+      $("expStatus").className = "exp-status err";
+      $("expStatus").textContent = (res && res.error) || "推送失败";
+      $("expPubHint").hidden = false;
+      $("expPubHint").className = "exp-status err";
+      $("expPubHint").textContent = (res && res.error) || "推送失败，请检查仓库名或网络";
+      if (res && res.repoMissing && res.createUrl) {
+        $("expCreateBtn").href = res.createUrl;
+        $("expCreateBtn").hidden = false;
+        $("expSettingsBtn").hidden = true;
+        $("expPubActions").hidden = false;
+      } else {
+        $("expPubActions").hidden = true;
+      }
+    }
+  }).catch(function(e){
+    btn.disabled = false; btn.textContent = "🚀 一键推送最新版到 GitHub";
+    $("expStatus").className = "exp-status err";
+    $("expStatus").textContent = "推送失败：" + (e && e.message || "网络或本地服务未响应");
+  });
+}
+function openExportModal(){
+  var m = state.exportMeta || (state.exportMeta = {});
+  $("expTitle").value = m.title != null ? m.title : "有人给你准备了\n一份生日惊喜";
+  $("expSub").value = m.sub != null ? m.sub : "手机竖着拿就行，会自动横过来；记得打开声音";
+  $("expGhUser").value = m.ghUser || "";
+  $("expGhRepo").value = m.ghRepo || "";
+  setDeployMode(m.deployMode || "full");
+  $("expPubBox").hidden = true;
+  $("expPubHint").hidden = true;
+  $("expPubActions").hidden = true;
+  updateGitCmd();
+  $("exportModal").classList.add("on");
+  lockScroll(true);
+  loadGithubStatus();
+  runExport();
+}
+function closeExportModal(){
+  $("exportModal").classList.remove("on");
+  lockScroll(false);
+}
+if (!PLAYID) {
+  if (!/^(127\.0\.0\.1|localhost)$/i.test(location.hostname)) $("exportBtn").hidden = true;
+  $("exportBtn").addEventListener("click", openExportModal);
+  $("expClose").addEventListener("click", closeExportModal);
+  $("expDone").addEventListener("click", closeExportModal);
+  $("exportModal").addEventListener("click", function(e){ if (e.target === $("exportModal")) closeExportModal(); });
+  $("expRebuild").addEventListener("click", function(){ runExport(); });
+  $("expPublish").addEventListener("click", publishToGithub);
+  $("expCopyUrl").addEventListener("click", function(){ copyText($("expLiveUrl").value, "已复制朋友访问地址 ✓"); });
+  $("expGhUser").addEventListener("input", updateGitCmd);
+  $("expGhRepo").addEventListener("input", updateGitCmd);
+  $("expCopyGit").addEventListener("click", function(){ copyText($("expGitCmd").textContent, "已复制 GitHub 推送命令 ✓"); });
+  if ($("expModeSeg")) {
+    Array.prototype.forEach.call($("expModeSeg").querySelectorAll("button[data-mode]"), function(b){
+      b.addEventListener("click", function(){ setDeployMode(b.getAttribute("data-mode")); });
+    });
+  }
+}
+
+/* ============ 完整复刻原站第 9 关「生成地址，发给 TA」卡片 ============ */
+var SHARED_KEY = "bday_shared_v1";
+function sharedGet(){ try { var v = JSON.parse(localStorage.getItem(SHARED_KEY) || "null"); if (v && v.u) return v; } catch (e) {} return state.lastLink && state.lastLink.u ? state.lastLink : null; }
+function sharedSet(v){ try { localStorage.setItem(SHARED_KEY, JSON.stringify(v)); } catch (e) {} state.lastLink = v; saveState(); }
+function shareCard(panel){
+  var box = h("div", {class:"card share"}), st = h("p", {class:"hint"}), out = h("div", {class:"sharebox", hidden:true});
+  var btn = h("button", {type:"button", class:"btn pri", text:"生成地址"}), ask = h("div", {class:"shareask", hidden:true});
+  box.appendChild(h("h2", null, [h("span", {text:"生成地址，发给 TA"})]));
+  box.appendChild(h("p", {class:"hint", text:"把现在配好的整个网站生成一个地址。TA 用手机打开就能从头看到尾，不会看到配置页面。"}));
+  function showLink(u){
+    out.innerHTML = ""; out.hidden = false;
+    var inp = h("input", {type:"text", readonly:true, value:u, "aria-label":"地址"});
+    inp.addEventListener("focus", function(){ inp.select(); });
+    var cp = h("button", {type:"button", class:"btn pri", text:"复制地址", onclick:function(){
+      bdT("c_copy");
+      var done = function(){ cp.textContent = "已复制 ✓"; setTimeout(function(){ cp.textContent = "复制地址"; }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(u).then(done, function(){ inp.select(); document.execCommand("copy"); done(); });
+      else { inp.select(); document.execCommand("copy"); done(); }
+    }});
+    out.appendChild(inp);
+    out.appendChild(h("div", {class:"row"}, [
+      cp,
+      h("a", {class:"btn", href:u, target:"_blank", rel:"noopener", text:"打开看看", onclick:function(){ bdT("c_openlink"); }})
+    ]));
+    out.appendChild(h("p", {class:"hint", text:"发到微信后，TA 直接点开就行；如果打不开或没有声音，让 TA 点右上角「···」选「在浏览器打开」。"}));
+  }
+  var yes = h("button", {type:"button", class:"btn pri", text:"确认生成"}), no = h("button", {type:"button", class:"btn", text:"再检查一下"});
+  ask.appendChild(h("p", {class:"hint", text:"确定都检查好了吗？点击后会打包当前所有 9 关照片、文字与米奇排版并生成专属播放链接。"}));
+  ask.appendChild(h("div", {class:"row"}, [yes, no]));
+  var had = sharedGet();
+  if (had) {
+    var left = Math.ceil((had.t + SHARE_DAYS * 864e5 - Date.now()) / 864e5);
+    btn.textContent = "改好了，重新生成新地址";
+    btn.className = "btn";
+    st.textContent = left > 0 ? "上次生成的地址还能用 " + left + " 天；如果你刚改过内容，可点击下方按钮重新生成。" : "上次生成的地址已过期，点击下方按钮重新生成。";
+    showLink(had.u);
+  } else {
+    box.appendChild(h("p", {class:"hint warn", text:"生成前可先点右上角「从头预览整站」检查一遍。生成的链接默认保留 " + SHARE_DAYS + " 天，改完内容可随时重新生成。"}));
+  }
+  box.appendChild(out);
+  box.appendChild(btn);
+  box.appendChild(ask);
+  box.appendChild(st);
+  /* 仅本地配置台额外显示一行快捷入口，方便将整站同步到 Cloudflare / GitHub */
+  if (/^(127\.0\.0\.1|localhost)$/i.test(location.hostname)) {
+    box.appendChild(h("p", {class:"hint", html:"💡 当前为本机预览地址（仅本机可打开）；要让朋友手机访问，点右上角 <b>📦 导出 / 部署</b> 推上你的 Cloudflare Pages 即可在线生成公网地址。"}));
+  }
+  btn.addEventListener("click", function(){ bdT("c_gen_click"); btn.hidden = true; ask.hidden = false; st.textContent = ""; });
+  no.addEventListener("click", function(){ bdT("c_gen_back"); ask.hidden = true; btn.hidden = false; });
+  yes.addEventListener("click", function(){
+    bdT("c_gen_confirm"); yes.disabled = no.disabled = true; st.textContent = "正在打包照片和文字…";
+    shareData().then(function(d){
+      var body = JSON.stringify(d);
+      st.textContent = "正在上传（约 " + Math.max(1, Math.round(body.length / 1048576)) + " MB）…";
+      return fetch("api/sites", {method:"POST", headers:{"content-type":"application/json"}, body:body});
+    }).then(function(r){
+      return r.json().then(function(j){ if (!r.ok) throw new Error(j && j.error || r.status); return j; });
+    }).then(function(j){
+      var u = location.origin + location.pathname.replace(/[^/]*$/, "") + "?s=" + j.id;
+      sharedSet({u:u, t:Date.now()}); bdT("c_gen_ok"); genDone();
+      ask.hidden = true; yes.disabled = no.disabled = false;
+      btn.textContent = "改好了，重新生成新地址"; btn.className = "btn"; btn.hidden = false;
+      showLink(u);
+      st.textContent = "生成好了！把上面的地址发给 TA（" + SHARE_DAYS + " 天内有效，对方点开直接全屏播放）。";
+    }).catch(function(e){
+      bdT("c_genfail_" + (/too_big/.test(String(e)) ? "big" : /fetch|network|load|net/i.test(String(e && e.message || e)) ? "net" : "other"), null, true);
+      yes.disabled = no.disabled = false;
+      st.textContent = /too_big/.test(String(e)) ? "照片太多太大了，删掉几张再试试。" : "没生成成功：" + (e && e.message || "网络问题");
+    });
+  });
+  panel.appendChild(box);
+}
+/* 只在最后一步、并且当前站点存在上传接口（本地 server.py 或 Cloudflare Pages Functions）时出现 */
+var draw0 = draw;
+draw = function(){ draw0(); if (PLAYID || cur !== SEGS.length - 1) return; apiCheck().then(function(ok){ if (ok && cur === SEGS.length - 1 && !document.querySelector(".card.share")) shareCard($("panel")); }); };
+if (cur === SEGS.length - 1) draw();
+/* ---------- 播放模式（对方打开链接时） ---------- */
+if (PLAYID) (function(){
+  document.documentElement.classList.add("play"); state = blank(); IMG = {};
+  refresh = function(){}; saveState = function(){}; pv.stop();
+  var OWN = false; try { var _sv = JSON.parse(localStorage.getItem("bday_shared_v1") || "null"); OWN = !!(_sv && _sv.u && _sv.u.indexOf("s=" + PLAYID) >= 0); } catch (e) {}
+  var P = OWN ? "o_" : "v_", shownGo = false, quitSent = false;
+  var secB = function(t){ return t < 5 ? "a" : t < 15 ? "b" : t < 30 ? "c" : t < 60 ? "d" : "e"; };
+  var quit = function(){ if (shownGo || quitSent) return; quitSent = true; bdT(P + "quit_" + secB(performance.now() / 1000), PLAYID, true); };
+  document.addEventListener("visibilitychange", function(){ if (document.visibilityState === "hidden") quit(); }); window.addEventListener("pagehide", quit);
+  READY_WAIT = 15000;   /* 播放时：图片没下完就多等一会儿（最多 15 秒），不放出缺图的半成品 */
+  var cover = h("div", {class:"playstart"}), msg = h("p", {class:"pmsg", text:"正在打开…"}), bar = h("div", {class:"pbar"}), barIn = h("i"),
+      go = h("button", {type:"button", class:"btn pri pgo", text:"点一下，开始", hidden:true});
+  bar.appendChild(barIn); bar.hidden = true;
+  cover.appendChild(h("p", {class:"ptitle", text:"有人给你准备了\n一份生日惊喜"})); cover.appendChild(msg); cover.appendChild(bar); cover.appendChild(go);
+  if (/MicroMessenger/i.test(navigator.userAgent)) cover.appendChild(h("p", {class:"ptip", text:"在微信里如果没有声音或卡住，点右上角「···」→「在浏览器打开」"}));
+  document.body.appendChild(cover);
+
+  /* 下一关还没准备好时，画面中间显示「正在加载」，不再弹「没加载出来」 */
+  var spin = h("div", {class:"pspin", text:"加载中，稍等一下…"}); $("fullbox").appendChild(spin);
+  var go0 = Player.prototype.go, show0 = Player.prototype.show;
+  Player.prototype.go = function(i){ var me = this; clearTimeout(me.spT); clearTimeout(me.spT2);
+    me.spT = setTimeout(function(){ spin.classList.add("on"); }, 1200); me.spT2 = setTimeout(function(){ spin.classList.remove("on"); }, 45000);
+    var sg = list && list[i]; if (sg) { bdT(P + "seg_" + sg.id, PLAYID); if (i === list.length - 1) bdT(P + "end", PLAYID); }
+    return go0.call(this, i); };
+  var shown1, SHOWN = new Promise(function(r){ shown1 = r; });   /* 第一关真正放出来了 */
+  Player.prototype.show = function(){ clearTimeout(this.spT); clearTimeout(this.spT2); spin.classList.remove("on"); shown1(); return show0.apply(this, arguments); };
+
+  /* 提前下载：按 manifest.json（每关会用到的图片、音效、字体），先把前两关和开头音乐下好再开始，其余的边看边在后台按顺序下 */
+  var MAN = fetchRetry("manifest.json").then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }), got = {};
+  function grab(u){ if (!got[u]) got[u] = fetchRetry(u, null, 3).then(function(r){ return r.ok ? r.blob() : null; }).catch(function(){ return null; }); return got[u]; }
+  function filesFor(man, segs){ var out = [], seen = {}; segs.forEach(function(sg){ (man[sg.id] || []).forEach(function(u){ if (!seen[u]) { seen[u] = 1; out.push(u); } }); }); return out; }
+  function pool(jobs, k, onOne){ return new Promise(function(done){ var i = 0, act = 0, left = jobs.length; if (!left) return done();
+    function next(){ while (act < k && i < jobs.length) { var job = jobs[i++]; act++; job().then(null, function(){}).then(function(){ act--; left--; if (onOne) onOne(); if (!left) done(); else next(); }); } } next(); }); }
+
+  var list = null, t0 = Date.now(), started = false, customSub = null;
+  function ready(early){ if (!shownGo) { shownGo = true; bdT(P + "ready", PLAYID); bdT(P + "load_" + secB(performance.now() / 1000), PLAYID); } if (early) { if (go.hidden) { msg.textContent = "网络有点慢，可以先开始，后面边看边加载"; go.hidden = false; } return; }
+    bar.hidden = true; msg.textContent = customSub || "手机竖着拿就行，会自动横过来；记得打开声音"; go.hidden = false; }
+  (PLAYID === "embedded" ? fetchRetry("default_site.json", {cache:"no-store"}).then(function(r){ if (!r.ok) throw new Error("net"); return r.json(); }) : fetchRetry("api/sites/" + PLAYID + (OWN ? "?o=1" : ""), {cache:"no-store"}).then(function(r){ if (r.status === 404) throw new Error("gone"); if (!r.ok) throw new Error("net"); return r.json(); })).then(function(d){
+    if (d && d.meta) {
+      var pt = cover.querySelector(".ptitle");
+      if (pt && d.meta.title) {
+        pt.textContent = d.meta.title;
+        document.title = d.meta.title.replace(/\s+/g, " ").trim();
+      }
+      if (d.meta.sub) customSub = d.meta.sub;
+    }
+    list = (d.segs || []).map(function(x){ var base = SEGS.filter(function(sg){ return sg.id === x.id; })[0] || {}; var sg = {}; Object.keys(base).forEach(function(k){ sg[k] = base[k]; }); Object.keys(x).forEach(function(k){ sg[k] = x[k]; }); return sg; });
+    if (!list.length) throw new Error("gone");
+    cfgFor = function(sg){ return Promise.resolve(sg.cfg || {_tab:sg.tab || ""}); };
+    /* 关卡里的图片偶尔下载失败（网不稳）：隔一会儿自动重新下载，最多 3 次 */
+    var IMGRETRY = '<script>document.addEventListener("error",function(e){var t=e.target;if(!t||t.tagName!=="IMG"||!t.src||/^data:/.test(t.src))return;var n=+(t.getAttribute("data-rt")||0);if(n>=3)return;t.setAttribute("data-rt",n+1);setTimeout(function(){var s=t.src;t.src="";t.src=s;},1500*(n+1));},true);<\/script>';
+    pageFor = function(sg, pre){ return tpl(sg.file).then(function(t){ var c = JSON.parse(JSON.stringify(sg.cfg || {})); if (pre) c._pre = 1; var json = JSON.stringify(c).replace(/</g, "\\u003c"); return t.replace("<!--CFG-->", function(){ return IMGRETRY + "<script>window.CFG=" + json + "<\/script><script src=\"layout_editor.js\"><\/script>"; }); }); };
+    return MAN;
+  }).then(function(man){
+    var first = list.slice(0, 2), rest = list.slice(2);
+    var jobs = first.map(function(sg){ return function(){ return tpl(sg.file); }; })
+      .concat(filesFor(man, first).concat(["bgm_head.mp3"]).map(function(u){ return function(){ return grab(u); }; }));
+    var n = jobs.length, k = 0; msg.textContent = "正在准备惊喜…"; bar.hidden = false;
+    var slow = setTimeout(function(){ if (go.hidden) msg.textContent = "网络有点慢，再等一下下…"; }, 12000);
+    var early = setTimeout(function(){ ready(true); }, 40000);
+    return pool(jobs, 4, function(){ k++; barIn.style.width = Math.round(k / n * 100) + "%"; if (go.hidden && Date.now() - t0 > 12000) msg.textContent = "网络有点慢，再等一下下… " + Math.round(k / n * 100) + "%"; })
+      .then(function(){ clearTimeout(slow); clearTimeout(early); ready(false);
+        /* 剩下的关卡：等第一关放出来以后，按播放顺序在后台慢慢下（同时最多 3 个，不和正在看的这一关抢网速） */
+        return SHOWN; }).then(function(){
+        var later = rest.map(function(sg){ return function(){ return tpl(sg.file).then(null, function(){}); }; })
+          .concat(filesFor(man, rest).filter(function(u){ return !got[u]; }).map(function(u){ return function(){ return grab(u); }; }));
+        return pool(later, 3); });
+  }).catch(function(e){ bdT(P + "fail_" + (/gone/.test(String(e)) ? "gone" : "net"), PLAYID); msg.textContent = /gone/.test(String(e)) ? "这个链接已经失效了（链接生成 " + SHARE_DAYS + " 天后会自动删除）。" : "网络有点慢，没打开。刷新一下再试试。"; bar.hidden = true; });
+  go.addEventListener("click", function(){ if (started || !list) return; started = true; bdT(P + "start", PLAYID); acUnlock(); bgmTry(); cover.parentNode.removeChild(cover); openFull(list); });
+})();
+/* ==== 生成链接 END ==== */
+</script>
+
+</body></html>

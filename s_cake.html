@@ -1,0 +1,329 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!--CFG--><style>html,body{touch-action:none;overscroll-behavior:none}</style><script>(function(){var A=window.AudioContext||window.webkitAudioContext;if(!A)return;var L=[];function W(o){try{var P=window.parent;if(P!==window&&P.__AC0){L.push(P.__AC0);return P.__AC0}}catch(e){}var c=o?new A(o):new A();L.push(c);return c}W.prototype=A.prototype;window.AudioContext=window.webkitAudioContext=W;function r(){L.forEach(function(c){if(c.state==="suspended")c.resume().catch(function(){})})}["pointerdown","touchstart","touchend","mousedown","keydown","click"].forEach(function(e){window.addEventListener(e,r,true)});setInterval(r,500);})();</script><script>window.CFG=window.CFG||{};(function(){try{var P=AudioNode.prototype,oc=P.connect,M=new WeakMap();P.connect=function(d){if(d&&typeof AudioDestinationNode!=='undefined'&&d instanceof AudioDestinationNode){var c=d.context,m=M.get(c);if(!m){m=c.createGain();m.gain.value=3.5;var k=c.createDynamicsCompressor();k.threshold.value=-16;k.knee.value=6;k.ratio.value=14;k.attack.value=.002;k.release.value=.15;var ws=c.createWaveShaper(),cv=new Float32Array(1024);for(var i=0;i<1024;i++){var x=i/511.5-1;cv[i]=Math.tanh(1.3*x)/Math.tanh(1.3);}ws.curve=cv;oc.call(m,k);oc.call(k,ws);oc.call(ws,d);M.set(c,m);}if(this!==m){var a=[].slice.call(arguments);a[0]=m;return oc.apply(this,a);}}return oc.apply(this,arguments);};}catch(e){}})();window.__shown=!(window.parent!==window&&(/[?&]pre=1/.test(location.search)||(window.CFG&&CFG._pre)));window.__sq=[];(function(){var R=0.8,st=window.setTimeout;window.setTimeout=function(f,d){var a=[].slice.call(arguments);a[1]=(+d||0)*R;return st.apply(window,a);};var an=Element.prototype.animate;Element.prototype.animate=function(){var x=an.apply(this,arguments);try{x.playbackRate=1/R;}catch(e){}return x;};})();window.wsp=function(t,ms){if(!/敲可爱/.test(t))return;if(window.parent===window)return;window.onShow(function(){try{parent.postMessage({wsp:t,ms:ms||0},'*')}catch(e){}});};window.onShow=function(f){if(window.__shown)setTimeout(f,0);else window.__sq.push(f);};addEventListener('message',function(e){if(e.data&&e.data.show&&!window.__shown){window.__shown=true;window.__sq.splice(0).forEach(function(f){try{f()}catch(x){}});}});if(window.parent!==window){document.documentElement.classList.add('embed');window.segDone=function(){if(window.__sd)return;window.__sd=1;try{parent.postMessage({segdone:1},'*')}catch(e){}};try{Object.defineProperty(window,'innerHeight',{configurable:true,get:function(){return document.documentElement.clientHeight+600;}});}catch(e){}}</script>
+<style>.embed body{padding:0!important;margin:0!important;background:#000!important;overflow:hidden}.embed .bar,.embed h1,.embed h2,.embed .tip,.embed #tabs,.embed [role=group],.embed .prog2,.embed .titles,.embed .covers{display:none!important}.embed .wrap{max-width:none!important;gap:0!important;margin:0!important;padding:0!important}.embed .stage{border-radius:0!important;box-shadow:none!important;max-height:none!important}.embed *{cursor:url(f15/hand2.webp) 23 1,pointer!important}</style></head><body>
+<title>撕纸拼贴蛋糕</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="fonts/lc.css" media="print" onload="this.media='all'">
+<style>
+:root{
+  --bg:#efede9; --fg:#1e1c1a; --soft:#5d5852; --line:#d8d3cb; --card:#faf9f6;
+  --accent:#23408a; --accent-ink:#ffffff;
+  --ui:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --hand:"Long Cang","Kaiti SC","STKaiti","KaiTi",cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#151413; --fg:#ece8e2; --soft:#a9a29a; --line:#34312d; --card:#1f1d1b; --accent:#8fa8ec; --accent-ink:#10172e; color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --bg:#151413; --fg:#ece8e2; --soft:#a9a29a; --line:#34312d; --card:#1f1d1b; --accent:#8fa8ec; --accent-ink:#10172e; color-scheme:dark; }
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ui);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+button{font-family:inherit}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar h1{margin:0 12px 0 0;font-size:18px}
+.btn{border:0;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;background:var(--accent);color:var(--accent-ink);margin-left:auto}
+.tip{margin:0;font-size:13px;color:var(--soft);line-height:1.6}
+.holder{width:100%;display:flex;justify-content:center}
+
+.stage{position:relative;overflow:hidden;isolation:isolate;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.14);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none;cursor:grab}
+.stage img{-webkit-user-drag:none;pointer-events:none;display:block;position:absolute;max-width:none}
+.base{-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent),linear-gradient(transparent,#000 3%,#000 97%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent),linear-gradient(transparent,#000 3%,#000 97%,transparent);mask-composite:intersect}
+.strip{position:absolute;will-change:transform;filter:drop-shadow(0 2px 3px rgba(60,40,20,.18))}
+.strip img{left:0;top:0;width:100%;height:100%}
+.strip.lift{filter:drop-shadow(0 14px 18px rgba(60,40,20,.3))}
+.band{position:absolute;overflow:hidden;contain:strict}
+.rot{position:absolute;width:0;height:0;transform-origin:0 0}
+.band .sl{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;will-change:transform;transform:translateX(-100%)}
+.band img{will-change:transform;transform-origin:0 0}
+.hint{position:absolute;margin:0;font-family:var(--hand);color:#5a4632;pointer-events:none;transition:opacity .35s;z-index:80}
+.match{position:absolute;z-index:70;width:7%;height:1.2%;border-radius:3px;background:linear-gradient(#e9cf9a,#c9a56a);transform-origin:0 50%}
+.match::after{content:"";position:absolute;right:-12%;top:-55%;width:22%;height:210%;border-radius:50%;background:#b8322a}
+.match i{position:absolute;right:-24%;top:-260%;width:32%;height:420%;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:radial-gradient(ellipse at 50% 70%,#fff3b0,#ffb43a 45%,#ff6a2a 75%,transparent 80%);opacity:0;transform-origin:50% 90%}
+.glow{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,214,120,.75),rgba(255,170,80,.25) 40%,rgba(255,160,80,0) 70%);mix-blend-mode:screen;opacity:0;z-index:12}
+.flame{transform-origin:50% 95%}
+.flame.on{animation:flick 1.3s ease-in-out infinite}
+@keyframes flick{0%,100%{transform:scale(1) skewX(0)}30%{transform:scale(1.05,.96) skewX(2deg)}60%{transform:scale(.97,1.04) skewX(-2deg)}}
+.target{position:absolute;z-index:33;border-radius:50%;border:2px dashed rgba(255,190,90,.95);pointer-events:none;animation:tpulse 1.1s ease-in-out infinite}
+@keyframes tpulse{0%,100%{transform:scale(.85);opacity:.55}50%{transform:scale(1.1);opacity:1}}
+.dim{position:absolute;inset:0;pointer-events:none;z-index:11;opacity:0}
+.endt{position:absolute;margin:0;font-family:var(--hand);color:#fff5e4;line-height:1.5;text-shadow:0 2px 10px rgba(0,0,0,.4);z-index:20;opacity:0}
+.save{position:absolute;z-index:21;border:0;border-radius:999px;padding:.6em 1.2em;font-size:15px;font-weight:600;background:#fff5e4;color:#5a3a22;cursor:pointer;opacity:0;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.toast{position:absolute;z-index:22;font-size:13px;color:#fff5e4;opacity:0;transition:opacity .3s}
+@media (prefers-reduced-motion: reduce){ .flame.on{animation:none} }
+</style>
+<style>
+.cs{position:absolute;inset:0}
+.cs .pp{position:absolute;inset:0;background:var(--c);filter:url(#torn)}
+.cs .pp::after{content:"";position:absolute;inset:0;mix-blend-mode:multiply;opacity:.35;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .48  0 0 0 0 .4  0 0 0 .55 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>")}
+.ctx{position:relative;margin:0;padding:.42em .9em .48em;font-family:var(--hand);line-height:1.3;color:#2a2320;text-align:left;word-break:break-all;box-sizing:border-box}
+.cs .ctx{width:100%;top:50%;transform:translateY(-50%)}
+.ctx span{opacity:0;transition:opacity .12s}
+.ctx.on span{opacity:1}
+#cfg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+#cfg label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--soft)}
+#cfg textarea{font:14px/1.4 var(--ui);padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);resize:vertical}
+#cfg em{font-style:normal;color:#b8322a}
+.seg2{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.seg2 button{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+.seg2 button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="torn" x="-4%" y="-12%" width="108%" height="124%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="4" seed="3"/><feDisplacementMap in="SourceGraphic" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<div class="wrap">
+  <div class="bar">
+    <h1>最后一幕：撕纸拼贴蛋糕</h1>
+    <button class="btn" id="again">重来</button>
+  </div>
+  <div class="holder"><div class="stage" id="stage" tabindex="0" aria-label="拼贴蛋糕演示"></div></div>
+  <p class="tip">从右边那叠纸条里，把最上面一条往左拖到蛋糕上（只能顺着固定的路线走，拖过一半松手就会自己贴好；点一下也行）。从最底下的紫色开始，一条条往上贴，贴好以后上面的手写祝福会一行行写出来。六条贴完插上蜡烛，往右划一下把火柴划着，再按住火柴拖到蜡烛芯上点燃。纸条和手写字都直接用的你那张图。</p>
+</div>
+
+<script>
+var M = {"size": [1228, 1604], "strips": [{"k": "purple", "box": [52, 1030, 1066, 374], "ink": [56, 1032, 1020, 364], "bands": [{"v": [47, 99], "q": [93.0, 107.0, 116.0, 137.0, 157.0, 171.0, 181.0, 199.0, 213.0, 220.0, 274.0, 363.0, 372.0, 383.0, 407.0], "mass": 2726}, {"v": [99, 165], "q": [109.0, 225.0, 282.0, 337.0, 400.0, 475.0, 532.0, 586.0, 638.0, 694.0, 765.0, 823.0, 874.0, 936.0, 993.0], "mass": 12790}, {"v": [171, 230], "q": [76.0, 108.0, 156.0, 190.0, 247.0, 274.0, 303.0, 352.0, 410.0, 441.0, 494.0, 537.0, 577.0, 625.0, 898.0], "mass": 9796}, {"v": [220, 291], "q": [84.0, 208.0, 293.0, 362.0, 411.0, 460.0, 511.0, 563.0, 628.0, 715.0, 774.0, 838.0, 900.0, 954.0, 1012.0], "mass": 14021}, {"v": [288, 350], "q": [66.0, 101.0, 132.0, 166.0, 199.0, 249.0, 289.0, 329.0, 363.0, 404.0, 461.0, 499.0, 538.0, 579.0, 615.0], "mass": 9026}], "a": 0.0}, {"k": "red", "box": [149, 735, 921, 343], "ink": [154, 739, 909, 338], "bands": [{"v": [104, 164], "q": [75.0, 107.0, 136.0, 164.0, 193.0, 245.0, 258.0, 603.0, 638.0, 670.0, 731.0, 757.0, 799.0, 825.0, 858.0], "mass": 5390}, {"v": [167, 232], "q": [55.0, 92.0, 121.0, 201.0, 252.0, 301.0, 344.0, 389.0, 433.0, 509.0, 620.0, 682.0, 723.0, 828.0, 866.0], "mass": 8223}, {"v": [245, 303], "q": [52.0, 75.0, 114.0, 120.0, 129.0, 150.0, 314.0, 347.0, 357.0, 378.0, 388.0, 402.0, 415.0, 436.0, 709.0], "mass": 3139}], "a": 0.0}, {"k": "yellow", "box": [247, 617, 492, 286], "ink": [248, 620, 459, 279], "bands": [{"v": [7, 49], "q": [33.7, 88.4, 103.4, 119.2, 129.7, 143.0, 158.2, 170.7, 186.9, 359.6, 375.4, 417.7, 449.4, 463.3, 496.9], "mass": 2323}, {"v": [50, 100], "q": [42.2, 149.9, 169.3, 188.8, 212.8, 232.5, 250.6, 274.2, 331.5, 344.0, 389.9, 412.6, 430.6, 444.2, 493.6], "mass": 3217}, {"v": [90, 143], "q": [74.9, 98.5, 120.4, 153.5, 182.8, 221.2, 244.4, 274.6, 300.2, 330.5, 374.3, 397.5, 421.0, 445.4, 485.4], "mass": 5835}], "a": 19.0}, {"k": "pinkd", "box": [445, 626, 454, 192], "ink": [446, 630, 452, 187], "bands": [{"v": [7, 61], "q": [93.0, 124.0, 149.0, 186.0, 200.0, 226.0, 249.0, 282.0, 294.0, 325.0, 337.0, 362.0, 385.0, 406.0, 433.0], "mass": 5144}, {"v": [58, 102], "q": [211.0, 239.0, 257.0, 276.0, 287.0, 304.0, 324.0, 337.0, 349.0, 365.0, 373.0, 391.0, 406.0, 421.0, 434.0], "mass": 2947}, {"v": [104, 148], "q": [302.0, 307.0, 316.0, 323.0, 329.0, 340.0, 354.0, 370.0, 376.0, 381.0, 385.0, 397.0, 404.0, 408.0, 445.0], "mass": 1460}, {"v": [151, 187], "q": [306.0, 311.0, 316.0, 320.0, 331.0, 336.0, 340.0, 350.0, 354.0, 365.0, 372.0, 376.0, 388.0, 395.0, 407.0], "mass": 995}], "a": 0.0}, {"k": "green", "box": [332, 456, 469, 189], "ink": [339, 484, 445, 158], "bands": [{"v": [-2, 49], "q": [68.0, 94.0, 124.0, 152.0, 173.0, 196.0, 211.0, 242.0, 271.0, 291.0, 332.0, 347.0, 380.0, 405.0, 433.0], "mass": 4447}, {"v": [51, 100], "q": [18.0, 39.0, 69.0, 99.0, 127.0, 170.0, 191.0, 226.0, 258.0, 284.0, 312.0, 357.0, 381.0, 406.0, 429.0], "mass": 5084}, {"v": [100, 140], "q": [41.0, 45.0, 50.0, 62.0, 69.0, 74.0, 84.0, 90.0, 93.0, 97.0, 102.0, 122.0, 127.0, 135.0, 174.0], "mass": 1106}], "a": 0.0}, {"k": "pink", "box": [383, 318, 353, 167], "ink": [384, 322, 329, 159], "bands": [{"v": [68, 143], "q": [-11.8, 70.8, 79.3, 105.3, 118.0, 145.1, 165.8, 198.8, 209.7, 217.6, 226.5, 231.4, 243.4, 252.6, 314.1], "mass": 2880}], "a": -9.5}], "cat": [919, 955, 125, 116], "cakesticker": [204, 780, 68, 73], "stick": [528, 264, 55, 65], "flame": [502, 149, 92, 114], "title": [66, 145, 1039, 185], "crop": [0, 90, 1112, 1490], "paper": "#cfbfa3", "bg": "#dcc9aa", "titleq": [10, 102, 202, 302, 402, 502, 603, 703, 803, 903, 1003]};
+var stage = document.getElementById("stage"), L = {}, S = null;
+function el(tag, cls, parent){ var e = document.createElement(tag); if (cls) e.className = cls; if (parent) parent.appendChild(e); return e; }
+function later(fn, ms){ var me = S; S.timers.push(setTimeout(function(){ if (!me.dead) fn(); }, ms)); }
+var AC = null;
+function ac(){ try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch(e) {} }
+function noise(dur, freq, q, vol, type){
+  var a = AC; if (!a) return; if (a.state !== "running") { try { a.resume(); } catch (e) {} }
+  try { var t = a.currentTime, n = Math.max(1, Math.floor(a.sampleRate * dur)), b = a.createBuffer(1, n, a.sampleRate), d = b.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
+    var s = a.createBufferSource(); s.buffer = b; var f = a.createBiquadFilter(); f.type = type || "bandpass"; f.frequency.value = freq; f.Q.value = q;
+    var g = a.createGain(); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0005, t + dur); s.connect(f); f.connect(g); g.connect(a.destination); s.start(t); } catch(e) {}
+}
+function pat(){ noise(.09, 600, .7, .45, "lowpass"); setTimeout(function(){ noise(.12, 3000, .6, .06, "highpass"); }, 30); }
+function scratch(){ noise(.04, 3600, 2, .03); }
+function strike(){ noise(.25, 2600, .8, .25); setTimeout(function(){ noise(.6, 700, .4, .12, "lowpass"); }, 150); }
+
+function measure(){
+  var w = stage.parentNode.clientWidth, maxH = Math.max(240, window.innerHeight - 160);
+  var h = Math.min(w * 9 / 16, maxH); w = h * 16 / 9;
+  stage.style.width = w + "px"; stage.style.height = h + "px"; L = {W:w, H:h};
+}
+function X(x){ return S.px + (x - M.crop[0]) * S.k; } function Y(y){ return S.py + (y - M.crop[1]) * S.k; }
+function pic(src, b, z){ var i = el("img", "", stage); i.alt = ""; i.src = "c/" + src; i.style.left = X(b[0]) + "px"; i.style.top = Y(b[1]) + "px"; i.style.width = b[2] * S.k + "px"; i.style.height = b[3] * S.k + "px"; if (z) i.style.zIndex = z; return i; }
+var PROT = [-7, 5, -3, 8, -6, 3];
+/* ===== 代码纸条：文案可自定义，纸条按字数自动变高；默认还能切回 V1 原图纸条 ===== */
+var M0 = JSON.parse(JSON.stringify(M)), MODE = window.parent !== window ? (window.CFG && CFG.cake ? "code" : "img") : (/mode=img/.test(location.search) ? "img" : "code");
+var DEF = ["这一年辛苦啦。往后的每一个生日，我都想陪你一起过：一起吃蛋糕、一起许愿，一起把日子过成我们喜欢的样子。", "如果偶尔累了，就停下来歇一歇，不用一直那么厉害，我一直都在。", "新的一岁，想要的都会来。", "有你真好～", "今天你最大，想吃什么都可以～", "生日快乐呀！"];
+var TXT = DEF.slice(), REC = [[40, 70], [20, 40], [8, 14], [4, 10], [10, 24], [2, 7]];
+var TIER = [{k:"purple", w:1050, cx:585, a:-1.5, c:"#a99be0"}, {k:"red", w:900, cx:572, a:2, c:"#ea6a63"}, {k:"yellow", w:440, cx:425, a:-5, c:"#f2d77e"}, {k:"pinkd", w:360, cx:782, a:6, c:"#f3bcb2"}, {k:"green", w:600, cx:575, a:-2.5, c:"#b4c784"}, {k:"pink", w:400, cx:585, a:3, c:"#93c6e2"}];
+if (window.CFG && CFG.cake) TIER.forEach(function(t, i){ if (CFG.cake[t.k]) TXT[i] = CFG.cake[t.k]; });
+function codeLayout(){
+  M = JSON.parse(JSON.stringify(M0)); if (MODE !== "code") return;
+  var MG = 16, SN = TIER.map(function(t){ return Math.abs(Math.sin(t.a * Math.PI / 180)) * t.w / 2; });
+  var ABOVE = [[1], [2, 3], [4], [4], [5], []], G = [[1], [2, 3], [4], [5]];
+  /* 上面那层会压住下面这条的上沿：给下面这条留出顶部空白，字就不会被盖住 */
+  var PT = TIER.map(function(t, i){ return ABOVE[i].length ? 2 * Math.max.apply(null, ABOVE[i].map(function(u){ return SN[u]; })) + SN[i] + MG + 8 : 0; });
+  var meas = document.createElement("div"), f, hs, tops, pts; meas.style.cssText = "position:absolute;left:-9999px;top:0;visibility:hidden"; document.body.appendChild(meas);
+  for (f = 48; f >= 20; f--) {
+    pts = PT.map(function(v){ return Math.max(.42 * f, v); });
+    hs = TIER.map(function(t, i){ var q = document.createElement("p"); q.className = "ctx"; q.style.width = t.w + "px"; q.style.fontSize = f + "px"; q.style.paddingTop = pts[i] + "px"; q.textContent = TXT[i] || " "; meas.appendChild(q); var h = q.offsetHeight; q.remove(); return h; });
+    hs[2] = hs[3] = Math.max(hs[2], hs[3]);
+    tops = []; tops[0] = 1404 - hs[0]; var prev = [0];
+    G.forEach(function(g){ var base = Math.max.apply(null, prev.map(function(l){ return tops[l] + SN[l]; })); g.forEach(function(u){ tops[u] = base + SN[u] + MG - hs[u]; }); prev = g; });
+    if (1404 - (tops[5] - SN[5]) <= 1074) break;
+  }
+  meas.remove(); var bx = TIER.map(function(t, i){ return [t.cx - t.w / 2, tops[i], t.w, hs[i]]; });
+  M.strips = TIER.map(function(t, i){ return {k:t.k, box:bx[i], code:true, a:t.a, c:t.c, f:f, pt:pts[i], text:TXT[i]}; });
+  var top = bx[5], dx = top[0] + top[2] / 2 - 559.5, dy = top[1] - 318;
+  M.stick[0] += dx; M.stick[1] += dy; M.flame[0] += dx; M.flame[1] += dy;
+  M.cat = [bx[1][0] + bx[1][2] - 105, bx[1][1] - 40, 125, 116]; M.cakesticker = [bx[2][0] - 30, bx[2][1] - 4, 68, 73]; M.hat = [bx[4][0] + bx[4][2] - 6, bx[4][1] - 98, 68, 109];
+  S_FS = f;
+}
+var S_FS = 0;
+function codeStrip(e, st){
+  st.el = e; e.innerHTML = '<div class="cs" style="rotate:' + st.a + 'deg;--c:' + st.c + '"><i class="pp"></i><p class="ctx" style="font-size:' + st.f * S.k + 'px;padding-top:' + st.pt * S.k + 'px">' + st.text.split("").map(function(c){ return "<span>" + c + "</span>"; }).join("") + "</p></div>";
+}
+function showAll(){
+  if (!S || S.phase !== "paste") return;
+  S.strips.forEach(function(o, i){ o.e.style.transform = "none"; o.e.style.zIndex = 10 + i; o.e.classList.remove("lift"); var p = o.e.querySelector(".ctx"); if (p) { p.querySelectorAll("span").forEach(function(sp){ sp.style.transitionDelay = "0ms"; }); p.classList.add("on"); } });
+  S.i = S.strips.length; S.phase = "done"; S.hint.style.opacity = "0";
+  sticker("cat.webp", M.cat); sticker("cakest.webp", M.cakesticker); if (M.hat) sticker("hat.webp", M.hat); later(candle, 300);
+}
+
+
+function reset(){
+  if (S) { S.dead = true; S.timers.forEach(clearTimeout); }
+  stage.innerHTML = ""; measure(); codeLayout();
+  S = {timers:[], i:0, phase:"paste"};
+  var c = M.crop; S.k = L.H * .98 / c[3]; S.px = L.W * .07; S.py = L.H * .01;
+  stage.style.background = M.bg;
+  var b = el("img", "base", stage); b.alt = "纸"; b.src = "c/base.webp"; b.style.left = S.px + "px"; b.style.top = S.py + "px"; b.style.width = c[2] * S.k + "px"; b.style.height = c[3] * S.k + "px";
+  var mBunt = pic("bunting.webp", [70, 92, 970, 175], 36); mBunt.dataset.assetId = "cake_bunting";
+  var mStand = pic("mickey_stand.webp", [34, 420, 148, 240], 37); mStand.dataset.assetId = "cake_mickey"; mStand.style.filter = "drop-shadow(0 4px 6px rgba(40,25,10,.2))";
+  S.strips = M.strips.map(function(st, i){
+    var e = el("div", "strip", stage), bx = st.box; e.style.left = X(bx[0]) + "px"; e.style.top = Y(bx[1]) + "px"; e.style.width = bx[2] * S.k + "px"; e.style.height = bx[3] * S.k + "px"; e.style.zIndex = 30 - i;
+    if (st.code) codeStrip(e, st); else { var im = el("img", "", e); im.alt = ""; im.src = "c/st_" + st.k + ".webp"; }
+    var w = bx[2] * S.k, ps = Math.min(1, L.W * .3 / w), P2 = [X(bx[0]) + w / 2, Y(bx[1]) + bx[3] * S.k / 2];
+    var o = {e:e, st:st, w:w, h:bx[3] * S.k, ps:ps, pr:PROT[i], P2:P2, t:0};
+    return o;
+  });
+  layoutPile(false);
+  S.hint = el("p", "hint", stage); S.hint.style.left = (L.W * .6) + "px"; S.hint.style.top = (L.H * .12) + "px"; S.hint.style.fontSize = Math.max(15, L.H * .045) + "px";
+  S.hint.textContent = "把最上面的纸条拖到蛋糕上";
+}
+/* 右边的纸条堆：还没贴的都叠在这里，最上面是下一条 */
+function layoutPile(anim){
+  var left = S.strips.slice(S.i);
+  left.forEach(function(o, j){
+    o.P0 = [L.W * .79 + (j % 2 ? 1 : -1) * j * L.W * .008, L.H * .62 - j * L.H * .018];
+    o.e.style.zIndex = 40 - j;
+    if (j > 0 || !anim) setT(o, 0);
+  });
+}
+function bez(o, t){ var P0 = o.P0, P2 = o.P2, P1 = [(P0[0] + P2[0]) / 2, Math.min(P0[1], P2[1]) - L.H * .14], u = 1 - t;
+  return [u * u * P0[0] + 2 * u * t * P1[0] + t * t * P2[0], u * u * P0[1] + 2 * u * t * P1[1] + t * t * P2[1]]; }
+function setT(o, t){
+  o.t = t; var p = bez(o, t), s = o.ps + (1 - o.ps) * t, lift = 1 + .06 * Math.sin(Math.PI * t), r = o.pr * (1 - t);
+  o.e.style.transform = "translate(" + (p[0] - o.P2[0]) + "px," + (p[1] - o.P2[1]) + "px) rotate(" + r + "deg) scale(" + s * lift + ")";
+}
+function tween(o, to, ms, done){
+  var from = o.t, t0 = performance.now(), me = S; S.busy = true;
+  (function f(now){ if (me.dead) return; var q = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - q, 3); setT(o, from + (to - from) * e); if (q < 1) requestAnimationFrame(f); else { S.busy = false; done && done(); } })(t0);
+}
+function stick(o){ if (!S.w1) { S.w1 = 1; window.wsp && wsp("每一条纸都是手撕的，写着我想对他说的话🎂"); }
+  o.e.classList.remove("lift"); o.e.style.zIndex = 10 + S.i; pat();
+  o.e.animate([{transform:"scale(1.04,.95)"}, {transform:"scale(.99,1.02)"}, {transform:"none"}], {duration:260, easing:"ease-out"});
+  var i = S.i; S.i++; S.phase = "write"; S.hint.style.opacity = "0";
+  if (S.i < S.strips.length) layoutPile(true);
+  writeInk(o.st, function(){
+    if (o.st.k === "red") sticker("cat.webp", M.cat);
+    if (o.st.k === "yellow") sticker("cakest.webp", M.cakesticker); if (o.st.k === "green" && M.hat) sticker("hat.webp", M.hat);
+    if (S.i < S.strips.length) { S.phase = "paste"; S.hint.textContent = ["再贴一条", "继续往上贴", "快到顶了", "再来一条", "最后一条"][Math.min(4, S.i - 1)]; S.hint.style.opacity = "1"; }
+    else later(candle, 400);
+  });
+}
+/* 写字：窗口不动、里面一层往右滑、图片反向滑 —— 全是 transform，不掉帧；
+   关键帧按「这一行墨水的累计分布」排，笔划多的地方慢、空白处一带而过，像真的在匀速写 */
+/* 一行 = 一个窗口。窗口按这行字的倾斜角转正（斜着写的黄纸条也能一行一行出），
+   里面一层往右滑、图片反向滑抵消 —— 只动 transform，不掉帧 */
+function wipe(src, ib, ang, bd, dur, delay, z, alt){
+  var k = S.k, u0 = bd.q[0] - 6, u1 = bd.q[bd.q.length - 1] + 6, bw = (u1 - u0) * k;
+  var rot = el("div", "rot", stage); rot.style.left = X(ib[0]) + "px"; rot.style.top = Y(ib[1]) + "px"; rot.style.zIndex = z; rot.style.transform = "rotate(" + ang + "deg)";
+  var w = el("div", "band", rot); w.style.left = u0 * k + "px"; w.style.top = bd.v[0] * k + "px"; w.style.width = bw + "px"; w.style.height = (bd.v[1] - bd.v[0]) * k + "px";
+  var sl = el("div", "sl", w), im = el("img", "", sl); im.alt = alt || ""; im.src = "c/" + src;
+  im.style.left = -u0 * k + "px"; im.style.top = -bd.v[0] * k + "px"; im.style.width = ib[2] * k + "px"; im.style.height = ib[3] * k + "px";
+  var n = bd.q.length - 1, A = [], B = [];
+  bd.q.forEach(function(uq, i){
+    var r = i === 0 ? 0 : i === n ? bw : (Math.min(u1, Math.max(u0, uq)) - u0) * k, tx = r - bw;
+    A.push({transform:"translateX(" + tx + "px)", offset:i / n}); B.push({transform:"translateX(" + (-tx) + "px) rotate(" + (-ang) + "deg)", offset:i / n});
+  });
+  var o = {duration:dur, delay:delay, easing:"linear", fill:"both"};
+  sl.animate(A, o); im.animate(B, o);
+  for (var t = 0; t < dur; t += 150) later(scratch, delay + t);
+}
+function writeInk(st, done){ if (st.code) { var sp = st.el.querySelectorAll(".ctx span"), dt = Math.max(14, Math.min(40, 1500 / sp.length)); sp.forEach(function(x, i){ x.style.transitionDelay = (160 + i * dt) + "ms"; }); st.el.querySelector(".ctx").classList.add("on"); for (var t = 0; t < sp.length * dt; t += 150) later(scratch, 160 + t); later(done, 160 + sp.length * dt + 150); return; }
+  var ct = window.CFG && CFG.cake && CFG.cake[st.k];
+  if (ct) { var ib = st.ink, k = S.k, bw = ib[2] * k, bh = ib[3] * k, n = Array.from(ct).length;
+    var r = el("div", "rot", stage); r.style.left = X(ib[0]) + "px"; r.style.top = Y(ib[1]) + "px"; r.style.zIndex = 35; r.style.transform = "rotate(" + (st.a || 0) + "deg)";
+    var fs = Math.max(8, Math.min(bh * .4, Math.sqrt(bw * bh * .3 / n)));
+    var tx = el("div", "", r); tx.textContent = ct; tx.style.cssText = "position:absolute;left:0;top:0;width:" + bw + "px;height:" + bh + "px;box-sizing:border-box;padding:" + bh * .08 + "px " + bw * .06 + "px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:\"Long Cang\",\"Kaiti SC\",\"STKaiti\",\"KaiTi\",cursive;color:#3a241a;line-height:1.2;overflow:hidden;font-size:" + fs + "px;word-break:break-all";
+    var dur = Math.min(1800, 500 + n * 45); tx.animate([{clipPath:"inset(0 100% 0 0)"}, {clipPath:"inset(0 0% 0 0)"}], {duration:dur, delay:160, easing:"linear", fill:"both"});
+    for (var t = 0; t < dur; t += 150) later(scratch, 160 + t); later(done, dur + 200); return; }
+  if (!st.ink) { done(); return; }
+  /* 手写字图片很大，手机上可能还没下载完：等这张图解码好再开始擦出字和放打字声，两者才对得上 */
+  var me = S;
+  inkReady(st.k).then(function(){ if (me.dead) return;
+    var delay = 160;
+    st.bands.forEach(function(bd){
+      var dur = Math.round(Math.min(650, 130 + bd.mass * .025)); wipe("ink_" + st.k + ".webp", st.ink, st.a || 0, bd, dur, delay, 35); delay += dur + 25;
+    });
+    later(done, delay); });
+}
+var INKP = {};
+function inkReady(k){ if (!INKP[k]) INKP[k] = new Promise(function(res){ var i = new Image(); i.onload = function(){ (i.decode ? i.decode() : Promise.resolve()).then(res, res); }; i.onerror = res; i.src = "c/ink_" + k + ".webp"; setTimeout(res, 15000); }); return INKP[k]; }
+if (MODE === "img") ["purple", "red", "yellow", "pinkd", "green", "pink"].forEach(inkReady);
+function sticker(src, b){
+  var s = pic(src, b, 36); s.style.filter = "drop-shadow(0 3px 3px rgba(0,0,0,.2))";
+  s.animate([{transform:"scale(0) rotate(-30deg)"}, {transform:"scale(1.25) rotate(8deg)", offset:.6}, {transform:"scale(1) rotate(0deg)"}], {duration:450, easing:"cubic-bezier(.3,.7,.4,1.4)"});
+  pat();
+}
+/* 插蜡烛，划火柴点亮 */
+function candle(){
+  var st = pic("stick.webp", M.stick, 34); st.style.transformOrigin = "50% 100%";
+  st.animate([{transform:"translateY(-180%)", opacity:0}, {transform:"translateY(8%)", opacity:1, offset:.75}, {transform:"none", opacity:1}], {duration:500, easing:"cubic-bezier(.5,0,.6,1)"});
+  later(pat, 380);
+  var m = el("div", "match", stage); m.style.left = (L.W * .66) + "px"; m.style.top = (L.H * .58) + "px"; m.style.transform = "rotate(-12deg)"; el("i", "", m); S.match = m;
+  S.mp = [0, 0]; S.mr = -12;
+  m.animate([{opacity:0, transform:"translateY(30px) rotate(-12deg)"}, {opacity:1, transform:"rotate(-12deg)"}], {duration:400, delay:500, fill:"backwards"});
+  later(function(){ S.phase = "match"; S.hint.textContent = "往右划一下，把火柴划着"; S.hint.style.opacity = "1"; }, 700);
+}
+/* 划着火柴 → 用手拖着火柴到蜡烛芯 → 点燃 */
+function placeMatch(ms){
+  var tf = "translate(" + S.mp[0] + "px," + S.mp[1] + "px) rotate(" + S.mr + "deg)";
+  if (ms) S.match.animate([{transform:S.match.style.transform}, {transform:tf}], {duration:ms, easing:"ease-out"});
+  S.match.style.transform = tf;
+}
+function tip(){ var r = S.match.querySelector("i").getBoundingClientRect(), sr = stage.getBoundingClientRect(); return [r.left - sr.left + r.width / 2, r.top - sr.top + r.height * .78]; }
+function strikeMatch(){
+  S.phase = "carry"; S.hint.style.opacity = "0"; strike();
+  S.match.querySelector("i").animate([{opacity:0, transform:"scale(.2)"}, {opacity:1, transform:"scale(1.25)"}, {opacity:1, transform:"scale(1)"}], {duration:380, fill:"forwards"});
+  S.mp = [L.W * .035, -5]; S.mr = -16; placeMatch(200);
+  var fl = M.flame; S.wick = [X(fl[0] + fl[2] / 2), Y(fl[1] + fl[3] * .9)];
+  var tg = el("div", "target", stage), ts = L.H * .1; tg.style.left = (S.wick[0] - ts / 2) + "px"; tg.style.top = (S.wick[1] - ts / 2) + "px"; tg.style.width = tg.style.height = ts + "px"; S.target = tg;
+  later(function(){ if (S.phase === "carry") { S.hint.textContent = "按住火柴，拖到蜡烛芯上"; S.hint.style.opacity = "1"; } }, 450);
+}
+function lightCandle(){
+  S.phase = "lit"; S.drag = null; S.hint.style.opacity = "0"; stage.style.cursor = "";
+  var t = tip(); S.mp = [S.mp[0] + S.wick[0] - t[0], S.mp[1] + S.wick[1] - t[1]]; placeMatch(160);
+  S.target.animate([{opacity:1, transform:"scale(1)"}, {opacity:0, transform:"scale(1.8)"}], {duration:400, fill:"forwards"});
+  var fl = M.flame, fx = S.wick[0], fy = S.wick[1];
+  later(function(){
+    noise(.35, 900, .5, .2, "lowpass");
+    var f = pic("flame.webp", fl, 37); f.className = "flame on";
+    f.animate([{transform:"scale(0)"}, {transform:"scale(1.3)"}, {transform:"scale(1)"}], {duration:500, easing:"ease-out"});
+    var g = el("div", "glow", stage), gs = L.H * .55; g.style.left = (fx - gs / 2) + "px"; g.style.top = (fy - gs / 2 - fl[3] * S.k * .5) + "px"; g.style.width = g.style.height = gs + "px";
+    g.animate([{opacity:0}, {opacity:1}], {duration:900, fill:"forwards"});
+    later(function(){ g.animate([{opacity:1, transform:"scale(1)"}, {opacity:.8, transform:"scale(.96)"}, {opacity:1, transform:"scale(1.02)"}], {duration:1600, iterations:Infinity}); }, 900);
+    S.mp = [S.mp[0] + L.W * .05, S.mp[1] + L.H * .1]; S.mr = -30; placeMatch(600);
+    S.match.animate([{opacity:1}, {opacity:0}], {duration:500, delay:250, fill:"forwards"});
+    later(finale, 900);
+  }, 220);
+}
+function finale(){ setTimeout(function(){ window.wsp && wsp("拼起来，就是一个生日蛋糕～（之前看到很火的纸条创意，这次动手改成vibe coding啦）"); }, 2600);
+  var d = el("div", "dim", stage), cx = X(560), cy = Y(780);
+  d.style.background = "radial-gradient(ellipse " + (L.H * .62) + "px " + (L.H * .7) + "px at " + cx + "px " + cy + "px, rgba(40,22,10,0) 55%, rgba(30,16,8,.72) 100%)";
+  d.animate([{opacity:0}, {opacity:1}], {duration:1600, fill:"forwards"});
+  /* 标题一个字一个字写出来 */
+  later(function(){
+    var t = M.title;
+    wipe("title.webp", t, 0, {v:[0, t[3]], q:M.titleq.map(function(v, i){ return i === 0 ? v + 6 : i === M.titleq.length - 1 ? v - 6 : v; })}, 1100, 0, 36, "亲爱的你，要天天开心"); }, 500);
+  later(function(){
+    var e = el("p", "endt", stage); e.innerHTML = "生日快乐。<br>以后的每一个生日，<br>都想陪你过。"; e.style.left = (L.W * .62) + "px"; e.style.top = (L.H * .32) + "px"; e.style.fontSize = Math.max(18, L.H * .062) + "px";
+    e.animate([{opacity:0, transform:"translateY(12px)"}, {opacity:1, transform:"none"}], {duration:1000, fill:"forwards"});
+    setTimeout(function(){ window.segDone&&segDone(); }, 600);
+  }, 3800);
+}
+
+/* ---------- 手势：沿固定路线拖 ---------- */
+function pt(ev){ var r = stage.getBoundingClientRect(); return [ev.clientX - r.left, ev.clientY - r.top]; }
+stage.addEventListener("pointerdown", function(ev){
+  ac(); if (!S || S.busy) return; stage.setPointerCapture(ev.pointerId); var p = pt(ev);
+  if (S.phase === "paste") { var o = S.strips[S.i]; o.e.classList.add("lift"); o.e.style.zIndex = 60; S.drag = {o:o, x:p[0], y:p[1], moved:0}; noise(.12, 2800, .6, .05, "highpass"); }
+  else if (S.phase === "match") S.drag = {match:true, x:p[0], moved:0};
+  else if (S.phase === "carry") { S.drag = {carry:true, x:p[0], y:p[1], mx:S.mp[0], my:S.mp[1]}; S.mr = -24; placeMatch(120); stage.style.cursor = "grabbing"; S.hint.style.opacity = "0"; }
+});
+stage.addEventListener("pointermove", function(ev){
+  if (!S || !S.drag) return; var p = pt(ev), d = S.drag; d.moved = Math.max(d.moved, Math.hypot(p[0] - d.x, p[1] - (d.y || p[1])));
+  if (d.o) { var o = d.o, vx = o.P2[0] - o.P0[0], vy = o.P2[1] - o.P0[1], t = ((p[0] - d.x) * vx + (p[1] - d.y) * vy) / (vx * vx + vy * vy); setT(o, Math.max(0, Math.min(1, t))); }
+  else if (d.match && p[0] - d.x > L.W * .05) { S.drag = null; strikeMatch(); }
+  else if (d.carry) {
+    S.mp = [d.mx + p[0] - d.x, d.my + p[1] - d.y]; placeMatch(0);
+    var t = tip(); if (Math.hypot(t[0] - S.wick[0], t[1] - S.wick[1]) < L.H * .065) lightCandle();
+  }
+});
+stage.addEventListener("pointerup", function(){
+  if (!S || !S.drag) return; var d = S.drag; S.drag = null;
+  if (d.o) { if (d.moved < 6 || d.o.t > .4) tween(d.o, 1, 380 + (1 - d.o.t) * 400, function(){ stick(d.o); }); else tween(d.o, 0, 300, function(){ d.o.e.classList.remove("lift"); layoutPile(false); }); }
+  else if (d.match) strikeMatch();
+  else if (d.carry) { if ((d.moved || 0) < 10) lightCandle(); else { S.mr = -16; placeMatch(160); stage.style.cursor = ""; } }
+});
+stage.addEventListener("pointercancel", function(){ if (S && S.drag && S.drag.carry) lightCandle(); else if (S && S.drag && S.drag.match) { S.drag = null; strikeMatch(); } if (S) S.drag = null; });
+window.addEventListener("resize", function(){ clearTimeout(window.__rz); window.__rz = setTimeout(reset, 150); });
+document.getElementById("again").addEventListener("click", reset);
+(document.fonts ? document.fonts.load('40px "Long Cang"', TXT.join("")) : Promise.resolve()).catch(function(){}).then(reset);
+</script>
+
+</body></html>

@@ -1,0 +1,631 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!--CFG--><style>html,body{touch-action:none;overscroll-behavior:none}</style><script>(function(){var A=window.AudioContext||window.webkitAudioContext;if(!A)return;var L=[];function W(o){try{var P=window.parent;if(P!==window&&P.__AC0){L.push(P.__AC0);return P.__AC0}}catch(e){}var c=o?new A(o):new A();L.push(c);return c}W.prototype=A.prototype;window.AudioContext=window.webkitAudioContext=W;function r(){L.forEach(function(c){if(c.state==="suspended")c.resume().catch(function(){})})}["pointerdown","touchstart","touchend","mousedown","keydown","click"].forEach(function(e){window.addEventListener(e,r,true)});setInterval(r,500);})();</script><script>window.CFG=window.CFG||{};(function(){try{var P=AudioNode.prototype,oc=P.connect,M=new WeakMap();P.connect=function(d){if(d&&typeof AudioDestinationNode!=='undefined'&&d instanceof AudioDestinationNode){var c=d.context,m=M.get(c);if(!m){m=c.createGain();m.gain.value=3.5;var k=c.createDynamicsCompressor();k.threshold.value=-16;k.knee.value=6;k.ratio.value=14;k.attack.value=.002;k.release.value=.15;var ws=c.createWaveShaper(),cv=new Float32Array(1024);for(var i=0;i<1024;i++){var x=i/511.5-1;cv[i]=Math.tanh(1.3*x)/Math.tanh(1.3);}ws.curve=cv;oc.call(m,k);oc.call(k,ws);oc.call(ws,d);M.set(c,m);}if(this!==m){var a=[].slice.call(arguments);a[0]=m;return oc.apply(this,a);}}return oc.apply(this,arguments);};}catch(e){}})();window.__shown=!(window.parent!==window&&(/[?&]pre=1/.test(location.search)||(window.CFG&&CFG._pre)));window.__sq=[];(function(){var R=0.8,st=window.setTimeout;window.setTimeout=function(f,d){var a=[].slice.call(arguments);a[1]=(+d||0)*R;return st.apply(window,a);};var an=Element.prototype.animate;Element.prototype.animate=function(){var x=an.apply(this,arguments);try{x.playbackRate=1/R;}catch(e){}return x;};})();window.progVis=function(v){try{if(window.parent!==window)parent.postMessage({prog:v},'*')}catch(e){}};window.wsp=function(t,ms){if(!/敲可爱/.test(t))return;if(window.parent===window)return;window.onShow(function(){try{parent.postMessage({wsp:t,ms:ms||0},'*')}catch(e){}});};window.onShow=function(f){if(window.__shown)setTimeout(f,0);else window.__sq.push(f);};addEventListener('message',function(e){if(e.data&&e.data.show&&!window.__shown){window.__shown=true;window.__sq.splice(0).forEach(function(f){try{f()}catch(x){}});}});if(window.parent!==window){document.documentElement.classList.add('embed');window.segDone=function(){if(window.__sd)return;window.__sd=1;try{parent.postMessage({segdone:1},'*')}catch(e){}};try{Object.defineProperty(window,'innerHeight',{configurable:true,get:function(){return document.documentElement.clientHeight+600;}});}catch(e){}}</script>
+<style>.embed body{padding:0!important;margin:0!important;background:#000!important;overflow:hidden}.embed .bar,.embed h1,.embed h2,.embed .tip,.embed #tabs,.embed [role=group],.embed .prog2,.embed .titles,.embed .covers{display:none!important}.embed .wrap{max-width:none!important;gap:0!important;margin:0!important;padding:0!important}.embed .stage{border-radius:0!important;box-shadow:none!important;max-height:none!important}.embed *{cursor:url(f15/hand2.webp) 23 1,pointer!important}</style></head><body>
+<title>旅行环节结尾</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="fonts/lc.css" media="print" onload="this.media='all'">
+<style>
+/* 上面一排两个版本切换和重来；下面一块 16:9 横屏舞台（世界地图），外框跟随明暗 */
+:root{
+  --bg:#efede9; --fg:#1e1c1a; --soft:#5d5852; --line:#d8d3cb; --card:#faf9f6;
+  --accent:#23408a; --accent-ink:#ffffff;
+  --ui:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --hand:"Long Cang","Kaiti SC","STKaiti","KaiTi",cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#151413; --fg:#ece8e2; --soft:#a9a29a; --line:#34312d; --card:#1f1d1b; --accent:#8fa8ec; --accent-ink:#10172e; color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --bg:#151413; --fg:#ece8e2; --soft:#a9a29a; --line:#34312d; --card:#1f1d1b; --accent:#8fa8ec; --accent-ink:#10172e; color-scheme:dark; }
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ui);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+button{font-family:inherit}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar h1{margin:0 12px 0 0;font-size:18px}
+.pill{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer}
+.pill[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn{border:0;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;background:var(--accent);color:var(--accent-ink);margin-left:auto}
+.ghost{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer}
+.tip{margin:0;font-size:13px;color:var(--soft);line-height:1.6}
+.holder{width:100%;display:flex;justify-content:center}
+
+.stage{position:relative;overflow:hidden;isolation:isolate;border-radius:10px;background:#1b2232;box-shadow:0 12px 30px rgba(0,0,0,.18);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none;cursor:pointer;color:#fff}
+.stage img{-webkit-user-drag:none;pointer-events:none;display:block;position:absolute;max-width:none}
+.say{position:absolute;margin:0;font-family:var(--hand);line-height:1.35;color:#fffaf0;text-shadow:0 2px 8px rgba(0,0,0,.45);pointer-events:none;transition:opacity .4s}
+.veil{position:absolute;inset:0;background:rgba(8,18,30,.45);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .35s;pointer-events:none;z-index:40}
+.veil.on{opacity:1}
+
+/* 回忆卡 */
+.memo{position:absolute;z-index:50;border-radius:8px;background:#f6efe2 url(fused/paper.webp) center/cover;box-shadow:inset 0 0 0 7px #f3e8cd,inset 0 0 0 8px rgba(120,92,52,.22),0 22px 50px rgba(0,0,0,.38)}
+.memo::before{content:"";position:absolute;left:50%;top:-1.2%;width:3.2%;aspect-ratio:1;margin-left:-1.6%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff9c8c,#d23c2c 55%,#8f1f15);box-shadow:0 3px 4px rgba(0,0,0,.35);z-index:5}
+.memo .txt{position:absolute;left:54%;top:20%;width:39%;color:#3b3027;font-family:var(--hand)}
+.memo .txt .c{display:block;line-height:1.1;white-space:nowrap}
+.memo .txt .d{display:block;font-family:var(--ui);letter-spacing:.08em;color:#9a7a55;margin:.5em 0 .9em}
+.memo .txt .l{display:block;line-height:1.55;color:#4a3d32}
+.memo .txt .k{display:inline-block;margin-top:1.1em;font-family:var(--ui);color:#fff;background:#2c3e6b;border-radius:4px;padding:.45em .9em;letter-spacing:.04em}
+.memo .cap{position:absolute;left:8%;right:8%;bottom:5%;line-height:1.35;text-align:center;font-family:var(--hand);color:#3b3027;opacity:0}
+.memo .hd{position:absolute;left:5%;top:5.5%;font-family:var(--ui);letter-spacing:.1em;color:#9a7a55;opacity:0}
+.pol{position:absolute;left:0;top:0;background:#fdfcf8;border-radius:2px;box-shadow:0 1px 0 rgba(0,0,0,.05),0 7px 16px rgba(40,28,14,.28);will-change:transform}
+.pol i{position:absolute;left:5%;top:5%;width:90%;height:78%;display:block;background:var(--g);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.pol i span{position:absolute;left:0;right:0;bottom:6%;text-align:center;font-style:normal;font-size:var(--lab,10px);color:rgba(255,255,255,.92);text-shadow:0 1px 2px rgba(0,0,0,.3)}
+
+/* 地图 */
+.world{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.pin{position:absolute;transform:translate(-50%,-50%);pointer-events:none}
+.pin .d{width:var(--d,14px);height:var(--d,14px);border-radius:50%;background:#ffe9b8;box-shadow:0 0 0 3px rgba(255,233,184,.35),0 0 14px rgba(255,214,140,.9);margin:0 auto}
+.pin .ring{position:absolute;left:50%;top:50%;width:var(--d,14px);height:var(--d,14px);margin:calc(var(--d,14px) / -2) 0 0 calc(var(--d,14px) / -2);border-radius:50%;border:2px solid #ffe9b8;animation:ping 1.8s ease-out infinite}
+.pin.done .ring{display:none}
+.pin.done .d{background:#ff8a5c;box-shadow:0 0 0 3px rgba(255,138,92,.35)}
+.pin .lb{position:absolute;left:50%;top:120%;transform:translateX(-50%);white-space:nowrap;font-family:var(--hand);color:#fff6e4;text-shadow:0 1px 4px rgba(0,0,0,.75)}
+.pin.lft .lb{left:auto;right:150%;top:50%;transform:translateY(-50%)}
+.pin.up .lb{top:auto;bottom:150%}
+.pin.home .d{background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.3),0 0 16px rgba(255,255,255,.9)}
+.pin.home .ring{display:none}
+@keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(3.2);opacity:0}}
+
+/* 印章 */
+.stp{position:absolute;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--ink);border:3px double var(--ink);font-family:var(--hand);line-height:1.05;mix-blend-mode:multiply;opacity:.9}
+.stp small{font-family:var(--ui);font-size:.42em;letter-spacing:.06em;margin-top:.25em}
+/* 护照 */
+.pcorner{position:absolute;z-index:45;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4))}
+.pcorner .cnt{position:absolute;right:-12%;top:-8%;min-width:1.7em;height:1.7em;border-radius:999px;background:#e0442c;color:#fff;font-family:var(--ui);font-weight:700;display:grid;place-items:center;font-size:var(--cf,12px);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.pbook{position:absolute;z-index:55;perspective:1800px}
+.ppage{position:absolute;top:0;height:100%;background:#efe7d3 url('e/paper.webp');background-size:220px;border-radius:3px;overflow:hidden}
+.ppage::after{content:"";position:absolute;inset:0;pointer-events:none}
+.ppage.r::after{background:linear-gradient(90deg,rgba(80,60,30,.25),rgba(80,60,30,0) 10%)}
+.ppage.l::after{background:linear-gradient(270deg,rgba(80,60,30,.25),rgba(80,60,30,0) 10%)}
+.ppage .ttl{position:absolute;left:0;right:0;top:6%;text-align:center;font-family:var(--ui);letter-spacing:.2em;color:#8a6d4a}
+.pleaf{position:absolute;top:0;height:100%;transform-origin:0 50%;transform-style:preserve-3d}
+.pface{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:3px;overflow:hidden}
+.pface.back{transform:rotateY(180deg)}
+.slot{position:absolute;left:12%;right:12%;top:24%;bottom:14%;border:2px dashed rgba(138,109,74,.55);border-radius:12px;display:grid;place-items:center;text-align:center;font-family:var(--hand);color:#8a6d4a}
+/* 登机牌 */
+.bp{position:absolute;z-index:56}
+.bpart{position:absolute;inset:0;filter:drop-shadow(0 12px 20px rgba(0,0,0,.35))}
+.bpart img{left:0;top:0;width:100%;height:100%}
+.f{position:absolute;color:#2a3550;white-space:nowrap}
+.f b{display:block;font-family:var(--ui);font-weight:600;letter-spacing:.1em;color:#7d8aa8;font-size:.5em;margin-bottom:.15em}
+.f span{font-family:var(--hand)}
+.band{position:absolute;color:#fff;font-family:var(--ui);font-weight:700;letter-spacing:.18em}
+/* 机票 */
+.tk{position:absolute;left:0;top:0;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
+.tk img{left:0;top:0;width:100%;height:100%}
+.tk .tc{position:absolute;left:7%;top:53%;font-family:var(--ui);font-weight:800;letter-spacing:.06em;color:#b0292a;line-height:1}
+.tk .tn{position:absolute;left:7%;top:77%;font-family:var(--hand);color:#3a2f2a;line-height:1;white-space:nowrap}
+.pticks{position:absolute;top:0;height:100%}
+.night{position:absolute;inset:0;z-index:30;background:radial-gradient(ellipse at 50% 55%,rgba(10,30,52,.38),rgba(8,22,42,.66));opacity:0;pointer-events:none}
+.glow{position:absolute;z-index:31;pointer-events:none;overflow:visible}
+.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#f6e7c6;box-shadow:0 0 6px #f6e7c6;opacity:0}
+@keyframes tw{0%,100%{opacity:.15}50%{opacity:.95}}
+/* 结尾 */
+.sky{position:absolute;inset:0;z-index:30;background:linear-gradient(180deg,#fde8c6 0%,#f8c49a 40%,#ee9c86 72%,#b88aa6 100%);opacity:0;pointer-events:none}
+.sun{position:absolute;left:50%;top:58%;width:34%;aspect-ratio:1;margin-left:-17%;border-radius:50%;background:radial-gradient(circle,rgba(255,250,230,.95),rgba(255,236,190,.5) 40%,rgba(255,220,170,0) 70%)}
+.endt{position:absolute;z-index:62;text-align:center;margin:0;font-family:var(--hand);line-height:1.25;color:#ffffff;text-shadow:0 0 16px rgba(255,90,64,.55),0 2px 8px rgba(0,0,0,.55);pointer-events:none;transform:translateX(-50%)}
+.endt .ch{display:inline-block;opacity:0}
+.endsub{position:absolute;left:0;right:0;z-index:62;text-align:center;margin:0;font-family:var(--hand);color:rgba(255,255,255,.9);text-shadow:0 2px 6px rgba(0,0,0,.7);opacity:0;pointer-events:none}
+.keep{position:absolute;z-index:63}
+@media (prefers-reduced-motion: reduce){ .pin .ring{animation:none} .veil{transition:none} }
+.memo .txt,.memo .cap,.memo .hd{filter:none}</style>
+
+<div class="wrap">
+  <div class="bar">
+    <h1>旅行环节：撕登机牌 + 大红心</h1>
+    <div class="bar" id="tabs" role="group" aria-label="选版本"></div>
+    <button class="ghost" id="skip">直接看结尾</button>
+    <button class="btn" id="again">重来</button>
+  </div>
+  <div class="holder"><div class="stage" id="stage" tabindex="0" aria-label="旅行环节结尾演示"></div></div>
+  <p class="tip" id="tip"></p>
+</div>
+
+<script>
+var M = {"passport": [237, 320], "boarding": [666, 278], "seam": 498, "ticket": [627, 333], "tkWhite": [0.04784688995215311, 0.5225225225225225, 0.7272727272727273], "plane": [66, 221, 604, 292]};
+var MW = 735, MH = 490;
+var B_START = {x:617, y:203, name:"出发 · 上海", cls:"home up"};
+var B_TRIPS = [
+  {x:674, y:360, cls:"lft", city:"悉尼", code:"SYD", d:"2023.12", ink:"#2d4a8a", l:"海边看了一整场日落，又在秋千上荡到天黑。", seg:"M617 203 Q712 262 674 360", g:["url(ph/m1.webp) center/cover", "url(ph/m2.webp) center/cover", "url(ph/m3.webp) center/cover"], o:["l", "l", "p"]},
+  {x:413, y:349, cls:"", city:"开普敦", code:"CPT", d:"2024.03", ink:"#2f6b4f", l:"爬山爬到起了雾，最后在雪山前比了一个心。", seg:"M674 360 Q545 432 413 349", g:["url(ph/m4.webp) center/cover", "url(ph/m5.webp) center/cover", "url(ph/m6.webp) center/cover"], o:["p", "l", "p"]},
+  {x:369, y:157, cls:"up", city:"巴黎", code:"CDG", d:"2024.10", ink:"#7a3a8a", l:"租了一辆小摩托，沿着湖边骑了一下午。", seg:"M413 349 Q318 262 369 157", g:["url(ph/m7.webp) center/cover", "url(ph/m8.webp) center/cover", "url(ph/m9.webp) center/cover"], o:["p", "p", "p"]},
+  {x:217, y:177, cls:"up", city:"纽约", code:"JFK", d:"2025.05", ink:"#b8322a", l:"秋天的公园里坐了一下午，晚上又找了家小酒馆。", seg:"M369 157 Q292 98 217 177", g:["url(ph/m10.webp) center/cover", "url(ph/m11.webp) center/cover", "url(ph/m12.webp) center/cover"], o:["p", "l", "p"]}
+];
+(function(){ var c = window.CFG && CFG.trip;
+  /* 配置台算好了每一站在地图上的坐标（按真实经纬度），这里只负责连线 */
+  if (!c || !c.stops || !c.stops.length) { window.__LAST = "M217 177 C330 40 610 20 840 150"; return; }
+  if (c.map === "china") { MW = 1104; MH = 621; window.__MAP = "e/china.webp"; window.__HC = {x:290, y:520, k:3.4}; window.__PEAK = .3; window.__Z0 = 1.45; }   /* 中国地图：镜头一直放大跟着飞机走，不留大片空边 */
+  B_START = {x:c.home.x, y:c.home.y, name:"出发 · " + c.home.name, cls:"home up"};
+  var INK = ["#2d4a8a", "#2f6b4f", "#7a3a8a", "#b8322a"], base = B_TRIPS, out = [], prev = [B_START.x, B_START.y];
+  c.stops.forEach(function(x, i){ var b = base[i % 4], mx = (prev[0] + x.x) / 2, my = (prev[1] + x.y) / 2, dx = x.x - prev[0], dy = x.y - prev[1], s2 = (i % 2 ? -1 : 1) * .24;
+    var t = {x:x.x, y:x.y, cls:x.x > MW * .8 ? "lft" : "up", city:x.city || b.city, code:"NO." + (i + 1), d:"", ink:INK[i % 4], l:x.def ? b.l : (x.l || ""), seg:"M" + prev[0] + " " + prev[1] + " Q" + Math.round(mx - dy * s2) + " " + Math.round(my + dx * s2) + " " + x.x + " " + x.y,
+      g:x.g && x.g.length ? x.g.map(function(u){ return "url(" + u + ") center/cover"; }) : b.g, o:x.g && x.g.length ? x.o : b.o, user:1};
+    out.push(t); prev = [x.x, x.y]; });
+  B_TRIPS = out; window.__LAST = "M" + prev[0] + " " + prev[1] + " C" + Math.round(prev[0] + 100) + " " + Math.round(prev[1] - 140) + " " + Math.round(MW * .83) + " " + Math.round(MH * .04) + " " + Math.round(MW * 1.14) + " " + Math.round(MH * .31);
+  if (c.km) window.__KM = c.km; })();
+var LAST = window.__LAST;
+var KM = window.__KM || "34,000";
+var TABS = {
+  ticket:{label:"撕登机牌 + 大红心", tip:"点一下出发，一路飞四站，每站弹出回忆卡、三张照片展开。四站飞完，点一下，底下递上来最后一张登机牌（目的地：我们的以后）；按住票根往下撕（点一下也行），票根留在右下角。飞机从纽约起飞，用红色航线在地图上画一颗大心，画完往上飞走，心里写出「下一站：我们的以后」。"}
+};
+var cur = "ticket";
+var stage = document.getElementById("stage"), L = {}, S = null;
+function el(tag, cls, parent){ var e = document.createElement(tag); if (cls) e.className = cls; if (parent) parent.appendChild(e); return e; }
+function later(fn, ms){ var me = S; S.timers.push(setTimeout(function(){ if (!me.dead) fn(); }, ms)); }
+function ease(p){ return p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; }
+
+/* ---------- 声音 ---------- */
+var AC = null;
+function ac(){ try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch(e) {} }
+function noise(dur, freq, q, vol, type){
+  var a = AC; if (!a) return; if (a.state !== "running") { try { a.resume(); } catch (e) {} }
+  try {
+    var t = a.currentTime, n = Math.max(1, Math.floor(a.sampleRate * dur)), b = a.createBuffer(1, n, a.sampleRate), d = b.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
+    var s = a.createBufferSource(); s.buffer = b;
+    var f = a.createBiquadFilter(); f.type = type || "bandpass"; f.frequency.value = freq; f.Q.value = q;
+    var g = a.createGain(); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0005, t + dur);
+    s.connect(f); f.connect(g); g.connect(a.destination); s.start(t);
+  } catch(e) {}
+}
+function thump(v){ noise(.09, 650, .7, .5 * (v || 1), "lowpass"); }
+function whoosh(d){ noise(d || .6, 1200, .5, .14); }
+function deal(){ noise(.18, 3200, .7, .09, "highpass"); setTimeout(function(){ noise(.14, 2800, .7, .07, "highpass"); }, 70); }
+function tear(){ for (var i = 0; i < 6; i++) setTimeout(function(){ noise(.05, 2400 + Math.random() * 1800, 1.5, .12); }, i * 45); }
+
+/* ================= 回忆卡 ================= */
+var STACK = [[.245, .5, -6], [.25, .49, 5], [.255, .5, -1.5]];
+var FIN = [[.2, .48, -7], [.485, .43, 1.5], [.775, .49, 6]];
+function STK(n){ return n === 1 ? [STACK[2]] : n === 2 ? [STACK[0], STACK[2]] : STACK; }
+function FINN(n){ return n === 1 ? [[.5, .44, 2]] : n === 2 ? [[.32, .46, -5], [.68, .46, 5]] : FIN; }
+function cardTf(p, box, cw, ch){ return "translate(" + (p[0] * box.w - cw / 2) + "px," + (p[1] * box.h - ch / 2) + "px) rotate(" + p[2] + "deg)"; }
+function openMemo(trip, box){ if (window.wsp) { if (trip.wish) { window.wsp && wsp("这里是还没有去，未来希望能一起去的旅行愿望"); } else if (!S.wv) { S.wv = 1; window.wsp && wsp("这里是我和ta一起去过的旅行地和照片"); } }
+  var m = el("div", "memo" + (trip.user ? " user" : ""), stage);
+  m.style.left = box.x + "px"; m.style.top = box.y + "px"; m.style.width = box.w + "px"; m.style.height = box.h + "px";
+  var fs = box.h * .05;
+  var tx = el("div", "txt", m); tx.style.fontSize = fs + "px";
+  tx.innerHTML = '<span class="c"></span><span class="d"></span><span class="l"></span><span class="k">展开看看 →</span>';
+  tx.querySelector(".c").textContent = trip.city; tx.querySelector(".c").style.fontSize = Math.min(fs * 2.1, box.w * .36 / Array.from(trip.city).length) + "px";
+  tx.querySelector(".d").textContent = trip.d; tx.querySelector(".d").style.fontSize = ".62em";
+  tx.querySelector(".l").textContent = trip.l; tx.querySelector(".k").style.fontSize = ".6em";
+  var hd = el("div", "hd", m); hd.textContent = trip.city; hd.style.fontSize = (fs * .62) + "px";
+  var cap = el("div", "cap", m); cap.textContent = trip.l; cap.style.fontSize = (fs * 1.05) + "px";
+  var ch = box.h * (trip.g.length === 3 && trip.o && trip.o.indexOf("l") >= 0 ? .44 : .56), cw = ch * 54 / 86, cards = [];
+  stage.style.setProperty("--lab", Math.max(8, cw * .08) + "px");
+  /* 每张照片按自己的横竖算大小；摊开时一排排开，放不下就整体缩小，不出相册边框 */
+  var n0 = trip.g.length, sz = trip.g.map(function(g, i){ return trip.o && trip.o[i] === "l" ? [ch * 1.1, ch * .8] : [cw, ch]; });
+  var A = box.w * .9, gp = box.w * .025, T = sz.reduce(function(a, z){ return a + z[0]; }, 0) + gp * (n0 - 1), kk = Math.min(1, A / T);
+  if (kk < 1) { sz = sz.map(function(z){ return [z[0] * kk, z[1] * kk]; }); T = A; }
+  var xx = (box.w - T) / 2, rots = n0 === 1 ? [2] : n0 === 2 ? [-5, 5] : [-7, 1.5, 6], yv = n0 === 1 ? [.44] : n0 === 2 ? [.46, .46] : [.48, .43, .49];
+  var fin = sz.map(function(z, i){ var c = xx + z[0] / 2; xx += z[0] + gp; return [c / box.w, yv[i], rots[i]]; });
+  trip.g.forEach(function(g, i){
+    var c = el("div", "pol", m); c.style.width = sz[i][0] + "px"; c.style.height = sz[i][1] + "px"; c.style.zIndex = 2 + i;
+    var im = el("i", "", c); im.style.setProperty("--g", g); var sp = el("span", "", im); sp.textContent = trip.wish ? "等我们去拍" : ""; if (trip.wish) { c.style.outline = "2px dashed rgba(120,92,52,.55)"; c.style.outlineOffset = "-10px"; sp.style.color = "#8a6a50"; sp.style.textShadow = "none"; }
+    c.style.transform = cardTf(STK(trip.g.length)[i], box, sz[i][0], sz[i][1]); cards.push(c);
+  });
+  m.animate([{opacity:0, transform:"scale(.92)"}, {opacity:1, transform:"scale(1.01)", offset:.7}, {opacity:1, transform:"none"}], {duration:340, easing:"cubic-bezier(.2,.8,.3,1)"});
+  var o = {m:m, cards:cards, tx:tx, cap:cap, hd:hd, box:box, cw:cw, ch:ch, n:trip.g.length, sz:sz, fin:fin};
+  return o;
+}
+function spreadMemo(o){
+  if (o.spread || o.closing) return; o.spread = true; deal();
+  o.tx.animate([{opacity:1, transform:"none"}, {opacity:0, transform:"translateX(6%)"}], {duration:220, fill:"forwards", easing:"ease-in"});
+  o.cards.forEach(function(c, i){
+    var a = cardTf(STK(o.n)[i], o.box, o.sz[i][0], o.sz[i][1]), b = cardTf(o.fin[i], o.box, o.sz[i][0], o.sz[i][1]);
+    c.style.transform = b; c.animate([{transform:a}, {transform:b}], {duration:640, delay:(2 - i) * 35, easing:"cubic-bezier(.2,.9,.25,1.06)"});
+  });
+  /* 配文放在照片下面那块空白的正中间 */
+  var bot = 0; o.fin.forEach(function(f, i){ var z = o.sz[i], r = Math.abs(f[2]) * Math.PI / 180; bot = Math.max(bot, f[1] * o.box.h + z[1] / 2 * Math.cos(r) + z[0] / 2 * Math.sin(r)); });
+  var chh = o.cap.offsetHeight, free = o.box.h - bot; o.cap.style.bottom = "auto"; o.cap.style.top = Math.max(bot + 4, bot + (free - chh) / 2 - o.box.h * .01) + "px";
+  o.cap.animate([{opacity:0, transform:"translateY(8px)"}, {opacity:1, transform:"none"}], {duration:450, delay:520, fill:"forwards"});
+  o.hd.animate([{opacity:0}, {opacity:1}], {duration:450, delay:520, fill:"forwards"});
+  later(function(){ o.ready = true; }, 700);
+}
+function closeMemo(o, done){
+  o.closing = true;
+  o.cap.animate([{opacity:1}, {opacity:0}], {duration:160, fill:"forwards"});
+  o.hd.animate([{opacity:1}, {opacity:0}], {duration:160, fill:"forwards"});
+  o.cards.forEach(function(c, i){
+    var a = cardTf(o.fin[i], o.box, o.sz[i][0], o.sz[i][1]), b = cardTf(STK(o.n)[i], o.box, o.sz[i][0], o.sz[i][1]);
+    c.style.transform = b; c.animate([{transform:a}, {transform:b}], {duration:380, delay:i * 30, easing:"cubic-bezier(.5,0,.3,1)"});
+  });
+  later(function(){ o.m.animate([{opacity:1, transform:"none"}, {opacity:0, transform:"scale(.94)"}], {duration:260, fill:"forwards", easing:"ease-in"}).onfinish = function(){ o.m.remove(); if (done) done(); }; }, 420);
+}
+
+/* ================= 印章 ================= */
+function stamp(parent, trip, size, rot){
+  var s = el("div", "stp", parent); s.style.width = s.style.height = size + "px"; s.style.setProperty("--ink", trip.ink); s.style.fontSize = (size * .26) + "px";
+  s.style.transform = "rotate(" + rot + "deg)"; s.innerHTML = "<span></span><small></small>";
+  s.querySelector("span").textContent = trip.city; s.querySelector("small").textContent = "入境";
+  return s;
+}
+function heartStamp(parent, w){
+  var NS = "http://www.w3.org/2000/svg", h = el("div", "", parent);
+  h.style.cssText = "position:absolute;width:" + w + "px;height:" + w * .92 + "px;mix-blend-mode:multiply";
+  var svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 100 92"); svg.style.cssText = "position:absolute;inset:0;width:100%;height:100%;overflow:visible";
+  svg.innerHTML = '<path d="M50 88 C18 64 2 46 2 27 C2 12 13 3 26 3 C37 3 45 10 50 19 C55 10 63 3 74 3 C87 3 98 12 98 27 C98 46 82 64 50 88 Z" fill="rgba(214,58,44,.12)" stroke="#c8342a" stroke-width="3.2"/><path d="M50 81 C23 60 9 45 9 28 C9 16 17 10 26 10 C36 10 44 17 50 27 C56 17 64 10 74 10 C83 10 91 16 91 28 C91 45 77 60 50 81 Z" fill="none" stroke="#c8342a" stroke-width="1.2" stroke-dasharray="2 2"/>';
+  h.appendChild(svg);
+  var t = el("div", "", h); t.style.cssText = "position:absolute;left:0;right:0;top:30%;text-align:center;color:#c8342a;font-family:var(--hand);line-height:1.15;font-size:" + w * .15 + "px";
+  t.innerHTML = '我们的以后<br><span style="font-family:var(--ui);font-size:.5em;letter-spacing:.1em">从今天起</span>';
+  return h;
+}
+function slam(e, rot, done){
+  e.animate([{opacity:0, transform:"rotate(" + (rot - 10) + "deg) scale(1.9)"}, {opacity:1, transform:"rotate(" + rot + "deg) scale(.94)", offset:.75}, {opacity:1, transform:"rotate(" + rot + "deg) scale(1)"}], {duration:330, easing:"cubic-bezier(.5,0,.6,1)", fill:"forwards"});
+  setTimeout(function(){ thump(1.2); if (done) done(); }, 250);
+}
+
+/* ---------- 尺寸 ---------- */
+function measure(){
+  var w = stage.parentNode.clientWidth, maxH = Math.max(240, window.innerHeight - 160);
+  var h = Math.min(w * 9 / 16, maxH); w = h * 16 / 9;
+  stage.style.width = w + "px"; stage.style.height = h + "px";
+  L = {W:w, H:h};
+}
+
+/* ================= 世界地图 ================= */
+function buildMap(){
+  var mk = L.W / MW, mh = MH * mk;
+  L.mk = mk; L.mx = 0; L.my = (L.H - mh) / 2; L.mw = L.W; L.mh = mh;
+  S.cam = {s:1, tx:0, ty:0}; S.next = 0; (window.onShow || function(f){ f(); })(function(){ var wd = S.world; if (!wd) return; wd.animate([{transform:"scale(1.3)", filter:"blur(5px) brightness(1.08)"}, {transform:"scale(1.3)", filter:"blur(5px) brightness(1.08)", offset:.35}, {transform:Z0 > 1 ? camCalc(Z0, B_START.x, B_START.y, L.W / 2, L.H / 2).tf : "none", filter:"none"}], {duration:1700, easing:"cubic-bezier(.4,0,.2,1)"}); var ov = el("div", "", stage); ov.innerHTML = "下一卷，<br>去更远的地方拍。"; ov.style.cssText = "position:absolute;z-index:96;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;text-align:center;font-family:var(--hand),cursive;font-size:" + L.H * .085 + "px;line-height:1.3;color:#4a3626;background:rgba(255,250,242,.62);padding:.35em .9em;border-radius:.4em;white-space:nowrap"; ov.animate([{opacity:0}, {opacity:1, offset:.2}, {opacity:1, offset:.7}, {opacity:0}], {duration:1700, fill:"forwards"}).onfinish = function(){ ov.remove(); }; setTimeout(function(){ window.wsp && wsp("这是我最喜欢的部分：我们想有一天能携手去旅行世界"); }, 1800); }); S.phase = "ready"; S.stamps = [];
+  var world = el("div", "world", stage); world.style.left = L.mx + "px"; world.style.top = L.my + "px"; world.style.width = L.mw + "px"; world.style.height = L.mh + "px"; S.world = world;
+  var map = el("img", "", world); map.alt = "世界地图"; map.src = window.__MAP || "e/world.webp"; map.style.cssText += ";left:0;top:0;width:100%;height:100%";
+  var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", "0 0 " + MW + " " + MH); svg.style.cssText = "position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none";
+  svg.innerHTML = "<defs></defs>"; world.appendChild(svg); S.svg = svg;
+  var pv = document.createElementNS(NS, "path"); pv.setAttribute("d", B_TRIPS.map(function(t){ return t.seg; }).join(" ")); pv.setAttribute("fill", "none"); pv.setAttribute("stroke", "#fff3dc"); pv.setAttribute("stroke-width", "1.4"); pv.setAttribute("stroke-dasharray", "3 5"); pv.setAttribute("opacity", ".45"); svg.appendChild(pv);
+  pin(B_START.x, B_START.y, "", B_START.cls);
+  S.pins = B_TRIPS.map(function(t){ return pin(t.x, t.y, "", t.cls); });
+  var pb = M.plane, pw = 82;
+  var pl = el("img", "", world); pl.alt = "小飞机"; pl.src = "e/plane.webp"; pl.style.width = pw * mk + "px"; pl.style.height = pw * pb[3] / pb[2] * mk + "px";
+  pl.style.left = (-pw * mk / 2) + "px"; pl.style.top = (-pw * pb[3] / pb[2] * mk / 2) + "px"; pl.style.zIndex = 20; S.plane = pl;
+  placePlane(B_START.x, B_START.y, 60, 0);
+  if (Z0 > 1) setCam(Z0, B_START.x, B_START.y, L.W / 2, L.H / 2);
+  S.veil = el("div", "veil", stage);
+  S.hint = el("p", "say", stage); S.hint.style.left = "0"; S.hint.style.right = "0"; S.hint.style.textAlign = "center"; S.hint.style.bottom = (L.H * .03) + "px"; S.hint.style.fontSize = Math.max(15, L.H * .045) + "px"; S.hint.style.zIndex = 70;
+  S.hint.textContent = "点一下，出发";
+  S.box = {w:L.W * .6, h:L.H * .72}; S.box.x = (L.W - S.box.w) / 2; S.box.y = (L.H - S.box.h) / 2;
+  if (cur === "passport") {
+    var ph = L.H * .2, pw2 = ph * M.passport[0] / M.passport[1];
+    var pc = el("div", "pcorner", stage); pc.style.width = pw2 + "px"; pc.style.height = ph + "px"; pc.style.right = (L.W * .03) + "px"; pc.style.bottom = (L.H * .05) + "px"; pc.style.transform = "rotate(-7deg)";
+    var ci = el("img", "", pc); ci.alt = "护照"; ci.src = "e/passport.webp"; ci.style.cssText += ";left:0;top:0;width:100%;height:100%;border-radius:3px";
+    ci.style.zIndex = 2; S.pc = pc; S.pcw = pw2; S.pch = ph;
+  }
+}
+function pin(x, y, name, cls){
+  var p = el("div", "pin " + cls, S.world); p.style.left = x * L.mk + "px"; p.style.top = y * L.mk + "px";
+  p.style.setProperty("--d", Math.max(10, L.H * .022) + "px");
+  el("div", "ring", p); el("div", "d", p);
+  var lb = el("div", "lb", p); lb.textContent = name; if (!name) lb.style.display = "none"; lb.style.fontSize = Math.max(13, L.H * .038) + "px";
+  return p;
+}
+function camCalc(s, fx, fy, sx, sy){
+  var tx = sx - L.mx - fx * L.mk * s, ty = sy - L.my - fy * L.mk * s;
+  tx = Math.min(-L.mx, Math.max(L.W - L.mx - L.mw * s, tx)); ty = Math.min(-L.my, Math.max(L.H - L.my - L.mh * s, ty));
+  return {s:s, tx:tx, ty:ty, tf:"translate(" + tx + "px," + ty + "px) scale(" + s + ")"};
+}
+function setCam(s, fx, fy, sx, sy){ var c = camCalc(s, fx, fy, sx, sy); S.cam = {s:c.s, tx:c.tx, ty:c.ty}; S.world.style.transform = c.tf; }
+var Z0 = window.__Z0 || 1;
+function placePlane(x, y, ang, alt){
+  var tf = Math.cos(ang * Math.PI / 180) >= 0 ? "rotate(" + ang + "deg) scaleX(-1)" : "rotate(" + (ang - 180) + "deg)";
+  if (S.fixedFace) { var r = ang * Math.PI / 180, tilt = Math.atan2(Math.sin(r), Math.abs(Math.cos(r))) * 180 / Math.PI; tilt = Math.max(-28, Math.min(28, tilt)); tf = "rotate(" + tilt + "deg) scaleX(-1)"; }
+  S.plane.style.transform = "translate(" + x * L.mk + "px," + y * L.mk + "px) " + tf + " scale(" + (1 + .45 * alt) * (S.pscale || 1) + ")";
+  S.plane.style.filter = "drop-shadow(" + (4 + 22 * alt) + "px " + (6 + 30 * alt) + "px " + (4 + 10 * alt) + "px rgba(0,0,0," + (.45 - .2 * alt) + "))";
+}
+function addTrail(d, sw){
+  var NS = "http://www.w3.org/2000/svg", id = "m" + Math.random().toString(36).slice(2), p0;
+  var mk = document.createElementNS(NS, "mask"); mk.setAttribute("id", id); mk.setAttribute("maskUnits", "userSpaceOnUse"); mk.setAttribute("x", "-200"); mk.setAttribute("y", "-200"); mk.setAttribute("width", MW + 400); mk.setAttribute("height", MH + 400);
+  var mp = document.createElementNS(NS, "path"); mp.setAttribute("d", d); mp.setAttribute("fill", "none"); mp.setAttribute("stroke", "#fff"); mp.setAttribute("stroke-width", "12");
+  mk.appendChild(mp); S.svg.querySelector("defs").appendChild(mk);
+  if (sw === "none") { p0 = document.createElementNS(NS, "path"); p0.setAttribute("d", d); p0.setAttribute("fill", "none"); p0.setAttribute("stroke", "none"); S.svg.appendChild(p0); var t0 = p0.getTotalLength(); return {m:p0, tot:t0, ghost:true}; }
+  var p = document.createElementNS(NS, "path"); p.setAttribute("d", d); p.setAttribute("fill", "none"); p.setAttribute("stroke", "#e0442c"); p.setAttribute("stroke-width", sw || "2.4"); p.setAttribute("stroke-dasharray", sw ? "8 5" : "5 4"); p.setAttribute("stroke-linecap", "round"); p.setAttribute("mask", "url(#" + id + ")");
+  S.svg.appendChild(p);
+  var tot = mp.getTotalLength(); mp.setAttribute("stroke-dasharray", tot + " " + tot); mp.setAttribute("stroke-dashoffset", tot);
+  return {m:mp, tot:tot};
+}
+function flyAlong(d, ms, done, onP, peak, sw){ ms = ms * .7;
+  var P = addTrail(d, sw), path = P.m, tot = P.tot, t0 = performance.now(), me = S; S.busy = true; whoosh(ms / 1000 * .7);
+  peak = (peak == null) ? .24 : peak;
+  function f(now){
+    if (me.dead) return;
+    var p = Math.min(1, (now - t0) / ms), e = ease(p), L0 = tot * e;
+    var q = path.getPointAtLength(L0), q2 = path.getPointAtLength(Math.min(tot, L0 + 2)), q1 = path.getPointAtLength(Math.max(0, L0 - 2));
+    var ang = Math.atan2(q2.y - q1.y, q2.x - q1.x) * 180 / Math.PI, alt = Math.sin(Math.PI * Math.min(p, onP ? .5 : 1));
+    placePlane(q.x, q.y, ang, alt);
+    if (!P.ghost) P.m.setAttribute("stroke-dashoffset", tot * (1 - e));
+    var s = Z0 * (1 + peak * alt), sx = Z0 > 1 ? L.W / 2 : L.W / 2 * alt + (L.mx + q.x * L.mk) * (1 - alt), sy = Z0 > 1 ? L.H / 2 : L.H / 2 * alt + (L.my + q.y * L.mk) * (1 - alt);
+    if (S.camFix) setCam(Z0, S.camFix[0], S.camFix[1], L.W / 2, L.H / 2); else setCam(s, Math.min(MW, q.x), q.y, sx, sy);
+    if (onP) onP(p);
+    if (p < 1) requestAnimationFrame(f); else { if (!onP && !S.camFix) { if (Z0 > 1) setCam(Z0, q.x, q.y, L.W / 2, L.H / 2); else setCam(1, 0, 0, L.mx, L.my); } S.busy = false; if (done) done(); }
+  }
+  requestAnimationFrame(f);
+}
+function hint(t){ S.hint.textContent = t; S.hint.style.opacity = t ? "1" : "0"; }
+function flyNext(){
+  var i = S.next, t = B_TRIPS[i]; hint(""); S.phase = "fly";
+  flyAlong(t.seg, 2400, function(){
+    thump(); S.pins[i].classList.add("done");
+    S.pins[i].animate([{transform:"translate(-50%,-50%) scale(2.2)"}, {transform:"translate(-50%,-50%) scale(1)"}], {duration:380, easing:"cubic-bezier(.3,.7,.4,1.4)"});
+    later(function(){ S.veil.classList.add("on"); S.memo = openMemo(t, S.box); S.phase = "memo"; }, 350);
+  }, null, window.__PEAK);
+}
+/* 机票 */
+var SLOT = [[.0, -14], [.07, -5], [.13, 4], [.19, 12]];
+function ticketEl(parent, t, w){
+  var h = w * M.ticket[1] / M.ticket[0], e = el("div", "tk", parent); e.style.width = w + "px"; e.style.height = h + "px";
+  var im = el("img", "", e); im.alt = ""; im.src = "e/ticket.webp";
+  var c = el("div", "tc", e); c.textContent = t.code; c.style.fontSize = h * .2 + "px";
+  var n = el("div", "tn", e); n.textContent = t.city; n.style.fontSize = h * .15 + "px";
+  return e;
+}
+function slotTf(i, cw, th){ return "translate(" + SLOT[i][0] * cw + "px," + (-th * .62) + "px) rotate(" + SLOT[i][1] + "deg)"; }
+function tuck(parent, i, cw){
+  var tw = cw * .82, th = tw * M.ticket[1] / M.ticket[0], e = ticketEl(parent, B_TRIPS[i], tw);
+  e.style.transformOrigin = "50% 100%"; e.style.transform = slotTf(i, cw, th); e.style.zIndex = 1; return e;
+}
+/* 收起回忆卡以后：这一程的机票插进护照 */
+function stampToPassport(i, done){
+  var t = B_TRIPS[i], w0 = L.W * .26, h0 = w0 * M.ticket[1] / M.ticket[0];
+  var e = ticketEl(stage, t, w0); e.style.zIndex = 60; e.style.left = (L.W / 2 - w0 / 2) + "px"; e.style.top = (L.H * .36) + "px";
+  var r = S.pc.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+  var tw = S.pcw * .82, th = tw * M.ticket[1] / M.ticket[0], sc = tw / w0;
+  var tx = r.left - sr.left + SLOT[i][0] * S.pcw + tw / 2 - L.W / 2, ty = r.top - sr.top - th * .62 + th / 2 - (L.H * .36 + h0 / 2);
+  noise(.2, 3000, .6, .08, "highpass");
+  e.animate([{transform:"scale(.6) rotate(-12deg)", opacity:0}, {transform:"scale(1.04) rotate(-3deg)", opacity:1, offset:.18}, {transform:"scale(1) rotate(-3deg)", opacity:1, offset:.5},
+             {transform:"translate(" + tx + "px," + (ty - th * .4) + "px) scale(" + sc + ") rotate(" + SLOT[i][1] + "deg)", opacity:1, offset:.85},
+             {transform:"translate(" + tx + "px," + ty + "px) scale(" + sc + ") rotate(" + SLOT[i][1] + "deg)", opacity:1}], {duration:1500, easing:"ease-in-out", fill:"forwards"}).onfinish = function(){
+    e.remove(); tuck(S.pc, i, S.pcw); S.stamps.push(t);
+    S.pc.animate([{transform:"rotate(-7deg) translateY(0)"}, {transform:"rotate(-5deg) translateY(4%)"}, {transform:"rotate(-7deg) translateY(0)"}], {duration:320, easing:"cubic-bezier(.3,.7,.4,1.4)"});
+    thump(.6); if (done) done();
+  };
+}
+function afterMemo(){
+  S.next++;
+  var go = function(){
+    S.phase = "ready";
+    if (S.next < B_TRIPS.length) hint("点一下，飞往下一站");
+    else { S.phase = "ending0"; hint(cur === "passport" ? "机票都齐了，点一下打开护照" : "都飞完了，点一下，领取最后一张登机牌"); }
+  };
+  if (cur === "passport") stampToPassport(S.next - 1, go); else go();
+}
+
+/* ================= 结尾：护照 ================= */
+function openPassport(){
+  S.phase = "busy"; hint(""); S.veil.classList.add("on");
+  var ph = L.H * .66, pw = ph * M.passport[0] / M.passport[1], bx = L.W / 2 - pw, by = (L.H - ph) / 2 - L.H * .02;
+  var book = el("div", "pbook", stage); book.style.left = bx + "px"; book.style.top = by + "px"; book.style.width = pw * 2 + "px"; book.style.height = ph + "px";
+  S.book = book; S.bk = {pw:pw, ph:ph, bx:bx, by:by};
+  var right = el("div", "ppage r", book); right.style.left = pw + "px"; right.style.width = pw + "px";
+  var t2 = el("div", "ttl", right); t2.textContent = "下一站  NEXT"; t2.style.fontSize = ph * .035 + "px";
+  var slot = el("div", "slot", right); slot.style.fontSize = ph * .05 + "px"; slot.innerHTML = "这里，<br>还空着"; S.slot = slot;
+  var tks = el("div", "pticks", book); tks.style.left = pw + "px"; tks.style.width = pw + "px";
+  S.stamps.forEach(function(t, i){ tuck(tks, i, pw); });
+  var leaf = el("div", "pleaf", book); leaf.style.left = pw + "px"; leaf.style.width = pw + "px"; leaf.style.zIndex = 3;
+  var fr = el("div", "pface", leaf); var ci = el("img", "", fr); ci.alt = "护照"; ci.src = "e/passport.webp"; ci.style.cssText += ";left:0;top:0;width:100%;height:100%";
+  var bk = el("div", "pface back ppage l", leaf); bk.style.position = "absolute"; bk.style.left = "0"; bk.style.width = "100%";
+  var t1 = el("div", "ttl", bk); t1.textContent = "入境记录  ENTRIES"; t1.style.fontSize = ph * .035 + "px";
+  var sz = pw * .4, pos = [[.08, .2], [.52, .22], [.1, .56], [.52, .58]];
+  S.stamps.forEach(function(t, i){ var s = stamp(bk, t, sz, [-10, 8, 6, -6][i]); s.style.left = pos[i][0] * pw + "px"; s.style.top = pos[i][1] * ph + "px"; });
+  /* 从右下角飞过来（合着），再翻开 */
+  var r = S.pc.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+  var cx = r.left - sr.left + r.width / 2, cy = r.top - sr.top + r.height / 2, k = r.height / ph;
+  var from = "translate(" + (cx - (bx + pw * 1.5)) + "px," + (cy - (by + ph / 2)) + "px) scale(" + k + ") rotate(-7deg)";
+  var closed = "translate(" + (-pw / 2) + "px,0px)";
+  S.pc.style.opacity = "0";
+  book.style.transformOrigin = (pw * 1.5) + "px 50%";
+  book.animate([{transform:from}, {transform:closed}], {duration:650, easing:"cubic-bezier(.3,.8,.3,1)", fill:"forwards"}).onfinish = function(){
+    later(function(){
+      book.animate([{transform:closed}, {transform:"none"}], {duration:800, easing:"cubic-bezier(.4,0,.2,1)", fill:"forwards"});
+      leaf.animate([{transform:"rotateY(0deg)"}, {transform:"rotateY(-180deg)"}], {duration:800, easing:"cubic-bezier(.4,0,.2,1)", fill:"forwards"});
+      noise(.3, 2200, .6, .1, "highpass");
+      tks.animate([{transform:"none", opacity:1}, {transform:"translateY(-18%)", opacity:0}], {duration:600, easing:"ease-in", fill:"forwards"});
+      later(function(){ S.phase = "stamp"; hint("点一下，盖下最后一个章"); }, 850);
+    }, 200);
+  };
+}
+function stampPassport(){
+  S.phase = "busy"; hint("");
+  var b = S.bk, w = b.pw * .62, h = heartStamp(S.book, w);
+  h.style.left = (b.pw + (b.pw - w) / 2) + "px"; h.style.top = (b.ph * .3) + "px"; h.style.zIndex = 5;
+  slam(h, -6, function(){ S.slot.animate([{opacity:1}, {opacity:0}], {duration:200, fill:"forwards"}); });
+  later(function(){ giveTicket(true); }, 1100);
+}
+
+/* ================= 结尾：登机牌 ================= */
+function buildPass(){
+  var bw = L.W * .56, k = bw / M.boarding[0], bh = M.boarding[1] * k, bx = (L.W - bw) / 2, by = (L.H - bh) / 2 - L.H * .02;
+  var bp = el("div", "bp", stage); bp.style.left = bx + "px"; bp.style.top = by + "px"; bp.style.width = bw + "px"; bp.style.height = bh + "px";
+  var seam = M.seam * k, fs = bh * .085;
+  function part(clip){
+    var p = el("div", "bpart", bp); p.style.clipPath = clip;
+    var im = el("img", "", p); im.alt = ""; im.src = "e/boarding.webp";
+    var band = el("div", "band", p); band.textContent = "BOARDING PASS  登机牌"; band.style.left = 24 * k + "px"; band.style.top = 24 * k + "px"; band.style.fontSize = fs * .62 + "px";
+    var bd2 = el("div", "band", p); bd2.textContent = "ONE WAY →"; bd2.style.left = (M.seam + 24) * k + "px"; bd2.style.top = 24 * k + "px"; bd2.style.fontSize = fs * .55 + "px";
+    function f(x, y, label, val, size){ var e = el("div", "f", p); e.style.left = x * k + "px"; e.style.top = y * k + "px"; e.style.fontSize = (size || fs) + "px"; e.innerHTML = "<b></b><span></span>"; e.querySelector("b").textContent = label; e.querySelector("span").textContent = val; return e; }
+    var BP = (window.CFG && CFG.trip && CFG.trip.bp) || {p:"你 & 我", f:"LOVE航班"};
+    f(34, 80, "乘客 PASSENGER", BP.p);   /* 这一行一直空到撕口，两个 6 个字的名字也排得下 */
+    f(34, 145, "出发 FROM", "今天");
+    f(190, 145, "目的地 TO", "我们的以后", fs * 1.35);
+    f(34, 205, "座位 SEAT", "12A · 12B");
+    f(190, 205, "登机口 GATE", "随时");
+    var ff = f(330, 205, "航班 FLIGHT", BP.f), fn = Array.from(BP.f).length; if (fn > 6) ff.querySelector("span").style.fontSize = Math.max(.6, 6 / fn) + "em";
+    f(M.seam + 22, 196, "座位 SEAT", "12A · 12B", fs * .85);
+    return p;
+  }
+  var main = part("inset(0 " + (bw - seam) + "px 0 0)"), stub = part("inset(0 0 0 " + seam + "px)");
+  S.bp = {el:bp, main:main, stub:stub, bw:bw, bh:bh, bx:bx, by:by, seam:seam, k:k};
+  return S.bp;
+}
+function giveTicket(fromPassport){
+  S.phase = "busy"; hint(""); S.veil.classList.add("on");
+  var p = buildPass();
+  if (fromPassport) {
+    p.el.style.zIndex = 54;
+    p.el.animate([{transform:"translateY(-6%) scale(.55)", opacity:0}, {transform:"translateY(-6%) scale(.55)", opacity:1, offset:.15}, {transform:"translateY(28%) scale(.9)", opacity:1, offset:.55}, {transform:"none", opacity:1}], {duration:1300, easing:"cubic-bezier(.3,.7,.3,1)", fill:"forwards"});
+    S.book.animate([{transform:"none", opacity:1}, {transform:"translateY(-30%) scale(.7)", opacity:.0}], {duration:900, delay:350, easing:"ease-in", fill:"forwards"});
+    later(function(){ p.el.style.zIndex = 56; }, 700);
+    noise(.5, 2600, .5, .08, "highpass");
+    later(function(){ S.phase = "tear"; hint("按住票根，往下撕"); }, 1350);
+  } else {
+    p.el.animate([{transform:"translateY(" + L.H + "px) rotate(6deg)"}, {transform:"translateY(-3%) rotate(-1deg)", offset:.75}, {transform:"none"}], {duration:800, easing:"cubic-bezier(.3,.8,.3,1)", fill:"forwards"});
+    noise(.4, 2600, .5, .08, "highpass");
+    later(function(){ S.phase = "tear"; hint("按住票根，往下撕"); }, 850);
+  }
+}
+function stampTicket(){
+  S.phase = "busy"; hint("");
+  var p = S.bp, w = p.bh * .62, h = heartStamp(p.main, w);
+  h.style.left = (p.seam - w * 1.02) + "px"; h.style.top = (p.bh * .3) + "px";
+  slam(h, -8);
+  later(function(){ S.phase = "tear"; hint("按住票根，往下撕"); }, 800);
+}
+function tearDrag(dy){ var p = S.bp; dy = Math.max(0, dy); p.stub.style.transform = "translate(" + dy * .15 + "px," + dy * .6 + "px) rotate(" + dy * .08 + "deg)"; p.stub.style.transformOrigin = (p.seam) + "px 0px"; }
+function tearOff(){
+  S.phase = "busy"; hint(""); tear();
+  var p = S.bp, cur0 = p.stub.style.transform || "none";
+  p.stub.style.transformOrigin = p.seam + "px 0px";
+  /* 票根落到右下角，留着当纪念 */
+  var kw = L.W * .16, scale = kw / (p.bw - p.seam), tx = L.W * .97 - kw - (p.bx + p.seam), ty = L.H * .96 - p.bh * scale - p.by;
+  var a = p.stub.animate([{transform:cur0}, {transform:"translate(" + p.bw * .03 + "px," + p.bh * .22 + "px) rotate(10deg)", offset:.3}, {transform:"translate(" + tx + "px," + ty + "px) scale(" + scale + ") rotate(-6deg)"}], {duration:1100, easing:"cubic-bezier(.4,0,.2,1)", fill:"forwards"});
+  later(function(){ p.main.animate([{transform:"none", opacity:1}, {transform:"translateY(-14%)", opacity:0}], {duration:600, easing:"ease-in", fill:"forwards"}); S.veil.classList.remove("on"); }, 500);
+  later(function(){ p.el.style.zIndex = 63; finalFlight(); }, 1300);
+}
+
+/* ================= 最后一程：画一颗大心 ================= */
+var HC = window.__HC || {x:285, y:244, k:2.7};     /* 在中间这片大西洋上画心（航线都绕开了这一块） */
+function heartPts(){
+  var pts = [];
+  for (var n = 0; n <= 160; n++) { var t = n / 160 * Math.PI * 2;
+    pts.push([HC.x + HC.k * 16 * Math.pow(Math.sin(t), 3), HC.y - HC.k * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))]); }
+  return pts;
+}
+function heartD(){ var p = heartPts(); return "M" + p.map(function(q){ return q[0].toFixed(1) + " " + q[1].toFixed(1); }).join(" L"); }
+function finalFlight(){
+  S.phase = "final";
+  var pts = heartPts(), notch = pts[0];                    /* 从心顶的凹口开始画 */
+  var hd = "M" + pts.map(function(q){ return q[0].toFixed(1) + " " + q[1].toFixed(1); }).join(" L");
+  var e0 = B_TRIPS[B_TRIPS.length - 1], st = [e0.x, e0.y];
+  Array.prototype.forEach.call(S.svg.querySelectorAll("path[stroke='#e0442c']"), function(pp){ pp.animate([{opacity:1}, {opacity:.25}], {duration:700, fill:"forwards"}); });
+  flyAlong("M" + st[0] + " " + st[1] + " Q" + ((st[0] + notch[0]) / 2) + " " + (Math.min(st[1], notch[1]) - 40) + " " + notch[0].toFixed(1) + " " + notch[1].toFixed(1), 1300, function(){
+    S.pscale = .55; S.fixedFace = true; if (Z0 > 1) S.camFix = [HC.x, HC.y + 2 * HC.k];
+    flyAlong(hd, 3400, function(){ planeOut(); grow(); }, null, 0, "3.4");
+  }, null, 0, "none");
+}
+/* 4. 画完心，飞机原地淡出 */
+function planeOut(){ S.plane.animate([{opacity:1}, {opacity:0}], {duration:450, fill:"forwards", easing:"ease-out"}); }
+function exitUp(n){
+  var t0 = performance.now(), me = S;
+  function f(now){
+    if (me.dead) return; var p = Math.min(1, (now - t0) / 1100), e = p * p;
+    var y = n[1] - e * 320; S.plane.style.transform = "translate(" + n[0] * L.mk + "px," + y * L.mk + "px) rotate(90deg) scale(" + .62 * (1 + 1.2 * e) + ")";
+    S.plane.style.opacity = String(1 - Math.max(0, (p - .6) / .4));
+    if (p < 1) requestAnimationFrame(f);
+  }
+  whoosh(.9); requestAnimationFrame(f);
+}
+/* 心画好以后：航线和城市点淡出，心慢慢变大到全屏 */
+function grow(){
+  var night = el("div", "night", stage);
+  night.animate([{opacity:0}, {opacity:1}], {duration:770, fill:"forwards", easing:"ease-in-out"});
+  S.svg.animate([{opacity:1}, {opacity:0}], {duration:495, fill:"forwards"});
+  Array.prototype.forEach.call(S.world.querySelectorAll(".pin"), function(p){ p.animate([{opacity:1}, {opacity:0}], {duration:385, fill:"forwards"}); });
+  var k = HC.k, x0 = HC.x - 16 * k - 6, x1 = HC.x + 16 * k + 6, y0 = HC.y - 12.4 * k - 6, y1 = HC.y + 17 * k + 6;
+  var box = el("div", "", stage); box.style.cssText = "position:absolute;z-index:31;pointer-events:none;transform-origin:50% 50%";
+  var cs = S.cam.s || 1, bl = L.mx + S.cam.tx + x0 * L.mk * cs, bt = L.my + S.cam.ty + y0 * L.mk * cs, bw = (x1 - x0) * L.mk * cs, bh = (y1 - y0) * L.mk * cs;
+  box.style.left = bl + "px"; box.style.top = bt + "px"; box.style.width = bw + "px"; box.style.height = bh + "px";
+  var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", x0 + " " + y0 + " " + (x1 - x0) + " " + (y1 - y0)); svg.style.cssText = "position:absolute;inset:0;width:100%;height:100%;overflow:visible";
+  svg.innerHTML = '<defs><filter id="gl" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><radialGradient id="hf" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#ff6a52" stop-opacity=".3"/><stop offset="1" stop-color="#e0442c" stop-opacity=".1"/></radialGradient></defs>';
+  box.appendChild(svg);
+  var dash = document.createElementNS(NS, "path"); dash.setAttribute("d", heartD() + " Z"); dash.setAttribute("fill", "none"); dash.setAttribute("stroke", "#e0442c"); dash.setAttribute("stroke-width", "3.4"); dash.setAttribute("stroke-dasharray", "8 5"); dash.setAttribute("stroke-linecap", "round");
+  var solid = document.createElementNS(NS, "path"); solid.setAttribute("d", heartD() + " Z"); solid.setAttribute("fill", "url(#hf)"); solid.setAttribute("stroke", "#ff5a40"); solid.setAttribute("stroke-width", "1.5"); solid.setAttribute("filter", "url(#gl)"); solid.style.opacity = "0";
+  svg.appendChild(solid); svg.appendChild(dash);
+  var th = L.H * .8, sc = th / bh, dx = L.W / 2 - (bl + bw / 2), dy = L.H * .47 - (bt + bh / 2);
+  later(function(){
+    whoosh(1.2);
+    box.animate([{transform:"none"}, {transform:"translate(" + dx + "px," + dy + "px) scale(" + sc + ")"}], {duration:935, easing:"cubic-bezier(.6,0,.25,1)", fill:"forwards"});
+    dash.animate([{opacity:1}, {opacity:0}], {duration:495, delay:275, fill:"forwards"});
+    solid.animate([{opacity:0}, {opacity:1}], {duration:495, delay:275, fill:"forwards"});
+  }, 385);
+  later(function(){
+    thump(.8);
+    box.animate([{transform:"translate(" + dx + "px," + dy + "px) scale(" + sc + ")"}, {transform:"translate(" + dx + "px," + dy + "px) scale(" + sc * 1.04 + ")"}, {transform:"translate(" + dx + "px," + dy + "px) scale(" + sc + ")"}], {duration:715, iterations:Infinity, easing:"ease-in-out"});
+    endText();
+  }, 1347);
+}
+
+/* 结尾：不画心了。地图慢慢暗下来，航线留着，飞机淡出，出字 */
+function calmEnd(){
+  S.phase = "final"; planeOut();
+  var night = el("div", "night", stage); night.animate([{opacity:0}, {opacity:.82}], {duration:1500, fill:"forwards", easing:"ease-in-out"});
+  Array.prototype.forEach.call(S.world.querySelectorAll(".pin"), function(p){ p.animate([{opacity:1}, {opacity:.3}], {duration:900, fill:"forwards"}); });
+  later(endText, 1100);
+}
+function endText(){ if (S.bp && S.bp.el) S.bp.el.animate([{opacity:1}, {opacity:0}], {duration:700, fill:"forwards"}); setTimeout(function(){ window.wsp && wsp("总有一天我们能一起走完世界哒~（社畜心声）"); }, 1800);
+  S.phase = "end";
+  var cx = L.W / 2, cy = L.H * .47 + L.H * .03;
+  var fsz = Math.max(24, L.H * .1);
+  var t = el("p", "endt", stage); t.style.left = cx + "px"; t.style.top = (cy - fsz * 1.25) + "px"; t.style.fontSize = fsz + "px";
+  var k = 0;
+  ["下一站：", "我们的以后"].forEach(function(line, li){
+    var row = el("div", "", t);
+    Array.from(line).forEach(function(c){
+      var sp = el("span", "ch", row); sp.textContent = c;
+      sp.animate([{opacity:0, transform:"translateY(12px)"}, {opacity:1, transform:"none"}], {duration:280, delay:80 + k * 70, fill:"forwards", easing:"ease-out"}); k++;
+    });
+  });
+  var sub = el("p", "endsub", stage); sub.style.top = (L.H * .9) + "px"; sub.style.fontSize = Math.max(14, L.H * .042) + "px";
+  sub.textContent = ""; setTimeout(function(){ window.segDone&&segDone(); }, 900);
+  sub.animate([{opacity:0}, {opacity:1}], {duration:600, delay:80 + k * 70 + 150, fill:"forwards"});
+  later(function(){ thump(.7); }, 80 + k * 70);
+}
+
+/* ---------- 点击 ---------- */
+function down(ev){
+  if (!S || S.busy) return;
+  var ph = S.phase;
+  if (ph === "ready") { flyNext(); return; }
+  if (ph === "memo") {
+    var o = S.memo; if (!o.spread) { spreadMemo(o); return; } if (!o.ready || o.closing) return;
+    S.phase = "closing"; S.veil.classList.remove("on"); closeMemo(o, afterMemo); return;
+  }
+  if (ph === "ending0") { if (cur === "passport") openPassport(); else giveTicket(false); return; }
+  if (ph === "stamp") { if (cur === "passport" && !S.bp) stampPassport(); else stampTicket(); return; }
+  if (ph === "tear") { S.tearY = ev.clientY; S.tearing = true; return; }
+}
+stage.addEventListener("pointerdown", function(ev){ ac(); stage.setPointerCapture(ev.pointerId); down(ev); });
+stage.addEventListener("pointermove", function(ev){ if (S && S.tearing && S.phase === "tear") { var dy = ev.clientY - S.tearY; tearDrag(dy); if (dy > L.H * .12) { S.tearing = false; tearOff(); } } });
+stage.addEventListener("pointerup", function(){ if (S && S.tearing && S.phase === "tear") { S.tearing = false; tearOff(); } });
+stage.addEventListener("keydown", function(ev){ if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ac(); down(ev); if (S.tearing) { S.tearing = false; tearOff(); } } });
+
+/* 直接跳到四站飞完 */
+function skipToEnd(){
+  reset();
+  B_TRIPS.forEach(function(t, i){
+    var P = addTrail(t.seg); P.m.setAttribute("stroke-dashoffset", 0); S.pins[i].classList.add("done");
+    if (cur === "passport") S.stamps.push(t);
+  });
+  var e = B_TRIPS[B_TRIPS.length - 1]; placePlane(e.x, e.y, 150, 0);
+  if (cur === "passport") B_TRIPS.forEach(function(t, i){ tuck(S.pc, i, S.pcw); });
+  S.next = B_TRIPS.length; S.phase = "ending0";
+  hint("都飞完了，点一下，领取最后一张登机牌");
+}
+
+/* ---------- 切换 ---------- */
+function tabs(){
+  var t = document.getElementById("tabs"); t.innerHTML = "";
+  Object.keys(TABS).forEach(function(k){
+    var b = el("button", "pill", t); b.type = "button"; b.textContent = TABS[k].label; b.setAttribute("aria-pressed", k === cur ? "true" : "false");
+    b.addEventListener("click", function(){ cur = k; try { localStorage.setItem("trip-end-tab", k); } catch(e) {} tabs(); reset(); });
+  });
+  document.getElementById("tip").textContent = TABS[cur].tip;
+}
+function reset(){
+  if (S) { S.dead = true; S.timers.forEach(clearTimeout); }
+  stage.innerHTML = ""; measure();
+  S = {timers:[]}; buildMap();
+}
+window.addEventListener("resize", function(){ clearTimeout(window.__rz); window.__rz = setTimeout(reset, 150); });
+document.getElementById("again").addEventListener("click", reset);
+document.getElementById("skip").addEventListener("click", skipToEnd);
+tabs(); reset();
+</script>
+
+</body></html>

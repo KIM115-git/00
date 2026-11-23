@@ -1,0 +1,16 @@
+/* playfair-display-latin-400-normal */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(en/playfair-display-latin-400-normal.woff2) format("woff2");
+}
+/* playfair-display-latin-500-normal */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(en/playfair-display-latin-500-normal.woff2) format("woff2");
+}

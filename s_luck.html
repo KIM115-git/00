@@ -1,0 +1,630 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!--CFG--><style>html,body{touch-action:none;overscroll-behavior:none}</style><script>(function(){var A=window.AudioContext||window.webkitAudioContext;if(!A)return;var L=[];function W(o){try{var P=window.parent;if(P!==window&&P.__AC0){L.push(P.__AC0);return P.__AC0}}catch(e){}var c=o?new A(o):new A();L.push(c);return c}W.prototype=A.prototype;window.AudioContext=window.webkitAudioContext=W;function r(){L.forEach(function(c){if(c.state==="suspended")c.resume().catch(function(){})})}["pointerdown","touchstart","touchend","mousedown","keydown","click"].forEach(function(e){window.addEventListener(e,r,true)});setInterval(r,500);})();</script><script>window.CFG=window.CFG||{};(function(){try{var P=AudioNode.prototype,oc=P.connect,M=new WeakMap();P.connect=function(d){if(d&&typeof AudioDestinationNode!=='undefined'&&d instanceof AudioDestinationNode){var c=d.context,m=M.get(c);if(!m){m=c.createGain();m.gain.value=3.5;var k=c.createDynamicsCompressor();k.threshold.value=-16;k.knee.value=6;k.ratio.value=14;k.attack.value=.002;k.release.value=.15;var ws=c.createWaveShaper(),cv=new Float32Array(1024);for(var i=0;i<1024;i++){var x=i/511.5-1;cv[i]=Math.tanh(1.3*x)/Math.tanh(1.3);}ws.curve=cv;oc.call(m,k);oc.call(k,ws);oc.call(ws,d);M.set(c,m);}if(this!==m){var a=[].slice.call(arguments);a[0]=m;return oc.apply(this,a);}}return oc.apply(this,arguments);};}catch(e){}})();window.__shown=!(window.parent!==window&&(/[?&]pre=1/.test(location.search)||(window.CFG&&CFG._pre)));window.__sq=[];(function(){var R=0.8,st=window.setTimeout;window.setTimeout=function(f,d){var a=[].slice.call(arguments);a[1]=(+d||0)*R;return st.apply(window,a);};var an=Element.prototype.animate;Element.prototype.animate=function(){var x=an.apply(this,arguments);try{x.playbackRate=1/R;}catch(e){}return x;};})();window.progVis=function(v){try{if(window.parent!==window)parent.postMessage({prog:v},'*')}catch(e){}};window.wsp=function(t,ms){if(!/敲可爱/.test(t))return;if(window.parent===window)return;window.onShow(function(){try{parent.postMessage({wsp:t,ms:ms||0},'*')}catch(e){}});};window.onShow=function(f){if(window.__shown)setTimeout(f,0);else window.__sq.push(f);};addEventListener('message',function(e){if(e.data&&e.data.show&&!window.__shown){window.__shown=true;window.__sq.splice(0).forEach(function(f){try{f()}catch(x){}});}});if(window.parent!==window){document.documentElement.classList.add('embed');window.segDone=function(){if(window.__sd)return;window.__sd=1;try{parent.postMessage({segdone:1},'*')}catch(e){}};try{Object.defineProperty(window,'innerHeight',{configurable:true,get:function(){return document.documentElement.clientHeight+600;}});}catch(e){}}</script>
+<style>.embed body{padding:0!important;margin:0!important;background:#000!important;overflow:hidden}.embed .bar,.embed h1,.embed h2,.embed .tip,.embed #tabs,.embed [role=group],.embed .prog2,.embed .titles,.embed .covers{display:none!important}.embed .wrap{max-width:none!important;gap:0!important;margin:0!important;padding:0!important}.embed .stage{border-radius:0!important;box-shadow:none!important;max-height:none!important}.embed *{cursor:url(f15/hand2.webp) 23 1,pointer!important}</style></head><body>
+<title>刮刮乐与抽奖券</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="fonts/lc.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="fonts/alfa.css" media="print" onload="this.media='all'">
+<style>
+/* 上面一排四个玩法切换和重来；下面一块 16:9 横屏舞台（米色纸），外框跟随明暗 */
+:root{
+  --bg:#efede9; --fg:#1e1c1a; --soft:#5d5852; --line:#d8d3cb; --card:#faf9f6;
+  --accent:#23408a; --accent-ink:#ffffff;
+  --ui:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --hand:"Long Cang","Kaiti SC","STKaiti","KaiTi",cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#151413; --fg:#ece8e2; --soft:#a9a29a; --line:#34312d; --card:#1f1d1b; --accent:#8fa8ec; --accent-ink:#10172e; color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --bg:#151413; --fg:#ece8e2; --soft:#a9a29a; --line:#34312d; --card:#1f1d1b; --accent:#8fa8ec; --accent-ink:#10172e; color-scheme:dark; }
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ui);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+button{font-family:inherit}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar h1{margin:0 12px 0 0;font-size:18px}
+.pill{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer}
+.pill[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn{border:0;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;background:var(--accent);color:var(--accent-ink);margin-left:auto}
+.tip{margin:0;font-size:13px;color:var(--soft);line-height:1.6}
+.holder{width:100%;display:flex;justify-content:center}
+
+.stage{position:relative;overflow:hidden;isolation:isolate;border-radius:10px;background:#ece6dc none repeat;background-size:var(--tile,300px);color:#2a2622;box-shadow:0 12px 30px rgba(0,0,0,.14);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none;cursor:pointer}
+.stage img{-webkit-user-drag:none;pointer-events:none;display:block;position:absolute;max-width:none}
+.abs{position:absolute}
+.hint{position:absolute;left:0;right:0;text-align:center;margin:0;font-family:var(--hand);color:#4a3f36;pointer-events:none;transition:opacity .35s;z-index:80}
+.side{position:absolute;margin:0;font-family:var(--hand);color:#3b3027;line-height:1.5;z-index:20}
+.side .t{display:block;font-family:var(--ui);letter-spacing:.14em;color:#9a7a55;margin-bottom:.5em}
+.side .row{display:block;opacity:.35}
+.side .row.on{opacity:1}
+
+/* 烟花 */
+.burst{position:absolute;pointer-events:none;transform-origin:50% 50%}
+.light .burst{mix-blend-mode:multiply}
+.dark .burst{mix-blend-mode:screen}
+.rocket{position:absolute;width:6px;height:6px;margin:-3px;border-radius:50%;background:#fff6d0;box-shadow:0 0 10px 4px rgba(255,190,90,.9);pointer-events:none;z-index:50}
+.trail{position:absolute;width:2px;pointer-events:none;background:linear-gradient(rgba(255,170,80,.9),rgba(255,170,80,0));transform-origin:50% 0;z-index:49}
+.spark{position:absolute;left:0;top:0;border-radius:50%;pointer-events:none;z-index:45}
+.fch{position:absolute;left:0;top:0;font-family:var(--hand);color:#7a1f18;text-shadow:0 0 8px rgba(255,250,240,.95),0 0 2px #fff;pointer-events:none;z-index:60;white-space:nowrap}
+.dark .fch{color:#fff;text-shadow:0 0 10px rgba(225,54,80,.95),0 2px 4px rgba(0,0,0,.6)}
+.dark .hint{color:#e9e4dc}
+
+/* 彩票 */
+.tk{position:absolute;filter:drop-shadow(0 18px 30px rgba(0,0,0,.6))}
+.tk>img{left:0;top:0;width:100%;height:100%;z-index:1}
+.pane{position:absolute;z-index:999;overflow:hidden;background:#ecebe6;background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);background-size:9px 9px}
+.pane .w{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 9%;color:#e13650;font-family:-apple-system,"Helvetica Neue","PingFang SC","Noto Sans SC",sans-serif;font-weight:900;line-height:1.08;letter-spacing:-.02em}
+.pane .w small{font-weight:600;color:#3a3a3a;letter-spacing:.06em;margin-bottom:.6em;font-size:.32em}
+.pane canvas{position:absolute;inset:0;width:100%;height:100%}
+.flake{position:absolute;left:0;top:0;border-radius:1px;background:#5a5a5a;pointer-events:none;z-index:30}
+
+/* 老虎机 */
+.mach{position:absolute}
+.mach>img{position:absolute}
+.reel{position:absolute;z-index:2;background-repeat:repeat-y;will-change:background-position}
+.prize-col{position:absolute;display:flex;flex-direction:column;gap:3%;z-index:20}
+.ptitle{margin:0 0 .4em;font-family:var(--ui);font-weight:800;letter-spacing:.18em}
+.card{position:relative;display:flex;align-items:center;gap:.7em;border-radius:10px;padding:.55em .9em;opacity:0}
+.love .card{background:#f8c9cf;border:2.5px solid #e2343c;box-shadow:inset 0 0 0 3px #f8c9cf,inset 0 0 0 4.5px rgba(226,52,60,.55);color:#c4232b}
+.luck .card{background:#fbf5e6;border:2.5px solid #2e2a3a;box-shadow:4px 4px 0 #2e2a3a;color:#2e2a3a}
+.card .ic{flex:0 0 auto;width:2.2em;height:2.2em}
+.card .tx{font-family:var(--hand);line-height:1.2}
+.card .tx small{display:block;font-family:var(--ui);font-weight:700;font-size:.5em;letter-spacing:.14em;opacity:.75;margin-bottom:.2em}
+.fly{position:absolute;left:0;top:0;z-index:40;pointer-events:none;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
+.note{position:absolute;z-index:42;background:#fffdf6;border:2.5px solid #e8262f;border-radius:4px;padding:.45em .8em .55em;font-family:var(--hand);color:#2b2420;white-space:nowrap;box-shadow:0 8px 16px rgba(0,0,0,.22);pointer-events:none;opacity:0}
+.note small{display:block;font-family:var(--ui);font-weight:700;font-size:.5em;letter-spacing:.12em;opacity:.65;margin-bottom:.15em}
+.fruit{position:absolute;pointer-events:none}
+.mask4{-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent),linear-gradient(transparent,#000 4%,#000 96%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent),linear-gradient(transparent,#000 4%,#000 96%,transparent);mask-composite:intersect}
+.winlabel{position:absolute;left:0;top:0;z-index:60;background:#141414;color:#fff;padding:.35em .9em .45em;font-family:-apple-system,"Helvetica Neue","PingFang SC",sans-serif;text-align:center;line-height:1.1;box-shadow:0 10px 24px rgba(0,0,0,.5);white-space:nowrap;opacity:0}
+.winlabel b{display:block;font-weight:900;letter-spacing:.02em}
+.winlabel span{display:block;font-size:.36em;font-weight:600;margin-top:.45em;letter-spacing:.06em;opacity:.9}
+.coupon-stage .hint,.stage.coupon .hint{color:#7a3d12}
+.ctitle{position:absolute;margin:0;font-family:var(--ui);font-weight:800;letter-spacing:.2em;color:#c4232b}
+.gift{position:absolute;left:0;top:0;z-index:40;filter:drop-shadow(0 10px 10px rgba(90,40,10,.28))}
+.gift .lid{position:absolute;left:3%;top:22%;width:94%;height:auto;transform-origin:3% 96%;z-index:3}
+.gift .body{position:absolute;left:8%;top:44%;width:84%;height:auto;z-index:2}
+.gift .slot{position:absolute;left:50%;top:48%;width:0;height:0;z-index:1}
+.coupon{position:absolute;display:flex;width:13em;background:#fff5f6;border:.12em solid #e2343c;border-radius:.4em;box-shadow:0 .5em 1em rgba(120,30,30,.22);color:#c4232b;font-family:var(--ui);white-space:nowrap}
+.coupon.inbox{left:0;bottom:0;transform:translate(-22%,95%) scale(.55);transform-origin:22% 100%}
+.coupon .cm{flex:1;padding:.7em .9em .75em;border-right:.12em dashed #e2343c}
+.coupon .cm small{display:block;font-size:.42em;font-weight:800;letter-spacing:.18em;opacity:.75}
+.coupon .cm b{display:block;font-family:var(--hand);font-weight:400;font-size:1.5em;line-height:1.15;margin:.12em 0 .1em;color:#b81d25}
+.coupon .cm .d{display:block;font-size:.55em;font-weight:700;color:#7a2a2a}
+.coupon .cm .s{display:block;font-size:.45em;margin-top:.35em;color:#a8585c}
+.coupon .cs{width:3.6em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6em;background:#f8c9cf;border-radius:0 .3em .3em 0;font-size:.85em}
+.coupon .cs span{font-weight:800;font-size:.5em;writing-mode:vertical-rl;letter-spacing:.1em}
+.coupon .cs i{font-style:normal;font-size:.42em;text-align:center;line-height:1.3}
+.coupon .cm .s:empty,.coupon .cm .d:empty{display:none}
+.coupon.gold{background:#fffaea;border-color:#c9a227;color:#8a6a12;box-shadow:0 .5em 1em rgba(140,100,10,.25),0 0 1.2em rgba(255,210,80,.55)}
+.coupon.gold .cm{border-right-color:#c9a227}
+.coupon.gold .cm b{color:#9a7414}
+.coupon.gold .cm .d,.coupon.gold .cm .s{color:#8a6a12}
+.coupon.gold .cs{background:#f4e3a1}
+.glowj{position:absolute;border-radius:8px;background:rgba(255,236,120,.6);mix-blend-mode:screen;opacity:0;pointer-events:none}
+.bookcover{position:absolute;z-index:80;background:#e2343c;color:#fff;border-radius:.4em;box-shadow:0 .6em 1.4em rgba(120,20,20,.35);display:flex;flex-direction:column;justify-content:center;padding-left:1.6em;font-family:var(--ui)}
+.bookcover small{font-size:.42em;font-weight:800;letter-spacing:.2em;opacity:.85}
+.bookcover b{font-family:var(--hand);font-weight:400;font-size:1.5em;line-height:1.2;margin:.15em 0}
+.bookcover span{font-size:.5em;font-weight:700;letter-spacing:.1em;opacity:.9}
+.staple{position:absolute;z-index:82;border-radius:2px;background:linear-gradient(90deg,#8d9196,#e6e8ea 50%,#8d9196);box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.seal{position:absolute;z-index:83;border-radius:50%;border:4px double #fff3c4;color:#fff3c4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:var(--hand);line-height:1.1;opacity:0}
+.seal small{font-size:.7em}
+.booktxt{position:absolute;z-index:84;margin:0;text-align:center;font-family:var(--hand);color:#c4232b;opacity:0}
+@media (prefers-reduced-motion: reduce){ .hint{transition:none} }
+@keyframes blink{50%{opacity:0}}</style>
+
+<div class="wrap">
+  <div class="bar">
+    <h1>抽签刮刮乐 + 下一环节抽奖券</h1>
+    <div class="bar" id="tabs" role="group" aria-label="选玩法"></div>
+    <button class="btn" id="again">重来</button>
+  </div>
+  <div class="holder"><div class="stage" id="stage" tabindex="0" aria-label="抽签演示"></div></div>
+  <p class="tip" id="tip"></p>
+</div>
+<script>
+var M = {"ticket": {"size": [516, 720], "area": [16, 321, 484, 373], "red": "#e13650", "gray": "#464646"}, "love": {"bg": "#eeefea", "lv_knob": [556, 760, 63, 61], "lv_stick": [555, 810, 60, 283], "crop": [100, 430, 560, 878], "wins": [[[207, 832], [291, 832], [291, 998], [207, 998]], [[303, 832], [387, 832], [387, 998], [303, 998]], [[399, 832], [483, 832], [483, 998], [399, 998]]], "outlet": [350, 1290], "winbox": [[207, 832, 84, 166], [303, 832, 84, 166], [399, 832, 84, 166]]}, "mach": [138, 432, 480, 809], "fw": [{"n": "b0", "box": [0, 238, 308, 405], "c": [105, 440], "r": 205}, {"n": "b1", "box": [138, 28, 336, 336], "c": [305, 195], "r": 170}, {"n": "b2", "box": [178, 293, 385, 385], "c": [370, 485], "r": 195}, {"n": "b3", "box": [393, 238, 343, 405], "c": [595, 440], "r": 205}]};
+var WISH = (window.CFG && CFG.wish) || ["财运滚滚来", "越来越好看", "身材越来越好"];
+var stage = document.getElementById("stage"), L = {}, S = null;
+function el(tag, cls, parent){ var e = document.createElement(tag); if (cls) e.className = cls; if (parent) parent.appendChild(e); return e; }
+function later(fn, ms){ var me = S; S.timers.push(setTimeout(function(){ if (!me.dead) fn(); }, ms)); }
+function pic(parent, src, x, y, w, h){ var i = el("img", "", parent); i.alt = ""; i.src = "q11/" + src; i.style.left = x + "px"; i.style.top = y + "px"; i.style.width = w + "px"; i.style.height = h + "px"; return i; }
+
+/* ---------- 声音 ---------- */
+var AC = null;
+function ac(){ try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch(e) {} }
+function noise(dur, freq, q, vol, type){
+  var a = AC; if (!a) return; if (a.state !== "running") { try { a.resume(); } catch (e) {} }
+  try {
+    var t = a.currentTime, n = Math.max(1, Math.floor(a.sampleRate * dur)), b = a.createBuffer(1, n, a.sampleRate), d = b.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
+    var s = a.createBufferSource(); s.buffer = b;
+    var f = a.createBiquadFilter(); f.type = type || "bandpass"; f.frequency.value = freq; f.Q.value = q;
+    var g = a.createGain(); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0005, t + dur);
+    s.connect(f); f.connect(g); g.connect(a.destination); s.start(t);
+  } catch(e) {}
+}
+function tone(f0, f1, dur, vol, type){
+  var a = AC; if (!a) return; if (a.state !== "running") { try { a.resume(); } catch (e) {} }
+  try { var t = a.currentTime, o = a.createOscillator(), g = a.createGain(); o.type = type || "sine"; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.001, t + dur); o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + .02); } catch(e) {}
+}
+function thump(v){ noise(.09, 650, .7, .5 * (v || 1), "lowpass"); }
+var SCR = null;
+function scrSnd(on, sp){ var a = AC; if (!a) return; try { if (a.state !== "running") a.resume();
+  if (!SCR || SCR.a !== a) { var n = a.sampleRate, b = a.createBuffer(1, n, a.sampleRate), d = b.getChannelData(0); for (var i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+    var s = a.createBufferSource(); s.buffer = b; s.loop = true; var f = a.createBiquadFilter(); f.type = "bandpass"; f.frequency.value = 2600; f.Q.value = .9; var g = a.createGain(); g.gain.value = 0;
+    s.connect(f); f.connect(g); g.connect(a.destination); s.start(); SCR = {a:a, g:g, f:f, s:s}; addEventListener("pagehide", function(){ try { s.stop(); g.disconnect(); } catch (e) {} }); }
+  var t = a.currentTime, v = on ? Math.min(.3, .07 + (sp || 0) * .01) : 0; SCR.g.gain.cancelScheduledValues(t); SCR.g.gain.setTargetAtTime(v, t, on ? .015 : .05);
+  if (on) SCR.f.frequency.setTargetAtTime(2000 + Math.random() * 1800, t, .03); } catch (e) {} }
+function ding(){ tone(1320, 1320, .35, .12, "triangle"); setTimeout(function(){ tone(1760, 1760, .5, .1, "triangle"); }, 110); }
+function boom(){ noise(.6, 300, .5, .5, "lowpass"); setTimeout(function(){ for (var i = 0; i < 8; i++) setTimeout(function(){ noise(.05, 3000 + Math.random() * 3000, 2, .05); }, i * 60 + Math.random() * 40); }, 120); }
+function whistle(){ tone(500, 1600, .7, .05, "sine"); }
+
+/* ---------- 尺寸 ---------- */
+function measure(){
+  var w = stage.parentNode.clientWidth, maxH = Math.max(240, window.innerHeight - 160);
+  var h = Math.min(w * 9 / 16, maxH); w = h * 16 / 9;
+  stage.style.width = w + "px"; stage.style.height = h + "px";
+  stage.style.setProperty("--tile", Math.round(h * .5) + "px");
+  L = {W:w, H:h};
+}
+function hintEl(t){ var h = el("p", "hint", stage); h.style.bottom = (L.H * .025) + "px"; h.style.fontSize = Math.max(14, L.H * .042) + "px"; h.textContent = t || ""; return h; }
+function hint(t){ S.hint.textContent = t; S.hint.style.opacity = t ? "1" : "0"; }
+
+/* ================= 烟花（第 ④ 个玩法，也是前三个的收尾） ================= */
+function burst(bi, cx, cy, size, text, stay, done, hue){
+  var b = M.fw[bi], k = size / (b.r * 2);
+  var bx = b.box, im = el("img", "burst", stage); im.alt = ""; im.src = "q11/fw_" + b.n + ".webp";
+  im.style.left = (cx - (b.c[0] - bx[0]) * k) + "px"; im.style.top = (cy - (b.c[1] - bx[1]) * k) + "px"; im.style.width = bx[2] * k + "px"; im.style.height = bx[3] * k + "px";
+  im.style.transformOrigin = ((b.c[0] - bx[0]) * k) + "px " + ((b.c[1] - bx[1]) * k) + "px"; im.style.zIndex = 10; if (hue) im.style.filter = "hue-rotate(" + hue + "deg) saturate(1.1)";
+  boom();
+  im.animate([{transform:"scale(.08) rotate(-20deg)", opacity:0}, {transform:"scale(.85) rotate(-3deg)", opacity:1, offset:.35}, {transform:"scale(1.05) rotate(0deg)", opacity:1}], {duration:1300, easing:"cubic-bezier(.15,.8,.3,1)", fill:"forwards"});
+  /* 火星 */
+  var cols = ["#e8483a", "#f2a23a", "#3a8fd8", "#d95ab0", "#f6d24a", "#57b38a"];
+  for (var i = 0; i < 46; i++) {
+    var s = el("div", "spark", stage), a = Math.random() * Math.PI * 2, r = size * (.35 + Math.random() * .4), z = 3 + Math.random() * 4;
+    s.style.width = s.style.height = z + "px"; s.style.background = cols[i % cols.length];
+    s.animate([{transform:"translate(" + cx + "px," + cy + "px)", opacity:1}, {transform:"translate(" + (cx + Math.cos(a) * r) + "px," + (cy + Math.sin(a) * r) + "px)", opacity:1, offset:.45},
+               {transform:"translate(" + (cx + Math.cos(a) * r * 1.1) + "px," + (cy + Math.sin(a) * r * 1.1 + L.H * .18) + "px)", opacity:0}], {duration:1800 + Math.random() * 600, easing:"cubic-bezier(.1,.7,.3,1)", fill:"forwards"}).onfinish = (function(q){ return function(){ q.remove(); }; })(s);
+  }
+  /* 字：从中心旋转飞出 → 停成一行 → 落下 */
+  var chars = Array.from(text), fs = Math.max(20, size * .11), gap = fs * 1.02, n = chars.length, x0 = cx - (n - 1) * gap / 2, els = [];
+  chars.forEach(function(c, i){
+    var e = el("div", "fch", stage); e.textContent = c; e.style.fontSize = fs + "px";
+    var a = (i / n) * Math.PI * 2 + Math.random() * .5, r = size * .42, tx = x0 + i * gap - fs / 2, ty = cy - fs / 2;
+    var ox = cx - fs / 2, oy = cy - fs / 2, mx = ox + Math.cos(a) * r, my = oy + Math.sin(a) * r, rot = (Math.random() < .5 ? -1 : 1) * (240 + Math.random() * 240);
+    var kf = [{transform:"translate(" + ox + "px," + oy + "px) rotate(0deg) scale(.2)", opacity:0}, {transform:"translate(" + mx + "px," + my + "px) rotate(" + rot + "deg) scale(1.1)", opacity:1, offset:.45},
+              {transform:"translate(" + tx + "px," + ty + "px) rotate(0deg) scale(1)", opacity:1}];
+    e.style.transform = "translate(" + tx + "px," + ty + "px)";
+    e.animate(kf, {duration:1500, delay:120 + i * 25, easing:"cubic-bezier(.2,.75,.25,1)", fill:"both"});
+    els.push({e:e, tx:tx, ty:ty});
+  });
+  later(function(){ thump(.5); }, 1500);
+  if (stay) { later(function(){ if (done) done(); }, 1700); return; }
+  later(function(){
+    els.forEach(function(o, i){
+      o.e.animate([{transform:"translate(" + o.tx + "px," + o.ty + "px)", opacity:1}, {transform:"translate(" + (o.tx + (Math.random() - .5) * fs) + "px," + (o.ty + L.H * .22) + "px) rotate(" + (Math.random() - .5) * 60 + "deg)", opacity:0}], {duration:1300, delay:i * 40, easing:"ease-in", fill:"forwards"});
+    });
+    im.animate([{opacity:1}, {opacity:.18}], {duration:1400, fill:"forwards"});
+    later(function(){ if (done) done(); }, 1400);
+  }, 1700 + 2000);
+}
+function launch(x0, cx, cy, done){
+  var r = el("div", "rocket", stage), y0 = L.H * .8, dur = 900; whistle();
+  r.animate([{transform:"translate(" + x0 + "px," + y0 + "px)"}, {transform:"translate(" + cx + "px," + cy + "px)"}], {duration:dur, easing:"cubic-bezier(.3,.6,.4,1)", fill:"forwards"});
+  var t = el("div", "trail", stage), len = Math.hypot(cx - x0, cy - y0), ang = Math.atan2(-(cx - x0), cy - y0) * 180 / Math.PI;
+  t.style.left = x0 + "px"; t.style.top = y0 + "px"; t.style.height = len + "px"; t.style.transform = "rotate(" + ang + "deg)";
+  t.animate([{transform:"rotate(" + ang + "deg) scaleY(0)", opacity:1}, {transform:"rotate(" + ang + "deg) scaleY(1)", opacity:.9, offset:.9}, {transform:"rotate(" + ang + "deg) scaleY(1)", opacity:0}], {duration:dur + 300, fill:"forwards"});
+  later(function(){ r.remove(); later(function(){ t.remove(); }, 400); done(); }, dur);
+}
+function finale(){ setTimeout(function(){ window.segDone&&segDone(); }, 2600); stage.classList.add("dark"); stage.style.transition = "background .8s"; stage.style.background = "#1d1610";
+  S.phase = "end"; hint("");
+  Array.prototype.forEach.call(stage.children, function(c){ if (c !== S.hint) c.animate([{opacity:1}, {opacity:.12}], {duration:700, fill:"forwards"}); });
+  launch(L.W * .5, L.W * .5, L.H * .42, function(){ burst(2, L.W * .5, L.H * .42, L.H * .8, "这一年，只有上上签", true); });
+}
+
+
+var TABS = {
+  ticket:{label:"抽签：刮刮乐", tip:"三格刮开以后，不再放烟花：一张黑色贴纸「啪」地贴在彩票上写着「全部中奖！」，撒下一阵红白彩纸。"},
+  coupon:{label:"下一环节：老虎机抽奖券", tip:"拉一下拉杆，出口蹦出小礼盒，点一下拆开，奖券从盒子里升起来。拉满三次以后，机器自己抖起来、JACKPOT 闪，多掉一个金色礼盒，里面是「空白万能券」。再点一下，四张券飞到一起订成一本券册，盖上「永久有效」的章。"}
+};
+var COUPONS = (window.CFG && CFG.coupons) || [
+  {t:"专业按摩券", d:"Happy Birthday", s:"寿星专属券 · 随时兑换"},
+  {t:"免吵架券", d:"Happy Birthday", s:"寿星专属券 · 随时兑换"},
+  {t:"空白万能券", d:"Happy Birthday", s:"寿星专属券 · 随时兑换", gold:true}
+];
+var GOLD = ["#e8b923", "#fff3c4", "#8a6a12"];
+var cur = "ticket"; try { var sv = (window.CFG && CFG._tab) || localStorage.getItem("seg11-tab"); if (TABS[sv]) cur = sv; } catch(e) {}
+var bgMode = "yellow"; try { var bm = localStorage.getItem("seg11-bg"); if (bm) bgMode = bm; } catch(e) {}
+
+/* ================= 刮刮乐：三格全中以后 ================= */
+function ticketWin(){ setTimeout(function(){ window.wsp && wsp("信女祈祷🙏🏻，希望这个老小子，今年3个愿望都上岸！"); }, 700); setTimeout(function(){ window.segDone&&segDone(); }, 2000);
+  hint("");
+  var r = S.tk.getBoundingClientRect(), sr = stage.getBoundingClientRect(), cx = r.left - sr.left + r.width / 2, cy = r.top - sr.top + r.height * .62;
+  later(function(){
+    var lb = el("div", "winlabel", stage); lb.innerHTML = "<b>全部中奖！</b><span>这一年，你刮开的都是好运</span>";
+    lb.style.left = cx + "px"; lb.style.top = cy + "px"; lb.style.fontSize = (r.width * .1) + "px";
+    lb.animate([{transform:"translate(-50%,-50%) rotate(-20deg) scale(2.2)", opacity:0}, {transform:"translate(-50%,-50%) rotate(-7deg) scale(.95)", opacity:1, offset:.75}, {transform:"translate(-50%,-50%) rotate(-7deg) scale(1)", opacity:1}], {duration:380, easing:"cubic-bezier(.5,0,.6,1)", fill:"forwards"});
+    later(function(){ thump(1.2); ding(); S.tk.animate([{transform:"none"}, {transform:"translateY(.6%) rotate(.4deg)"}, {transform:"none"}], {duration:240}); rain(); }, 290);
+  }, 400);
+  S.phase = "end";
+}
+function rain(){
+  var cols = ["#e13650", "#ffffff", "#141414", "#bdbdbd", "#e13650", "#ffffff"];
+  for (var i = 0; i < 70; i++) {
+    var p = el("div", "spark", stage), x = Math.random() * L.W, w = 5 + Math.random() * 7;
+    p.style.width = w + "px"; p.style.height = w * (.35 + Math.random() * .5) + "px"; p.style.borderRadius = "1px"; p.style.background = cols[i % cols.length]; p.style.zIndex = 70;
+    p.animate([{transform:"translate(" + x + "px," + (-20 - Math.random() * L.H * .3) + "px) rotate(0deg)"}, {transform:"translate(" + (x + (Math.random() - .5) * L.W * .15) + "px," + (L.H + 20) + "px) rotate(" + (Math.random() * 900) + "deg)"}], {duration:2200 + Math.random() * 1800, delay:Math.random() * 500, easing:"cubic-bezier(.3,.2,.6,1)", fill:"forwards"}).onfinish = (function(q){ return function(){ q.remove(); }; })(p);
+  }
+}
+
+/* ================= 下一环节：老虎机抽奖券 ================= */
+var GC = ["#e8262f", "#f8b9c4", "#a81a20"]; window.GC0 = GC;
+function buildCoupon(){
+  var C = M.love; stage.className = "stage light love"; stage.style.background = "#efe6d6 url(fused/paper.webp) center/cover";
+  var crop = C.crop, k = L.H / crop[3], ox = L.W * .1;
+  S.k = k; S.ox = ox - crop[0] * k; S.oy = -crop[1] * k; S.C = C;
+  function X(x){ return S.ox + x * k; } function Y(y){ return S.oy + y * k; }
+  var base = pic(stage, "love.webp", ox, 0, crop[2] * k, crop[3] * k); base.className = "mask4"; base.style.mixBlendMode = "multiply"; base.style.zIndex = 1;
+  S.reels = C.winbox.map(function(b, i){
+    var r = el("div", "reel", stage); r.style.left = X(b[0]) + "px"; r.style.top = Y(b[1]) + "px"; r.style.width = b[2] * k + "px"; r.style.height = b[3] * k + "px";
+    r.style.backgroundImage = "url('q11/love_w" + i + ".webp')"; r.style.backgroundSize = (b[2] * k) + "px " + (b[3] * k) + "px"; return {el:r, h:b[3] * k};
+  });
+  var sb = C.lv_stick, kb = C.lv_knob;
+  S.stick = pic(stage, "lv_stick.webp", X(sb[0]), Y(sb[1]), sb[2] * k, sb[3] * k); S.stick.style.transformOrigin = "50% 100%";
+  S.knob = pic(stage, "lv_knob.webp", X(kb[0]), Y(kb[1]), kb[2] * k, kb[3] * k); S.knob.style.zIndex = 3;
+  S.leverLen = (sb[1] + sb[3] - (kb[1] + kb[3] / 2)) * k; S.front = true; setLever(0);
+  S.outlet = [X(C.outlet[0]), Y(C.outlet[1])];
+  S.mach = [base, S.stick, S.knob].concat(S.reels.map(function(r){ return r.el; })); S.gifts = [];
+  S.got = 0; S.phase = "pull";
+  S.hint = hintEl("按住红色拉杆往下拉"); S.hint.style.left = (L.W * .55) + "px"; S.hint.style.right = "0"; S.hint.style.textAlign = "left";
+}
+function pull(){
+  S.phase = "spin"; S.busy = true; hint(""); noise(.15, 500, .7, .3, "lowpass");
+  var from = S.leverP || 0, t0 = performance.now(), me = S;
+  (function f(now){ if (me.dead) return; var q = Math.min(1, (now - t0) / 650), v = q < .3 ? from + (1 - from) * q / .3 : (1 - (q - .3) / .7) * (1 + .12 * Math.sin((q - .3) / .7 * Math.PI * 3)); setLever(Math.max(0, Math.min(1, v))); if (q < 1) requestAnimationFrame(f); else setLever(0); })(t0);
+  S.reels.forEach(function(rl, i){
+    var dur = 1300 + i * 450; rl.el.style.filter = "blur(1.2px)";
+    var a = rl.el.animate([{backgroundPosition:"0px 0px"}, {backgroundPosition:"0px " + ((14 + i * 5) * rl.h) + "px"}], {duration:dur, easing:"cubic-bezier(.2,.6,.35,1.03)"});
+    var tk = setInterval(function(){ noise(.02, 2500, 1.5, .05); }, 70);
+    a.onfinish = function(){ clearInterval(tk); rl.el.style.filter = ""; thump(.6); if (i === 2) popOne(); };
+  });
+}
+function couponEl(c, i){
+  var e = el("div", "coupon" + (c.gold ? " gold" : ""), stage);
+  e.innerHTML = '<div class="cm" style="position:relative;overflow:hidden"><small>DISNEYWORLD · 米奇礼券</small><b></b><span class="d"></span><span class="s"></span><img src="q11/mickey_badge.webp" alt="" style="position:absolute;right:.25em;bottom:-.08em;height:2.1em;width:auto;opacity:.92;pointer-events:none"></div><div class="cs"><span>No.052' + i + '</span><i>有效期<br>永久</i></div>';
+  e.querySelector("b").textContent = c.t; e.querySelector(".d").textContent = c.d; e.querySelector(".s").textContent = c.s;
+  var n = Array.from(c.t || "").length; if (n > 4) e.querySelector("b").style.fontSize = Math.max(.95, Math.min(1.5, 6.6 / n)) + "em";   /* 券名最多 7 个字，字多自动变小 */
+  return e;
+}
+var SPOTS = [[.53, .8, -6], [.53, .8, 5], [.53, .8, -4], [.53, .8, 5]];
+function dropGift(){
+  ding(); var i = S.got, sp = SPOTS[i], z = L.H * .17, tx = L.W * sp[0] - z / 2, ty = L.H * sp[1] - z / 2, src = S.outlet, top = Math.min(src[1], ty) - L.H * .22, rot = sp[2];
+  var GC = COUPONS[i].gold ? GOLD : window.GC0;
+  var g = el("div", "gift", stage); g.style.width = g.style.height = z + "px"; g.style.zIndex = 40 + i;
+  g.innerHTML = '<svg class="lid" viewBox="0 0 44 22"><path d="M22 12 C14 1 7 5 12 11 Z M22 12 C30 1 37 5 32 11 Z" fill="' + GC[1] + '" stroke="' + GC[2] + '" stroke-width="1.4"/><rect x="1" y="11" width="42" height="10" rx="2" fill="' + GC[0] + '" stroke="' + GC[2] + '" stroke-width="1.6"/><rect x="18.5" y="11" width="7" height="10" fill="' + GC[1] + '" stroke="' + GC[2] + '" stroke-width="1.2"/></svg>'
+    + '<div class="slot"></div>'
+    + '<svg class="body" viewBox="0 0 40 26"><rect x="1" y="1" width="38" height="24" rx="1.5" fill="' + GC[0] + '" stroke="' + GC[2] + '" stroke-width="1.6"/><rect x="16.5" y="1" width="7" height="24" fill="' + GC[1] + '" stroke="' + GC[2] + '" stroke-width="1.2"/><path d="M1 5 H39" stroke="rgba(0,0,0,.18)" stroke-width="2"/></svg>';
+  noise(.25, 1800, .6, .12);
+  g.animate([{transform:"translate(" + (src[0] - z / 2) + "px," + (src[1] - z / 2) + "px) scale(.25) rotate(-30deg)"},
+             {transform:"translate(" + ((src[0] + tx + z / 2) / 2 - z / 2) + "px," + top + "px) scale(.9) rotate(" + rot * 1.5 + "deg)", offset:.5},
+             {transform:"translate(" + tx + "px," + ty + "px) scale(1.03,.97) rotate(" + rot + "deg)", offset:.86},
+             {transform:"translate(" + tx + "px," + (ty - z * .06) + "px) scale(.99,1.01) rotate(" + rot + "deg)", offset:.94},
+             {transform:"translate(" + tx + "px," + ty + "px) scale(1) rotate(" + rot + "deg)"}], {duration:1100, easing:"cubic-bezier(.35,.1,.45,1)", fill:"forwards"});
+  later(function(){ thump(.6);  }, 950);
+  S.gift = {el:g, x:tx, y:ty, z:z, rot:rot, i:i}; S.gifts = S.gifts || []; S.gifts.push(S.gift);
+  later(function(){ openGift(); }, 1250);
+}
+/* 拆开：盖子掀开但还连在盒子上，奖券从盒子里升起来 */
+
+/* 券从礼盒里升起来以后，单独飞到右边排好，盒子淡出：看得清字 */
+function detachCoupon(g, c, i){ if (i === 0) { window.wsp && wsp("券的内容，对应着我们日常开玩笑的梗，还有他之前想要但还没满足的愿望hhhh"); }
+  var cp = g.cp, sr = stage.getBoundingClientRect(), r0 = cp.getBoundingClientRect(), F = L.H * .034;
+  var nc = couponEl(c, i); nc.style.fontSize = F + "px"; nc.style.left = "0"; nc.style.top = "0"; nc.style.zIndex = 60 + i;
+  var w = nc.offsetWidth, s0 = r0.width / w, tx = L.W * .63, ty = L.H * (.1 + i * .2), rr = [-2, 1.5, -1.5, 2][i];
+  nc.animate([{transform:"translate(" + (r0.left - sr.left) + "px," + (r0.top - sr.top) + "px) scale(" + s0 + ")", transformOrigin:"0 0"}, {transform:"translate(" + tx + "px," + ty + "px) scale(1) rotate(" + rr + "deg)", transformOrigin:"0 0"}], {duration:850, easing:"cubic-bezier(.3,.7,.25,1)", fill:"forwards"});
+  cp.style.visibility = "hidden"; g.cp = nc;
+  g.el.animate([{opacity:1}, {opacity:0}], {duration:500, delay:250, fill:"forwards"});
+}
+function openGift(){
+  var g = S.gift, i = g.i, c = COUPONS[i]; S.phase = "busy"; S.busy = true; hint("");
+  g.el.getAnimations().forEach(function(a){ if (a.iterations === 3) a.cancel(); });
+  g.el.querySelector(".lid").animate([{transform:"none"}, {transform:"rotate(-112deg)", offset:.6}, {transform:"rotate(-100deg)"}], {duration:600, fill:"forwards", easing:"cubic-bezier(.2,.8,.3,1.2)"});
+  noise(.3, 2600, .6, .12, "highpass");
+  var cp = couponEl(c, i); g.el.querySelector(".slot").appendChild(cp); cp.classList.add("inbox"); g.cp = cp;
+  cp.style.fontSize = Math.max(11, L.H * .026) + "px";
+  cp.animate([{transform:"translate(-22%,95%) scale(.55) rotate(0deg)"}, {transform:"translate(-22%,2%) scale(1.04) rotate(" + (4 - rot2(g.rot)) + "deg)", offset:.75}, {transform:"translate(-22%,12%) scale(1) rotate(" + (4 - rot2(g.rot)) + "deg)"}], {duration:900, delay:150, easing:"cubic-bezier(.25,.8,.3,1)", fill:"forwards"}); later(function(){ detachCoupon(g, c, i); }, 1150);
+  var cx = g.x + g.z / 2, cy = g.y + g.z * .4, cols = ["#e8262f", "#f6d24a", "#f8b9c4", "#ffffff", "#2a9d8f"];
+  for (var j = 0; j < 22; j++) { var p = el("div", "spark", stage), a = -Math.PI / 2 + (Math.random() - .5) * 2.4, r = L.H * (.12 + Math.random() * .14), zz = 4 + Math.random() * 5; p.style.width = zz + "px"; p.style.height = zz * .6 + "px"; p.style.borderRadius = "1px"; p.style.background = cols[j % cols.length]; p.style.zIndex = 45;
+    p.animate([{transform:"translate(" + cx + "px," + cy + "px)", opacity:1}, {transform:"translate(" + (cx + Math.cos(a) * r) + "px," + (cy + Math.sin(a) * r) + "px) rotate(" + Math.random() * 360 + "deg)", opacity:1, offset:.4}, {transform:"translate(" + (cx + Math.cos(a) * r * 1.2) + "px," + (cy + Math.sin(a) * r + L.H * .2) + "px) rotate(" + Math.random() * 720 + "deg)", opacity:0}], {duration:1400 + Math.random() * 400, easing:"cubic-bezier(.1,.7,.3,1)", fill:"forwards"}).onfinish = (function(q){ return function(){ q.remove(); }; })(p); }
+  later(function(){ ding(); }, 600);
+  S.got++;
+  later(function(){
+    if (S.got < 2) { S.busy = false; S.phase = "pull"; hint("再拉一次"); }     else if (S.got === 2) { S.busy = false; S.phase = "pull"; hint("最后一次，再拉一下"); }     else { if (COUPONS[2].gold) goldEnd(); else plainEnd(); } }, 2000);
+}
+function rot2(r){ return r * .5; }
+/* 彩蛋：机器自己抖起来，JACKPOT 闪，多掉一个金色礼盒 */
+function bonus(){
+  var k = S.k, gj = el("div", "glowj", stage); gj.style.left = (S.ox + 160 * k) + "px"; gj.style.top = (S.oy + 690 * k) + "px"; gj.style.width = 370 * k + "px"; gj.style.height = 90 * k + "px"; gj.style.zIndex = 8;
+  gj.animate([{opacity:0}, {opacity:1}, {opacity:.1}, {opacity:1}, {opacity:.1}, {opacity:1}, {opacity:0}], {duration:1400});
+  S.mach.forEach(function(m){ m.animate([{translate:"0 0"}, {translate:"-6px 2px"}, {translate:"6px -2px"}, {translate:"-5px 0"}, {translate:"5px 1px"}, {translate:"0 0"}], {duration:160, iterations:6}); });
+  for (var i = 0; i < 6; i++) later(function(){ noise(.03, 2200, 1.5, .12); }, i * 160);
+  later(function(){ ding(); later(ding, 160); }, 600);
+  S.reels.forEach(function(rl, i){ rl.el.style.filter = "blur(1.2px)"; rl.el.animate([{backgroundPosition:"0px 0px"}, {backgroundPosition:"0px " + ((10 + i * 3) * rl.h) + "px"}], {duration:900 + i * 200, easing:"cubic-bezier(.2,.6,.35,1.03)"}).onfinish = function(){ rl.el.style.filter = ""; }; });
+  hint("咦？机器还没停……");
+  later(dropGift, 1500);
+}
+
+
+/* 金色万能券：拆出来直接放大、盖章、到账，不用再写字 */
+
+/* 拉三次：每拉一次，从出口蹦出一张券，并排落好；第三张落好后来一个小仪式 */
+function popLayout(){
+  if (S.cl) return S.cl;
+  var F = L.H * .038, pr = couponEl(COUPONS[0], 0); pr.style.fontSize = F + "px"; var w = pr.offsetWidth, h = pr.offsetHeight; pr.remove();
+  var gap = L.H * .03, x0 = L.W * .56, lim = L.H * .66;
+  if (3 * h + 2 * gap > lim) { var sc = (lim - 2 * gap) / (3 * h); F *= sc; w *= sc; h *= sc; }
+  S.cl = {F:F, w:w, h:h, gap:gap, x0:x0, ty:L.H * .1, total:w}; S.cs = []; return S.cl;
+}
+function popOne(){
+  var i = S.got || 0, c = popLayout(), src = S.outlet; S.phase = "busy"; S.busy = true; hint("");
+  var e = couponEl(COUPONS[i], i); e.style.fontSize = c.F + "px"; e.style.left = "0"; e.style.top = "0"; e.style.zIndex = 60 + i; e.style.transformOrigin = "0 0";
+  var tx = c.x0, cty = c.ty + i * (c.h + c.gap), rr = [-2, 1.5, -1.5][i], mx = (src[0] + tx) / 2, my = Math.min(src[1], cty) - L.H * .1;
+  e.animate([{transform:"translate(" + src[0] + "px," + src[1] + "px) scale(.25) rotate(-20deg)", opacity:0}, {transform:"translate(" + mx + "px," + my + "px) scale(.8) rotate(" + rr * 3 + "deg)", opacity:1, offset:.5}, {transform:"translate(" + tx + "px," + cty + "px) scale(1) rotate(" + rr + "deg)", opacity:1}], {duration:800, easing:"cubic-bezier(.3,.6,.3,1)", fill:"forwards"});
+  ding(); noise(.2, 2600, .6, .12, "highpass"); S.cs.push(e);
+  if (i === 0) { window.wsp && wsp("券的内容，对应着我们日常开玩笑的梗，还有他之前想要但还没满足的愿望hhhh"); }
+  S.got = i + 1;
+  later(function(){
+    if (S.got < 3) { S.busy = false; S.phase = "pull"; hint(S.got === 1 ? "再拉一次" : "最后一次，再拉一下"); }
+    else popRitual();
+  }, 850);
+}
+function popRitual(){
+  var c = S.cl, cx = c.x0 + c.total / 2, cy = c.ty + c.h / 2, cols = ["#f6d24a", "#e8262f", "#ffffff", "#f8b9c4"];
+  S.cs.forEach(function(e, i){ e.animate([{translate:"0 0"}, {translate:"0 " + (-L.H * .03) + "px"}, {translate:"0 0"}], {duration:420, delay:i * 90, easing:"ease-out"}); });
+  for (var j = 0; j < 26; j++) { var sp = el("div", "spark", stage), a = Math.random() * Math.PI * 2, r = L.H * (.16 + Math.random() * .18); sp.style.cssText += ";width:7px;height:4px;border-radius:1px;z-index:95;background:" + cols[j % 4];
+    sp.animate([{transform:"translate(" + cx + "px," + cy + "px)", opacity:1}, {transform:"translate(" + (cx + Math.cos(a) * r) + "px," + (cy + Math.sin(a) * r * .7) + "px) rotate(" + Math.random() * 540 + "deg)", opacity:0}], {duration:1100, easing:"cubic-bezier(.1,.7,.3,1)", fill:"forwards"}).onfinish = (function(q){ return function(){ q.remove(); }; })(sp); }
+  ding(); later(ding, 160);
+  var st = el("div", "", stage); st.innerHTML = "已到账";
+  st.style.cssText = "position:absolute;z-index:70;left:" + (cx + c.w * .42) + "px;top:" + (c.ty + c.h * .55) + "px;width:" + L.H * .15 + "px;height:" + L.H * .15 + "px;border-radius:50%;border:4px double #d1322b;color:#d1322b;display:flex;flex-direction:column;align-items:center;justify-content:center;font:900 " + L.H * .036 + "px/1.1 var(--ui);text-align:center;opacity:.9;background:rgba(255,250,242,.55)";
+  st.animate([{transform:"scale(3) rotate(-25deg)", opacity:0}, {transform:"rotate(-12deg)", opacity:.9}], {duration:380, delay:250, easing:"ease-in", fill:"backwards"}); st.style.transform = "rotate(-12deg)";
+  later(function(){ thump(); }, 600);
+  var t = el("p", "", stage); t.textContent = "券已到账，随时找我兑换。"; t.style.cssText = "position:absolute;z-index:96;left:" + cx + "px;top:" + (c.ty + 3 * c.h + 2 * c.gap + L.H * .035) + "px;transform:translateX(-50%);margin:0;white-space:nowrap;font-family:var(--hand);font-size:" + L.H * .06 + "px;color:#4a3626";
+  t.animate([{opacity:0, translate:"0 10px"}, {opacity:1, translate:"0 0"}], {duration:600, delay:500, fill:"backwards"});
+  setTimeout(function(){ window.segDone && segDone(); }, 1400);
+}
+/* 拉一下：三张券依次从出口蹦出来，并排落好，再来一个小仪式 */
+function pop3(){
+  S.phase = "busy"; S.busy = true; hint("");
+  var F = L.H * .024, src = S.outlet, cs = [];
+  var pr = couponEl(COUPONS[0], 0); pr.style.fontSize = F + "px"; var w = pr.offsetWidth, h = pr.offsetHeight; pr.remove();
+  var gap = L.H * .025, x0 = L.W * .47, lim = L.W * .97;
+  if (x0 + 3 * w + 2 * gap > lim) { var sc = (lim - x0 - 2 * gap) / (3 * w); F *= sc; w *= sc; h *= sc; }
+  var ty = L.H * .4, total = 3 * w + 2 * gap;
+  COUPONS.slice(0, 3).forEach(function(c, i){ later(function(){
+    var e = couponEl(c, i); e.style.fontSize = F + "px"; e.style.left = "0"; e.style.top = "0"; e.style.zIndex = 60 + i; e.style.transformOrigin = "0 0";
+    var tx = x0 + i * (w + gap), rr = [-3, 1.5, -1.5][i], mx = (src[0] + tx) / 2, my = Math.min(src[1], ty) - L.H * .16;
+    e.animate([{transform:"translate(" + src[0] + "px," + src[1] + "px) scale(.25) rotate(-20deg)", opacity:0}, {transform:"translate(" + mx + "px," + my + "px) scale(.8) rotate(" + rr * 3 + "deg)", opacity:1, offset:.5}, {transform:"translate(" + tx + "px," + ty + "px) scale(1) rotate(" + rr + "deg)", opacity:1}], {duration:800, easing:"cubic-bezier(.3,.6,.3,1)", fill:"forwards"});
+    ding(); noise(.2, 2600, .6, .12, "highpass");
+    if (i === 0) { window.wsp && wsp("券的内容，对应着我们日常开玩笑的梗，还有他之前想要但还没满足的愿望hhhh"); }
+    cs.push(e);
+  }, i * 420); });
+  later(function(){
+    cs.forEach(function(e, i){ e.animate([{translate:"0 0"}, {translate:"0 " + (-L.H * .03) + "px"}, {translate:"0 0"}], {duration:420, delay:i * 90, easing:"ease-out"}); });
+    var cx = x0 + total / 2, cy = ty + h / 2, cols = ["#f6d24a", "#e8262f", "#ffffff", "#f8b9c4"];
+    for (var j = 0; j < 26; j++) { var sp = el("div", "spark", stage), a = Math.random() * Math.PI * 2, r = L.H * (.16 + Math.random() * .18); sp.style.cssText += ";width:7px;height:4px;border-radius:1px;z-index:95;background:" + cols[j % 4];
+      sp.animate([{transform:"translate(" + cx + "px," + cy + "px)", opacity:1}, {transform:"translate(" + (cx + Math.cos(a) * r) + "px," + (cy + Math.sin(a) * r * .7) + "px) rotate(" + Math.random() * 540 + "deg)", opacity:0}], {duration:1100, easing:"cubic-bezier(.1,.7,.3,1)", fill:"forwards"}).onfinish = (function(q){ return function(){ q.remove(); }; })(sp); }
+    ding(); later(ding, 160);
+    var st = el("div", "", stage); st.innerHTML = "已到账";
+    st.style.cssText = "position:absolute;z-index:70;left:" + (cx + w * .2) + "px;top:" + (ty - L.H * .2) + "px;width:" + L.H * .15 + "px;height:" + L.H * .15 + "px;border-radius:50%;border:4px double #d1322b;color:#d1322b;display:flex;flex-direction:column;align-items:center;justify-content:center;font:900 " + L.H * .036 + "px/1.1 var(--ui);text-align:center;opacity:.9;background:rgba(255,250,242,.55)";
+    st.animate([{transform:"scale(3) rotate(-25deg)", opacity:0}, {transform:"rotate(-12deg)", opacity:.9}], {duration:380, delay:250, easing:"ease-in", fill:"backwards"}); st.style.transform = "rotate(-12deg)";
+    later(function(){ thump(); }, 600);
+    var t = el("p", "", stage); t.textContent = "券已到账，随时找我兑换。"; t.style.cssText = "position:absolute;z-index:96;left:" + cx + "px;top:" + (ty + h + L.H * .07) + "px;transform:translateX(-50%);margin:0;white-space:nowrap;font-family:var(--hand);font-size:" + L.H * .06 + "px;color:#4a3626";
+    t.animate([{opacity:0, translate:"0 10px"}, {opacity:1, translate:"0 0"}], {duration:600, delay:500, fill:"backwards"});
+    setTimeout(function(){ window.segDone && segDone(); }, 1400);
+  }, 2 * 420 + 900);
+}
+
+function plainEnd(){ hint(""); var t = el("p", "", stage); t.textContent = "券已到账，随时找我兑换。"; t.style.cssText = "position:absolute;z-index:96;left:66%;top:" + L.H * .8 + "px;transform:translateX(-50%);margin:0;white-space:nowrap;font-family:var(--hand);font-size:" + L.H * .062 + "px;color:#4a3626"; t.animate([{opacity:0, translate:"0 10px"}, {opacity:1, translate:"0 0"}], {duration:600, delay:300, fill:"backwards"}); setTimeout(function(){ window.segDone && segDone(); }, 1100); }
+function goldEnd(){
+  writeCoupon();
+  later(function(){ hint(""); if (S.wc) { S.wc.wr.textContent = "想要什么，都可以"; finishWrite(); } }, 480);
+}
+/* 空白万能券：自己写上想要的，小鹿盖章批准 */
+function writeCoupon(){
+  S.phase = "busy"; S.busy = true; hint("");
+  var F = L.H * .1, dim = el("div", "", stage); dim.style.cssText = "position:absolute;inset:0;z-index:90;background:rgba(40,25,15,.45)";
+  dim.animate([{opacity:0}, {opacity:1}], {duration:300, fill:"forwards"});
+  var c = couponEl(COUPONS[2], 3); c.style.fontSize = F + "px"; c.style.zIndex = 91;
+  var w = c.offsetWidth, h = c.offsetHeight; c.style.left = (L.W - w) / 2 + "px"; c.style.top = ((L.H - h) / 2 - L.H * .04) + "px";
+  c.animate([{transform:"scale(.3) rotate(-8deg)", opacity:0}, {transform:"scale(1.04) rotate(-2deg)", opacity:1, offset:.7}, {transform:"rotate(-2deg)", opacity:1}], {duration:500, easing:"cubic-bezier(.3,1.3,.5,1)", fill:"forwards"});
+  var d = c.querySelector(".d"); d.innerHTML = '<span class="wr"></span><i class="caret" style="font-style:normal;animation:blink 1s steps(1) infinite">｜</i>';
+  d.style.cssText = "display:block;min-width:7em;min-height:1.3em;margin:.15em 0;border-bottom:.06em dashed #c4232b;font-family:var(--hand);font-weight:400;font-size:.8em;color:#5a1d1d";
+  c.querySelector(".s").textContent = "";
+  var wr = d.querySelector(".wr"), inp = document.createElement("input"); inp.setAttribute("aria-label", "写上你想要的"); inp.style.cssText = "position:absolute;left:-9999px;top:0;opacity:0"; stage.appendChild(inp);
+  inp.addEventListener("input", function(){ wr.textContent = inp.value.slice(0, 14); tone(1800, 1700, .03, .05); });
+  inp.addEventListener("keydown", function(e){ if (e.key === "Enter" && !e.isComposing) finishWrite(); });
+  S.wc = {dim:dim, c:c, wr:wr, inp:inp};
+  later(function(){ try { inp.focus(); } catch(e) {} S.phase = "typing"; S.busy = false; hint("可以直接打字；或者点一下，帮你写一句"); }, 450);
+}
+function finishWrite(){
+  if (S.phase !== "typing") return; S.phase = "busy"; hint(""); var w = S.wc; try { w.inp.blur(); } catch(e) {}
+  var txt = w.wr.textContent.trim(), i = 0;
+  function stamp(){
+    var cr = w.c.querySelector(".caret"); if (cr) cr.remove();
+    var st = el("div", "", w.c); st.innerHTML = "批准";
+    st.style.cssText = "position:absolute;right:4.6em;top:50%;width:2.4em;height:2.4em;margin-top:-1.2em;border-radius:50%;border:.1em double #d1322b;color:#d1322b;display:flex;flex-direction:column;align-items:center;justify-content:center;font:900 .5em/1.05 var(--ui);text-align:center;z-index:3;opacity:.92";
+    st.animate([{transform:"scale(3) rotate(-30deg)", opacity:0}, {transform:"scale(.92) rotate(-14deg)", opacity:.95, offset:.7}, {transform:"rotate(-14deg)", opacity:.92}], {duration:380, easing:"ease-in", fill:"forwards"});
+    later(function(){ thump(); w.c.animate([{translate:"0 0"}, {translate:"0 6px"}, {translate:"0 0"}], {duration:200}); }, 280); later(ding, 520);
+    COUPONS[2] = {t:COUPONS[2].t, d:txt, s:"", gold:COUPONS[2].gold};
+    later(function(){
+      w.inp.remove(); w.dim.animate([{opacity:1}, {opacity:0}], {duration:600, fill:"forwards"});
+      w.c.animate([{transform:"rotate(-2deg)"}, {transform:"translateY(" + (-L.H * .07) + "px) scale(.85) rotate(-2deg)"}], {duration:700, easing:"cubic-bezier(.3,.8,.3,1)", fill:"forwards"});
+      var cx = L.W / 2, cy = L.H * .42, cols = ["#f6d24a", "#e8262f", "#ffffff", "#f8b9c4"];
+      for (var j = 0; j < 28; j++) { var sp = el("div", "spark", stage), a = Math.random() * Math.PI * 2, r = L.H * (.2 + Math.random() * .2); sp.style.cssText += ";width:7px;height:4px;border-radius:1px;z-index:95;background:" + cols[j % 4];
+        sp.animate([{transform:"translate(" + cx + "px," + cy + "px)", opacity:1}, {transform:"translate(" + (cx + Math.cos(a) * r) + "px," + (cy + Math.sin(a) * r * .7) + "px) rotate(" + Math.random() * 540 + "deg)", opacity:0}], {duration:1200, easing:"cubic-bezier(.1,.7,.3,1)", fill:"forwards"}).onfinish = (function(q){ return function(){ q.remove(); }; })(sp); }
+      ding(); later(ding, 180);
+      var t = el("p", "", stage); t.textContent = "券已到账，随时找我兑换。"; t.style.cssText = "position:absolute;z-index:96;left:66%;top:" + L.H * .8 + "px;transform:translateX(-50%);margin:0;white-space:nowrap;font-family:var(--hand);font-size:" + L.H * .062 + "px;color:#4a3626";
+      t.animate([{opacity:0, translate:"0 10px"}, {opacity:1, translate:"0 0"}], {duration:600, delay:300, fill:"backwards"});
+      setTimeout(function(){ window.segDone && segDone(); }, 1100);
+    }, 1100);
+  }
+  if (txt) { stamp(); return; }
+  txt = "陪我打一整天游戏";
+  (function type(){ if (i < txt.length) { w.wr.textContent = txt.slice(0, ++i); tone(1800, 1700, .03, .05); later(type, 110); } else later(stamp, 250); })();
+}
+/* 四张券叠成一本：订书钉、封面、盖章 */ function bindBook(){
+  S.phase = "busy"; S.busy = true; hint("");
+  var F = L.H * .05, sr = stage.getBoundingClientRect(), cx = L.W * .66, cy = L.H * .48, books = [];
+  S.gifts.forEach(function(g, i){
+    var r = g.cp.getBoundingClientRect(), c = couponEl(COUPONS[i], i); c.style.fontSize = F + "px"; c.style.left = "0"; c.style.top = "0"; c.style.zIndex = 70 + i;
+    var w = c.offsetWidth, h = c.offsetHeight, s0 = r.width / w; g.cp.style.visibility = "hidden";
+    var tx = cx - w / 2 + (i - 1.5) * F * .25, ty = cy - h / 2 + (i - 1.5) * F * .18, rr = [-4, 3, -2, 2][i];
+    c.animate([{transform:"translate(" + (r.left - sr.left) + "px," + (r.top - sr.top) + "px) scale(" + s0 + ")", transformOrigin:"0 0"}, {transform:"translate(" + tx + "px," + ty + "px) scale(1) rotate(" + rr + "deg)", transformOrigin:"0 0"}], {duration:650, delay:i * 160, easing:"cubic-bezier(.3,.8,.3,1)", fill:"forwards"});
+    later(function(){ noise(.12, 2800, .6, .07, "highpass"); }, i * 160 + 500);
+    g.el.animate([{opacity:1}, {opacity:0}], {duration:400, delay:i * 160, fill:"forwards"});
+    books.push({w:w, h:h});
+  });
+  var W0 = books[0].w, H0 = books[0].h;
+  later(function(){
+    var cv = el("div", "bookcover", stage); cv.style.fontSize = F + "px"; cv.style.width = W0 + "px"; cv.style.height = H0 + "px"; cv.style.left = (cx - W0 / 2) + "px"; cv.style.top = (cy - H0 / 2) + "px";
+    cv.innerHTML = "<small>DISNEYWORLD · 兑换券册</small><b>寿星专属兑换券</b><span>永久有效</span>";
+    cv.animate([{transform:"translateY(-40%) rotate(-6deg)", opacity:0}, {transform:"translateY(3%) rotate(-1deg)", opacity:1, offset:.8}, {transform:"rotate(-1deg)", opacity:1}], {duration:450, easing:"cubic-bezier(.5,0,.6,1)", fill:"forwards"});
+    later(function(){ thump(.8); }, 360);
+    later(function(){
+      for (var j = 0; j < 2; j++) { var st = el("div", "staple", stage); st.style.left = (cx - W0 / 2 + F * .6) + "px"; st.style.top = (cy - H0 / 2 + H0 * (j ? .68 : .2)) + "px"; st.style.width = F * .22 + "px"; st.style.height = H0 * .14 + "px";
+        st.animate([{transform:"scale(1.6)", opacity:0}, {transform:"scale(1)", opacity:1}], {duration:180, fill:"forwards"}); }
+      noise(.03, 3500, 2, .35); later(function(){ noise(.03, 3000, 2, .3); }, 90);
+    }, 650);
+    later(function(){
+      var sz = H0 * .82, sp = el("div", "seal", stage); sp.style.width = sp.style.height = sz + "px"; sp.style.left = (cx + W0 * .44 - sz / 2) + "px"; sp.style.top = (cy + H0 * .45 - sz / 2) + "px"; sp.style.background = "#e2343c"; sp.style.boxShadow = "0 4px 10px rgba(120,20,20,.35)"; sp.style.fontSize = sz * .17 + "px";
+      sp.innerHTML = "永久有效<br><small>不限次数</small>";
+      sp.animate([{opacity:0, transform:"rotate(-30deg) scale(2)"}, {opacity:1, transform:"rotate(-14deg) scale(.95)", offset:.75}, {opacity:1, transform:"rotate(-14deg) scale(1)"}], {duration:380, easing:"cubic-bezier(.5,0,.6,1)", fill:"forwards"});
+      later(function(){ thump(1.2); ding(); }, 290);
+    }, 1200);
+    later(function(){
+      var t = el("p", "booktxt", stage); t.textContent = "券已到账，随时找我兑换。"; setTimeout(function(){ window.segDone&&segDone(); }, 700); t.style.left = (cx - W0 * .6) + "px"; t.style.width = (W0 * 1.2) + "px"; t.style.top = (cy + H0 * .95) + "px"; t.style.fontSize = Math.max(16, L.H * .05) + "px";
+      t.animate([{opacity:0, transform:"translateY(10px)"}, {opacity:1, transform:"none"}], {duration:700, fill:"forwards"});
+      S.phase = "end";
+    }, 1900);
+  }, 4 * 160 + 700);
+}
+
+/* ================= ① 刮刮乐（原图样式） ================= */
+function buildTicket(){
+  stage.className = "stage"; stage.style.background = "#efe6d6 url(fused/paper.webp) center/cover";   var T = M.ticket, th = L.H * .92, k = th / T.size[1], tw = T.size[0] * k, tx = (L.W - tw) / 2, ty = (L.H - th) / 2;
+  var t = el("div", "tk", stage); t.style.left = tx + "px"; t.style.top = ty + "px"; t.style.width = tw + "px"; t.style.height = th + "px"; t.style.transform = "rotate(-1.5deg)"; t.style.filter = "drop-shadow(0 12px 16px rgba(80,50,20,.32))";
+  var bi = el("img", "", t); bi.alt = "intangible lottery ticket"; bi.src = "q11/ticket.webp";
+  var a = T.area, ax = a[0] * k, ay = a[1] * k, aw = a[2] * k, ah = a[3] * k, g = 12 * k, pw = (aw - g * 4) / 3, ph = ah - g * 2;
+  var coat = new Image(); coat.src = "q11/coat.webp";
+  S.wins = [];
+  WISH.forEach(function(w, i){
+    var pn = el("div", "pane", t); pn.style.left = (ax + g + i * (pw + g)) + "px"; pn.style.top = (ay + g) + "px"; pn.style.width = pw + "px"; pn.style.height = ph + "px";
+    var c = el("div", "w", pn); c.style.fontSize = pw * (w.length > 36 ? .07 : w.length > 24 ? .085 : w.length > 14 ? .105 : w.length > 8 ? .13 : w.length > 5 ? .16 : .2) + "px";
+    c.innerHTML = "<small>No." + (i + 1) + "  上上签</small><span></span>"; c.querySelector("span").textContent = w;
+    var cv = el("canvas", "", pn), dpr = Math.min(2, window.devicePixelRatio || 1); cv.width = Math.round(pw * dpr); cv.height = Math.round(ph * dpr);
+    var gx = cv.getContext("2d");
+    function paint(){
+      gx.globalCompositeOperation = "source-over";
+      if (coat.complete && coat.naturalWidth) { gx.fillStyle = gx.createPattern(coat, "repeat"); } else gx.fillStyle = T.gray;
+      gx.fillRect(0, 0, cv.width, cv.height);
+      var mcx = cv.width / 2, mcy = cv.height * .36, mr = pw * .15 * dpr;
+      gx.fillStyle = "rgba(248,220,140,.42)";
+      gx.beginPath(); gx.arc(mcx, mcy, mr, 0, Math.PI * 2); gx.arc(mcx - mr * .88, mcy - mr * .82, mr * .58, 0, Math.PI * 2); gx.arc(mcx + mr * .88, mcy - mr * .82, mr * .58, 0, Math.PI * 2); gx.fill();
+      gx.fillStyle = "rgba(255,248,230,.92)"; gx.font = "700 " + (pw * .085 * dpr) + "px -apple-system,'Helvetica Neue',sans-serif"; gx.textAlign = "center";
+      gx.fillText("MICKEY GIFT", cv.width / 2, cv.height * .58); gx.font = "600 " + (pw * .078 * dpr) + "px 'PingFang SC',sans-serif"; gx.fillText("刮开看看", cv.width / 2, cv.height * .68);
+    }
+    paint(); coat.addEventListener("load", paint);
+    S.wins.push({pn:pn, cv:cv, g:gx, dpr:dpr, done:false, moves:0, c:c, cells:{}, pw:pw, ph:ph});
+  });
+  S.tk = t; S.got = 0; S.phase = "scratch";
+  S.hint = hintEl("用手指来回刮开灰色涂层"); S.hint.style.left = (tx + tw + L.W * .03) + "px"; S.hint.style.right = "auto"; S.hint.style.textAlign = "left"; S.hint.style.bottom = "auto"; S.hint.style.top = (L.H * .46) + "px"; S.hint.style.width = (L.W - tx - tw - L.W * .05) + "px";
+}
+function scratchAt(w, x, y, px, py){
+  var g = w.g, d = w.dpr; g.globalCompositeOperation = "destination-out"; g.lineCap = "round"; g.lineJoin = "round";
+  g.lineWidth = w.cv.width * (.16 + Math.random() * .08);
+  g.beginPath(); g.moveTo((px == null ? x : px) * d, (py == null ? y : py) * d); g.lineTo(x * d + .1, y * d + (Math.random() - .5) * 4); g.stroke();
+  if (Math.random() < .55) { var r = w.pn.getBoundingClientRect(), sr = stage.getBoundingClientRect(); flake(r.left - sr.left + x, r.top - sr.top + y); }
+  if (Math.random() < .35) noise(.04, 4200, 1.2, .05);
+  /* 记下刮过的格子（10×14 的格子），刮开一半就整格显出来 */
+  var r0 = g.lineWidth / d / 2, sx = px == null ? x : px, sy = py == null ? y : py;
+  for (var s2 = 0; s2 <= 1; s2 += .25) { var cx = sx + (x - sx) * s2, cy = sy + (y - sy) * s2;
+    for (var gx2 = 0; gx2 < 10; gx2++) for (var gy2 = 0; gy2 < 14; gy2++) { var mx = (gx2 + .5) * w.pw / 10, my = (gy2 + .5) * w.ph / 14; if (Math.hypot(mx - cx, my - cy) < r0) w.cells[gx2 + "," + gy2] = 1; } }
+  if (Object.keys(w.cells).length / 140 > .5) revealWin(w);
+}
+function flake(x, y){
+  var f = el("div", "flake", stage), z = 2 + Math.random() * 4; f.style.width = z + "px"; f.style.height = z * .7 + "px";
+  f.animate([{transform:"translate(" + x + "px," + y + "px) rotate(0deg)", opacity:1}, {transform:"translate(" + (x + (Math.random() - .5) * 40) + "px," + (y + L.H * (.12 + Math.random() * .15)) + "px) rotate(" + Math.random() * 400 + "deg)", opacity:0}], {duration:700 + Math.random() * 500, easing:"ease-in", fill:"forwards"}).onfinish = function(){ f.remove(); };
+}
+function revealWin(w){
+  if (w.done) return; w.done = true; S.got++;
+  w.cv.animate([{opacity:1}, {opacity:0}], {duration:350, fill:"forwards"});
+  if (w.jack) { jackWin(); return; }
+  w.c.animate([{transform:"scale(1)"}, {transform:"scale(1.08)"}, {transform:"scale(1)"}], {duration:420, delay:200});
+  ding();
+  if (S.got === 3) ticketWin();
+}
+
+function setLever(p){
+  var st = Math.floor(p * 6); if (S.phase === "pull" && st !== S.lvSt && p > 0) { S.lvSt = st; noise(.03, 1800, 3, .18, "bandpass"); }
+  S.leverP = p;
+  if (S.front) { var s = 1 - .7 * p; S.stick.style.transform = "scaleY(" + s + ")"; S.knob.style.transform = "translateY(" + (S.leverLen * (1 - s)) + "px)"; }
+  else S.lever.style.transform = "rotate(" + (p * 115) + "deg)";
+}
+/* ---------- 手势 ---------- */
+function pt(ev){ var r = stage.getBoundingClientRect(); return [ev.clientX - r.left, ev.clientY - r.top]; }
+stage.addEventListener("pointerdown", function(ev){
+  ac(); if (!S || S.busy) return; stage.setPointerCapture(ev.pointerId);
+  var p = pt(ev); S.down = {x:p[0], y:p[1], moved:0};
+  if (S.phase === "fin") { finale(); S.down = null; return; }
+  if (S.phase === "open") { openGift(); S.down = null; return; }
+  if (S.phase === "keep") { keepCoupon(); S.down = null; return; }
+  if (S.phase === "write") { writeCoupon(); S.down = null; return; }   if (S.phase === "typing") { finishWrite(); S.down = null; return; }   if (S.phase === "bind") { bindBook(); S.down = null; return; }
+  if (cur === "ticket" && S.phase === "scratch") { S.down.last = null; scratchMove(p); }
+});
+function winAt(p){
+  for (var i = 0; i < S.wins.length; i++) { var w = S.wins[i]; if (w.done) continue; var r = w.pn.getBoundingClientRect(), sr = stage.getBoundingClientRect(), x = p[0] - (r.left - sr.left), y = p[1] - (r.top - sr.top);
+    if (w.jack) { var cx0 = r.left - sr.left + r.width / 2, cy0 = r.top - sr.top + r.height / 2, dx = p[0] - cx0, dy = p[1] - cy0, an = -w.rot * Math.PI / 180;
+      x = dx * Math.cos(an) - dy * Math.sin(an) + w.pw / 2; y = dx * Math.sin(an) + dy * Math.cos(an) + w.ph / 2; }
+    else if (false) {}
+    if (x >= 0 && y >= 0 && x <= (w.jack ? w.pw : r.width) && y <= (w.jack ? w.ph : r.height)) return {w:w, x:x, y:y}; }
+  return null;
+}
+function scratchMove(p){
+  var h = winAt(p);
+  if (h) { var sp = S.down.lp ? Math.hypot(p[0] - S.down.lp[0], p[1] - S.down.lp[1]) : 4; S.down.lp = p; scrSnd(true, sp); clearTimeout(S.scrT); S.scrT = setTimeout(function(){ scrSnd(false); }, 110); }
+  if (h) { var l = S.down.last && S.down.last.w === h.w ? S.down.last : null; scratchAt(h.w, h.x, h.y, l ? l.x : null, l ? l.y : null); S.down.last = h; } else S.down.last = null;
+}
+stage.addEventListener("pointermove", function(ev){
+  if (!S || !S.down) return; var p = pt(ev), d = S.down; d.moved = Math.max(d.moved, Math.hypot(p[0] - d.x, p[1] - d.y));
+  if (cur === "ticket" && S.phase === "scratch") scratchMove(p);
+  if (S.phase === "pull") { var v = Math.max(0, Math.min(1, (p[1] - d.y) / (L.H * .25))); setLever(v); if (v >= 1) { S.down = null; pull(); } }
+});
+stage.addEventListener("pointerup", function(){
+  scrSnd(false); if (!S || !S.down) return; var d = S.down; S.down = null;
+  if (cur === "ticket" && S.phase === "scratch" && d.moved < 6) { var h = winAt([d.x, d.y]); if (h) revealWin(h.w); }
+  if (S.phase === "pull") { if (d.moved < 6 || (S.leverP || 0) > .35) pull(); else setLever(0); }
+});
+stage.addEventListener("pointercancel", function(){ if (S) S.down = null; });
+
+/* ---------- 切换 ---------- */
+function tabs(){
+  var t = document.getElementById("tabs"); t.innerHTML = "";
+  Object.keys(TABS).forEach(function(k){
+    var b = el("button", "pill", t); b.type = "button"; b.textContent = TABS[k].label; b.setAttribute("aria-pressed", k === cur ? "true" : "false");
+    b.addEventListener("click", function(){ cur = k; try { localStorage.setItem("seg11-tab", k); } catch(e) {} tabs(); reset(); });
+  });
+  document.getElementById("tip").textContent = TABS[cur].tip;
+}
+function reset(){
+  if (S) { S.dead = true; S.timers.forEach(clearTimeout); }
+  stage.innerHTML = ""; stage.style.background = ""; measure(); S = {timers:[]};
+  if (cur === "ticket") buildTicket(); else buildCoupon();
+}
+window.addEventListener("resize", function(){ clearTimeout(window.__rz); window.__rz = setTimeout(reset, 150); });
+document.getElementById("again").addEventListener("click", reset);
+tabs(); reset();
+
+</script>
+
+</body></html>
